@@ -1,0 +1,118 @@
+.login {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: #004445;
+}
+.login-name {
+  font-size: 40px;
+  color: #000;
+  text-align: center;
+  color: white;
+  text-transform: uppercase;
+}
+@media screen and (max-width: 580px) {
+  .login-name {
+    font-size: 28px;
+  }
+}
+.login-button {
+  height: 50px;
+  margin-top: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  font-size: 20px;
+  padding: 0 40px 0 50px;
+  color: white;
+  background-color: transparent;
+  box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.4);
+}
+.login-button:hover {
+  animation: animationButton 0.5s ease infinite;
+}
+.login-button:hover .login-img {
+  animation: animationGoogleImg 5.5s linear infinite;
+}
+@media screen and (max-width: 580px) {
+  .login-button {
+    font-size: 16px;
+  }
+  .login-button:hover {
+    animation: none;
+  }
+  .login-button:hover .login-img {
+    animation: none;
+  }
+  .login-button:active .login-img {
+    transform: scale(1.2);
+  }
+}
+.login-img {
+  position: absolute;
+  top: -10px;
+  left: -20px;
+}
+
+@keyframes animationButton {
+  0% {
+    background-color: white;
+    color: #021c1e;
+  }
+  20% {
+    background-color: #6fb98f;
+    color: #004445;
+  }
+  40% {
+    background-color: #2c7873;
+    color: #2c7873;
+  }
+  60% {
+    background-color: #004445;
+    color: #6fb98f;
+  }
+  80% {
+    background-color: #021c1e;
+    color: white;
+  }
+  100% {
+    background-color: white;
+    color: #021c1e;
+  }
+}
+@keyframes animationGoogleImg {
+  20% {
+    top: 30px;
+    left: -20px;
+    transform: rotateZ(25deg);
+  }
+  40% {
+    top: 30px;
+    left: 250px;
+    transform: rotateZ(25deg);
+  }
+  60% {
+    top: -50px;
+    left: 250px;
+    transform: rotateZ(0deg);
+  }
+  80% {
+    top: -50px;
+    left: -20px;
+    transform: rotateZ(-25deg);
+  }
+  90% {
+    transform: rotateZ(-12deg);
+  }
+  100% {
+    top: -10 px;
+    left: -20 px;
+    transform: rotateZ(0deg);
+  }
+}
+
+/*# sourceMappingURL=Login.css.map */

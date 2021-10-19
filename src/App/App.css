@@ -1,0 +1,170 @@
+* {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  transition: 0.7s ease-in-out;
+  box-sizing: border-box;
+  font-family: Inter;
+}
+
+*:before *:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+a:focus, a:active {
+  outline: none;
+}
+
+nav, footer, header, aside {
+  display: block;
+}
+
+html, body {
+  min-height: 600px;
+  height: 100%;
+  width: 100%;
+  line-height: 1;
+  font-size: 18px;
+  font-family: monospace;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  scroll-behavior: smooth;
+  cursor: default;
+  background-color: #004445;
+}
+
+input::-ms-clear {
+  display: none;
+}
+
+textarea::-ms-clear {
+  display: none;
+}
+
+input, textarea {
+  font-size: 18px;
+  font-weight: bold;
+  font-family: monospace;
+  background-color: transparent;
+  color: #fff;
+  resize: none;
+}
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+  color: rgba(255, 255, 255, 0.4);
+  text-overflow: ellipsis;
+  background-color: transparent;
+}
+input::-moz-placeholder, textarea::-moz-placeholder {
+  text-overflow: ellipsis;
+  background-color: transparent;
+}
+input:-ms-input-placeholder, textarea:-ms-input-placeholder {
+  text-overflow: ellipsis;
+  background-color: transparent;
+}
+input::-webkit-inner-spin-button, textarea::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  background-color: transparent;
+}
+input::-webkit-outer-spin-button, textarea::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  background-color: transparent;
+}
+input[type=number], textarea[type=number] {
+  -moz-appearance: textfield;
+  background-color: transparent;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-transition: color 9999s ease-out, background-color 9999s ease-out;
+  -webkit-transition-delay: 9999s;
+}
+
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+textarea:-webkit-autofill:active {
+  -webkit-transition: color 9999s ease-out, background-color 9999s ease-out;
+  -webkit-transition-delay: 9999s;
+}
+
+textarea:disabled {
+  background-color: rgba(82, 54, 52, 0.9) !important;
+  border: 1px solid rgba(82, 54, 52, 0.9) !important;
+  color: rgba(255, 255, 255, 0.3) !important;
+}
+
+input:active, input:focus {
+  outline: none;
+}
+
+button:active, button:focus {
+  outline: none;
+}
+
+button::-moz-focus-inner {
+  border: 0;
+}
+
+button {
+  background-color: transparent;
+  cursor: pointer;
+}
+
+button::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+a, a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+  outline: none;
+}
+
+video:active, video:focus {
+  outline: none;
+}
+
+ul li {
+  list-style: none;
+}
+
+p, h1, h2, h3, h4, h5, span, li, button, input {
+  font-family: monospace;
+}
+
+html:not(.touch-screen)::-webkit-scrollbar-track, html:not(.touch-screen) *::-webkit-scrollbar-track {
+  background: black;
+  border-radius: 4px;
+}
+
+html:not(.touch-screen)::-webkit-scrollbar-thumb, html:not(.touch-screen) *::-webkit-scrollbar-thumb {
+  background: #edae01;
+  border-radius: 6px;
+}
+
+html:not(.touch-screen)::-webkit-scrollbar, html:not(.touch-screen) *::-webkit-scrollbar {
+  width: 6px;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/*# sourceMappingURL=App.css.map */

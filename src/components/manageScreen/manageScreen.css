@@ -1,0 +1,124 @@
+.manageScreen {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  background-color: #004445;
+  position: relative;
+  overflow-x: hidden;
+}
+.manageScreen-name {
+  font-size: 40px;
+  color: #000;
+  text-align: center;
+  color: white;
+  margin: 80px 0 30px 0;
+  text-transform: uppercase;
+}
+@media screen and (max-width: 760px) {
+  .manageScreen-name {
+    margin: 30px 0 20px 0;
+  }
+}
+@media screen and (max-width: 580px) {
+  .manageScreen-name {
+    font-size: 28px;
+  }
+}
+.manageScreen-wrapper {
+  max-width: 780px;
+  max-height: 780px;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+@media screen and (max-width: 760px) {
+  .manageScreen-wrapper {
+    max-height: max-content;
+    height: max-content;
+  }
+}
+.manageScreen-link {
+  width: 320px;
+  height: 320px;
+  margin: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  font-weight: bold;
+  color: #fff;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 15px;
+}
+.manageScreen-link:nth-child(1) {
+  background-color: rgba(255, 14, 14, 0.5);
+}
+.manageScreen-link:nth-child(2) {
+  background-color: rgba(111, 185, 143, 0.5);
+}
+.manageScreen-link:nth-child(3) {
+  background-color: rgba(44, 120, 115, 0.5);
+}
+.manageScreen-link:nth-child(4) {
+  background-color: rgba(255, 204, 0, 0.5);
+}
+.manageScreen-link:hover {
+  box-shadow: 0 0 100px 20px rgba(255, 255, 255, 0.6) inset;
+}
+.manageScreen-footer {
+  max-width: 655px;
+  width: 100%;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #004445;
+  position: relative;
+  padding: 15px 0;
+}
+@media screen and (max-width: 760px) {
+  .manageScreen-footer {
+    padding: 10px;
+  }
+}
+.manageScreen-exit {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  padding: 0 20px;
+  background-color: #6fb98f;
+}
+@media screen and (max-width: 580px) {
+  .manageScreen-exit {
+    font-size: 16px;
+  }
+}
+.manageScreen-exit:hover {
+  box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+}
+.manageScreen-user {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+.manageScreen-user img {
+  margin-left: 10px;
+  max-width: 60px;
+  width: 100%;
+  max-height: 60px;
+  height: 100%;
+  border-radius: 50%;
+}
+
+/*# sourceMappingURL=manageScreen.css.map */

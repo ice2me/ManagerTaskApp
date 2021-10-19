@@ -1,0 +1,114 @@
+.check
+	display: inline-block
+	margin: 1rem
+	position: relative
+.cbx
+	position: absolute
+	top: 50%
+	left: 0%
+	margin: -12px
+	border: 2px solid rgba(2,28,30, 1)
+	background: rgba(2,28,30, 1)
+	border-radius: 4px
+	transform: translate3d(0, 0, 0)
+	cursor: pointer
+	transition: all 0.3s ease
+.cbx:hover
+	border-color: rgba(2,28,30, 1)
+.flip
+	display: block
+	transition: all 0.4s ease
+	transform-style: preserve-3d
+	position: relative
+	width: 20px
+	height: 20px
+input[type="checkbox"]
+	display: none
+input[type="checkbox"]:checked + .cbx
+	border-color: rgba(2,28,30, 1)
+input[type="checkbox"]:checked + .cbx .flip
+	transform: rotateY(180deg)
+
+.front, .back
+	backface-visibility: hidden
+	position: absolute
+	top: 0
+	left: 0
+	width: 20px
+	height: 20px
+	border-radius: 2px
+.front
+	background: rgba(111,185,143, 1)
+	z-index: 1
+.back
+	transform: rotateY(180deg)
+	background: rgba(2,28,30, 1)
+	text-align: center
+	color: rgba(111,185,143, 1)
+	line-height: 20px
+	box-shadow: 0 0 0 1px rgba(2,28,30, 1)
+.back svg
+	margin-top: 3px
+	fill: none
+.back svg path
+	stroke: rgba(111,185,143, 1)
+	stroke-width: 2.5
+	stroke-linecap: round
+	stroke-linejoin: round
+
+.todo-task
+	display: flex
+	align-items: center
+	justify-content: center
+	width: 100%
+	margin: 15px 0
+	@media screen and (max-width: 980px)
+		flex-direction: column
+		justify-content: space-around
+		height: 200px
+		border: 1px solid rgba(111,185,143, 1)
+	&__wrapper
+		width: 50%
+		display: flex
+		align-items: center
+		@media screen and (max-width: 980px)
+			width: 95%
+	&__title
+		margin-left: 20px
+		color: rgba(255,255,255, 0.8)
+		font-size: 20px
+		max-width: 85%
+		text-overflow: ellipsis
+		white-space: nowrap
+		overflow: hidden
+		@media screen and (max-width: 980px)
+			width: 95%
+	&__delete
+		display: flex
+		align-items: center
+		justify-content: center
+		font-size: 20px
+		padding: 0 20px
+		background-color: rgba(111, 185, 143, 1)
+		@media screen and (max-width: 580px)
+			font-size: 16px
+		&:hover
+			box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.2)
+			background-color: #fff
+	&__progress
+		width: 150px
+		position: relative
+		margin-right: 20px
+	&__block
+		min-width: 220px
+	&__user
+		display: flex
+		align-items: center
+		justify-content: center
+		color: white
+		img
+			margin-left: 10px
+			max-width: 60px
+			width: 100%
+			max-height: 60px
+			height: 100%
