@@ -2,59 +2,7 @@
 	display: inline-block
 	margin: 1rem
 	position: relative
-.cbx
-	position: absolute
-	top: 50%
-	left: 0%
-	margin: -12px
-	border: 2px solid rgba(2,28,30, 1)
-	background: rgba(2,28,30, 1)
-	border-radius: 4px
-	transform: translate3d(0, 0, 0)
-	cursor: pointer
-	transition: all 0.3s ease
-.cbx:hover
-	border-color: rgba(2,28,30, 1)
-.flip
-	display: block
-	transition: all 0.4s ease
-	transform-style: preserve-3d
-	position: relative
-	width: 20px
-	height: 20px
-input[type="checkbox"]
-	display: none
-input[type="checkbox"]:checked + .cbx
-	border-color: rgba(2,28,30, 1)
-input[type="checkbox"]:checked + .cbx .flip
-	transform: rotateY(180deg)
 
-.front, .back
-	backface-visibility: hidden
-	position: absolute
-	top: 0
-	left: 0
-	width: 20px
-	height: 20px
-	border-radius: 2px
-.front
-	background: rgba(111,185,143, 1)
-	z-index: 1
-.back
-	transform: rotateY(180deg)
-	background: rgba(2,28,30, 1)
-	text-align: center
-	color: rgba(111,185,143, 1)
-	line-height: 20px
-	box-shadow: 0 0 0 1px rgba(2,28,30, 1)
-.back svg
-	margin-top: 3px
-	fill: none
-.back svg path
-	stroke: rgba(111,185,143, 1)
-	stroke-width: 2.5
-	stroke-linecap: round
-	stroke-linejoin: round
 
 .todo-task
 	display: flex
@@ -74,7 +22,12 @@ input[type="checkbox"]:checked + .cbx .flip
 		@media screen and (max-width: 980px)
 			width: 95%
 	&__title
-		margin-left: 20px
+		height: 40px
+	&__title, &__input
+		width: -webkit-fill-available
+		margin: 0 20px
+		padding: 8px 15px
+		border: 1px solid #6fb98f
 		color: rgba(255,255,255, 0.8)
 		font-size: 20px
 		max-width: 85%
@@ -83,6 +36,20 @@ input[type="checkbox"]:checked + .cbx .flip
 		overflow: hidden
 		@media screen and (max-width: 980px)
 			width: 95%
+	&__container
+		width: 100%
+		position: relative
+	&__input
+		width: 100%
+		border: 1px solid #eb4f37
+	&__submit
+		width: 41px
+		height: 41px
+		background-color: #eb4f37
+		color: white
+		position: absolute
+		right: 46px
+		font-size: 30px
 	&__delete
 		display: flex
 		align-items: center

@@ -4,80 +4,6 @@
   position: relative;
 }
 
-.cbx {
-  position: absolute;
-  top: 50%;
-  left: 0%;
-  margin: -12px;
-  border: 2px solid #021c1e;
-  background: #021c1e;
-  border-radius: 4px;
-  transform: translate3d(0, 0, 0);
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.cbx:hover {
-  border-color: #021c1e;
-}
-
-.flip {
-  display: block;
-  transition: all 0.4s ease;
-  transform-style: preserve-3d;
-  position: relative;
-  width: 20px;
-  height: 20px;
-}
-
-input[type=checkbox] {
-  display: none;
-}
-
-input[type=checkbox]:checked + .cbx {
-  border-color: #021c1e;
-}
-
-input[type=checkbox]:checked + .cbx .flip {
-  transform: rotateY(180deg);
-}
-
-.front, .back {
-  backface-visibility: hidden;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 20px;
-  height: 20px;
-  border-radius: 2px;
-}
-
-.front {
-  background: #6fb98f;
-  z-index: 1;
-}
-
-.back {
-  transform: rotateY(180deg);
-  background: #021c1e;
-  text-align: center;
-  color: #6fb98f;
-  line-height: 20px;
-  box-shadow: 0 0 0 1px #021c1e;
-}
-
-.back svg {
-  margin-top: 3px;
-  fill: none;
-}
-
-.back svg path {
-  stroke: #6fb98f;
-  stroke-width: 2.5;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
 .todo-task {
   display: flex;
   align-items: center;
@@ -104,7 +30,13 @@ input[type=checkbox]:checked + .cbx .flip {
   }
 }
 .todo-task__title {
-  margin-left: 20px;
+  height: 40px;
+}
+.todo-task__title, .todo-task__input {
+  width: -webkit-fill-available;
+  margin: 0 20px;
+  padding: 8px 15px;
+  border: 1px solid #6fb98f;
   color: rgba(255, 255, 255, 0.8);
   font-size: 20px;
   max-width: 85%;
@@ -113,9 +45,26 @@ input[type=checkbox]:checked + .cbx .flip {
   overflow: hidden;
 }
 @media screen and (max-width: 980px) {
-  .todo-task__title {
+  .todo-task__title, .todo-task__input {
     width: 95%;
   }
+}
+.todo-task__container {
+  width: 100%;
+  position: relative;
+}
+.todo-task__input {
+  width: 100%;
+  border: 1px solid #eb4f37;
+}
+.todo-task__submit {
+  width: 41px;
+  height: 41px;
+  background-color: #eb4f37;
+  color: white;
+  position: absolute;
+  right: 46px;
+  font-size: 30px;
 }
 .todo-task__delete {
   display: flex;

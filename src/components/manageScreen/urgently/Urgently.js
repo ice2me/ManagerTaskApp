@@ -25,31 +25,11 @@ const Urgently = ({}) => {
 			</div>
 			<ul className="urgently-ul__state">
 				<TodoTask />
-				<TodoTask />
-				<TodoTask />
-				<TodoTask />
-				<TodoTask />
-				<TodoTask />
-				<TodoTask />
-				<TodoTask />
-				<TodoTask />
-				<TodoTask />
-				<TodoTask />
-				<TodoTask />
-				<TodoTask />
-				<TodoTask />
-				<TodoTask />
-				<TodoTask />
+
 			</ul>
 			<ul className="urgently-ul__finish">
 				<TodoTask />
-				<TodoTask />
-				<TodoTask />
-				<TodoTask />
-				<TodoTask />
-				<TodoTask />
-				<TodoTask />
-				<TodoTask />
+
 			</ul>
 		</div>
 	);

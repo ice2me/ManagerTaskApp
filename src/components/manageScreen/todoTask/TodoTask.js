@@ -1,36 +1,60 @@
-import React from 'react';
+import React, {useContext, useEffect, useRef, useState} from 'react';
 import './TodoTask.css'
 import './Toggle.css'
-import user from "../../../images/user.png";
+import {AuthContext} from "../../../context/auth.context";
+import UserInfo from "../../userInfo/UserInfo";
 
 const TodoTask = () => {
+	const [showInput, setShowInput] = useState(false)
+	const [isChecked, setIsChecked] = useState(false)
+	const [valueInput, setValueInput] = useState('')
+	const {user} = useContext(AuthContext)
+	
+	const onChackedHandler = () => {
+		setIsChecked(!isChecked)
+	}
+	console.log(isChecked)
+	const pushInputValue = () => {
+		setShowInput(false)
+	}
+	const showInputText = () => {
+		setShowInput(true)
+	}
+	useEffect(() => {
+	
+	}, [showInput, isChecked])
 	return (
 		<div className="todo-task">
 			<div className="todo-task__wrapper">
 				<div className="check">
 					<input
-						id="cbx2"
 						type="checkbox"
+						checked={isChecked}
+						onChange={onChackedHandler}
 					/>
-					<label
-						className="cbx"
-						htmlFor="cbx2"
-					>
-						<div className="flip">
-							<div className="front"></div>
-							<div className="back">
-								<svg
-									width="16"
-									height="14"
-									viewBox="0 0 16 14"
-								>
-									<path d="M2 8.5L6 12.5L14 1.5"></path>
-								</svg>
-							</div>
-						</div>
-					</label>
 				</div>
-				<p className="todo-task__title">Lorem ipsum dolor sit amet.Lorem ipsum dolor sit max-width: 70%</p>
+				{!showInput ? <p
+						className="todo-task__title"
+						onClick={showInputText}
+					>
+						{valueInput}
+					</p>
+					:
+					<div className="todo-task__container">
+						<input
+							className="todo-task__input"
+							type="text"
+							value={valueInput}
+							autoFocus={true}
+							onChange={(e) => {setValueInput(e.target.value)}}
+						/>
+						<button
+							className="todo-task__submit"
+							onClick={pushInputValue}
+						>+
+						</button>
+					</div>
+				}
 			</div>
 			<div className="todo-task__progress">
 				<input
@@ -51,13 +75,7 @@ const TodoTask = () => {
 				</div>
 			</div>
 			<div className="todo-task__block">
-				<div className="todo-task__user">
-					<p>Serhii Serhii</p>
-					<img
-						src={user}
-						alt="user"
-					/>
-				</div>
+				<UserInfo />
 			</div>
 			<button className="todo-task__delete">del</button>
 		</div>
