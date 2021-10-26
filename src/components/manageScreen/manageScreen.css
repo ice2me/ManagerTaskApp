@@ -112,6 +112,9 @@
   justify-content: center;
   color: white;
 }
+.manageScreen-user p {
+  white-space: nowrap;
+}
 .manageScreen-user img {
   margin-left: 10px;
   max-width: 60px;

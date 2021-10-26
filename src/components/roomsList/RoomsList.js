@@ -6,32 +6,33 @@ import {useAuthState} from "react-firebase-hooks/auth";
 import {useCollectionData} from "react-firebase-hooks/firestore";
 import Loader from "../loader/Loader";
 import AddRoom from "../addRoom/AddRoom";
+import {useAuth} from "../../hooks/auth.hook";
 
-
-const RoomsList = ({exitLogin, loginUserInfo}) => {
+const RoomsList = () => {
 	const [addRoomModal, setAddRoomModal] = useState(false)
-	const {auth, firestore} = useContext(Context)
+	const {logout} = useAuth();
+	const {auth, firestore, token} = useContext(Context)
 	const [user] = useAuthState(auth)
 	const [roomTasks, loading, error] = useCollectionData(
-		firestore.collection('roomTask').orderBy('createdAt')
+		firestore.collection('roomTask').orderBy('nameRoom')
 	)
+
 	const [newRoomTasks, setNewRoomTask] = useState([])
 	const [deletedRoom, setDeletedRoom] = useState([])
 	
-	const deletedRoomTaskHandler = (e, id) => {
+	const deletedRoomTaskHandler = async (e, id) => {
 		e.preventDefault()
-		setDeletedRoom(newRoomTasks.filter(item => item.uid !== id))
-		// firestore.collection('roomTask').delete(newRoomTasks.filter(item => item.uid !== id))
+		
+		const cityRef = firestore.collection('roomTask').doc(id).delete()
+		console.log(cityRef)
 	}
 	useEffect(() => {
 		setNewRoomTask(roomTasks)
 	}, [deletedRoom, roomTasks])
-	
-	// useEffect(() => {
-	// 	setNewRoomTask(firestore.collection('roomTask').delete(roomTasks))
-	// }, [roomTasks])
+
+
 //todo handler modal window-----------------------------------
-	const openRoomModal = (e) => {
+	const openAddRoomModal = (e) => {
 		e.preventDefault()
 		setAddRoomModal(true)
 	}
@@ -43,13 +44,14 @@ const RoomsList = ({exitLogin, loginUserInfo}) => {
 	if (loading) {
 		return <Loader />
 	}
-
+	console.log(roomTasks)
 	return (
 		<div className="rooms">
 			<h1 className="rooms-name">List Rooms</h1>
 			<ul className="rooms-block">
 				{roomTasks.map((roomTask, index) => <RoomFromList
-					key={roomTask.uid}
+					id={roomTask.uid}
+					key={roomTask.uid + index}
 					roomTaskCard={roomTask}
 					index={index}
 					deletedRoomTaskHandler={deletedRoomTaskHandler}
@@ -58,7 +60,7 @@ const RoomsList = ({exitLogin, loginUserInfo}) => {
 			{addRoomModal && <AddRoom closeRoomModal={closeRoomModal} />}
 			<button
 				className="rooms-addButton"
-				onClick={openRoomModal}
+				onClick={openAddRoomModal}
 			>
 				Add new room
 				<span>&rarr;</span>
@@ -66,18 +68,18 @@ const RoomsList = ({exitLogin, loginUserInfo}) => {
 			<div className="manageScreen-footer">
 				<button
 					className="manageScreen-exit"
-					onClick={() => exitLogin()}
+					onClick={() => logout()}
 				>
-					exit
+					Log out
 				</button>
 				<div className="manageScreen-user">
 					<p>
 						{
-							loginUserInfo.displayName
+							user.displayName
 						}
 					</p>
 					<img
-						src={loginUserInfo.photoURL}
+						src={user.photoURL}
 						alt="user"
 					/>
 				</div>

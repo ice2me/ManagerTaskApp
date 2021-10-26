@@ -1,29 +1,31 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import google from '../../images/google.svg'
 import './Login.css'
-import {Context} from "../../index";
-import firebase from "firebase/compat";
+import {useAuth} from "../../hooks/auth.hook";
 
 const Login = () => {
-	const {auth} = useContext(Context)
-	const login = async () => {
-		const provider = new firebase.auth.GoogleAuthProvider()
-		const {user} = await auth.signInWithPopup(provider)
-	}
+	const {login} = useAuth();
+	
 	return (
-		<div className='login'>
-			<h1 className='login-name'>
-				Log in to your account
-			</h1>
-			<button className='login-button' onClick={login}>
-				<img
-					className='login-img'
-					src={google}
-					alt="google"
-				/>
-				Log in with Google
-			</button>
-		</div>
+		<>
+			<div className="login">
+				<h1 className="login-name">
+					Log in to your account
+				</h1>
+				<button
+					className="login-button"
+					onClick={login}
+				>
+					<img
+						className="login-img"
+						src={google}
+						alt="google"
+					/>
+					Log in with Google
+				</button>
+			</div>
+		</>
+	
 	);
 };
 

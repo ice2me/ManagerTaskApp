@@ -1,42 +1,40 @@
-import React, {useContext} from "react";
+import React, {useContext, useEffect} from "react";
 import './App.css'
-import {BrowserRouter, Link} from "react-router-dom";
+import {BrowserRouter, Link, Router, useHistory} from "react-router-dom";
+import {AuthContext} from '../context/auth.context'
 import {Context} from "../index";
 import {useRoutes} from "../routes";
 import {useAuthState} from "react-firebase-hooks/auth";
 import Loader from "../components/loader/Loader";
-import RoomsList from "../components/roomsList/RoomsList";
+import {useAuth} from "../hooks/auth.hook";
 
 
 function App() {
+	// const {token, login, logout} = useAuth();
+	// console.log('token',token)
+	
+	
 	const {auth} = useContext(Context)
-	const routes = useRoutes()
 	const [user, loading, error] = useAuthState(auth)
+	const isAuthenticated = user && !!user.refreshToken;
+	const routes = useRoutes(isAuthenticated);
 	
-	const exitLogin = () => auth.signOut()
-	
-	if (loading) {
+	if (loading || error) {
 		return <Loader />
 	}
-	return user ?
-		(
-			<div className="App">
+	return (
+		<div className="App">
+			<AuthContext.Provider
+				value={{isAuthenticated, loading}}
+				// value={{token, login, logout, isAuthenticated, loading}}
+			>
 				<BrowserRouter>
-					<RoomsList
-						exitLogin={exitLogin}
-						loginUserInfo={user}
-					/>
+					<>{routes}</>
 				</BrowserRouter>
-			</div>
-		)
-		:
-		(
-			<div className="App">
-				<BrowserRouter>
-					<div>{routes}</div>
-				</BrowserRouter>
-			</div>
-		)
+			</AuthContext.Provider>
+		</div>
+	)
+	
 }
 
 export default App;

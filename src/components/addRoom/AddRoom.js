@@ -20,9 +20,11 @@ const AddRoom = ({closeRoomModal}) => {
 			return wrapperInput.current.style.width = '0px'
 		}
 	}
+	
+	const id = value + Date.now()
 	const addRoomName = async (e) => {
-		firestore.collection('roomTask').add({
-			uid: Date.now(),
+		firestore.collection('roomTask').doc(id).set({
+			uid: id,
 			nameRoom: value,
 			createdAt: firebase.firestore.FieldValue.serverTimestamp()
 		})
@@ -49,6 +51,7 @@ const AddRoom = ({closeRoomModal}) => {
 					placeholder="Enter name"
 					autoComplete="new-password"
 					value={value}
+					autoFocus
 					onChange={e => {
 						setValue(e.target.value)
 						borderBottom()
@@ -78,7 +81,11 @@ const AddRoom = ({closeRoomModal}) => {
 					send a link to your team to add people to it
 				</p>
 			</div>
-			<button className="create-room__button" onClick={addRoomName}>
+			<button
+				className="create-room__button"
+				onClick={addRoomName}
+				disabled={value === ''}
+			>
 				Create room
 			</button>
 		</div>

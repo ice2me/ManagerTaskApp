@@ -1,25 +1,45 @@
-import React from 'react';
+import React, {useContext, useRef} from 'react';
+import {useHistory} from "react-router-dom";
+import {Context} from "../../../index";
 
 
 const RoomFromList = ({roomTaskCard, index, deletedRoomTaskHandler}) => {
+	const {auth, firestore, token} = useContext(Context)
 	const {nameRoom, uid} = roomTaskCard
+	const history = useHistory()
+	
+	const openManageMenu = (e) => {
+		e.preventDefault()
+		history.push('/manageScreen')
+	}
+	
+	const colRoom = async ()=> {
+		let collectionRoom = await firestore.collection('roomTask').get();
+		
+		return collectionRoom.docs.filter(item => {
+			return item.id })
+	}
+	
+	
+	
 	return (
 		<li
 			className="rooms-block__li"
 		>
-			<a
-				href="/"
+			<div
 				className="rooms-block__a"
 			>
-				
-				<h3 className="rooms-block__title">
+				<h3
+					className="rooms-block__title"
+					onClick={(e) => {openManageMenu(e)}}
+				>
 					<span className="rooms-block__num">{index + 1}</span>
 					{nameRoom}
 				</h3>
 				<div className="rooms-block__wrapper">
-					{/*<button className="rooms-block__edit">*/}
+					{/*<div className="rooms-block__edit">*/}
 					{/*	edit*/}
-					{/*</button>*/}
+					{/*</div>*/}
 					<button
 						className="rooms-block__delete"
 						onClick={(e) => deletedRoomTaskHandler(e, uid)}
@@ -27,7 +47,7 @@ const RoomFromList = ({roomTaskCard, index, deletedRoomTaskHandler}) => {
 						delete
 					</button>
 				</div>
-			</a>
+			</div>
 		</li>
 	);
 };
