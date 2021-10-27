@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import RoomFromList from "./RoomFromList/RoomFromList";
 import './RoomsList.css'
 import {Context} from "../../index";
@@ -15,15 +15,12 @@ const RoomsList = () => {
 	const {auth, firestore} = useContext(Context)
 	const [user] = useAuthState(auth)
 	const [roomTasks, loading] = useCollectionData(
-		firestore.collection('roomTask').orderBy('nameRoom')
+		firestore.collection('roomTask').orderBy('createdAt', 'desc')
 	)
-	
-	
 	const deletedRoomTaskHandler = async (e, id) => {
 		e.preventDefault()
+		firestore.collection('roomTask').doc(id).delete()
 		
-		const cityRef = firestore.collection('roomTask').doc(id).delete()
-		console.log(cityRef)
 	}
 
 
@@ -44,7 +41,7 @@ const RoomsList = () => {
 		<div className="rooms">
 			<h1 className="rooms-name">List Rooms</h1>
 			<ul className="rooms-block">
-				{roomTasks.map((roomTask, index) => <RoomFromList
+				{roomTasks && roomTasks.map((roomTask, index) => <RoomFromList
 					id={roomTask.uid}
 					key={roomTask.uid + index}
 					roomTaskCard={roomTask}
@@ -67,7 +64,7 @@ const RoomsList = () => {
 				>
 					Log out
 				</button>
-				<UserInfo/>
+				<UserInfo />
 			</div>
 		</div>
 	);

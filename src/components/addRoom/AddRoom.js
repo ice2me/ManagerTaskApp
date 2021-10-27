@@ -26,7 +26,7 @@ const AddRoom = ({closeRoomModal}) => {
 		firestore.collection('roomTask').doc(id).set({
 			uid: id,
 			nameRoom: value,
-			createdAt: firebase.firestore.FieldValue.serverTimestamp()
+			createdAt: Date.now()
 		})
 		setValue('')
 		closeRoomModal(e)

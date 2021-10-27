@@ -14,7 +14,6 @@ function App() {
 	const routes = useRoutes(isAuthenticated);
 	const {roomId, task, createdTask} = useContext(RoomContext)
 
-
 	if (loading || error) {
 		return <Loader />
 	}

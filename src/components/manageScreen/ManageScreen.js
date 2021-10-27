@@ -7,9 +7,10 @@ import UserInfo from "../userInfo/UserInfo";
 
 const ManageScreen = () => {
 	const {user, auth} = useContext(AuthContext)
-	console.log(auth)
+	// console.log(auth)
 	const {roomId, task, createdTask} = useContext(RoomContext)
-	console.log(roomId, task, createdTask)
+	// console.log(roomId, task, createdTask)
+	
 	const history = useHistory()
 	const goBackButton = () => {
 		history.goBack()
