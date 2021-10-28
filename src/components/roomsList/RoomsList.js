@@ -20,7 +20,6 @@ const RoomsList = () => {
 	const deletedRoomTaskHandler = async (e, id) => {
 		e.preventDefault()
 		firestore.collection('roomTask').doc(id).delete()
-		
 	}
 
 

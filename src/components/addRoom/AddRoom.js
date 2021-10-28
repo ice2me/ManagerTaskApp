@@ -21,7 +21,7 @@ const AddRoom = ({closeRoomModal}) => {
 		}
 	}
 	
-	const id = value + Date.now()
+	const id = (Date.now() + value).split(' ').join('')
 	const addRoomName = async (e) => {
 		firestore.collection('roomTask').doc(id).set({
 			uid: id,

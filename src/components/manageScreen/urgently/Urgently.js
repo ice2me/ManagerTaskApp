@@ -8,39 +8,21 @@ import {useCollectionData} from "react-firebase-hooks/firestore";
 import {Context} from "../../../index";
 
 const Urgently = () => {
-	// const [addNewTaskLine, setAddNewTaskLine] = useState([])
-	const [addNewTaskLine, setAddNewTaskLine] = useState([{
-		id: 0,
-		task: '',
-		statusProgress: 'wait',
-		user: null
-	}])
+	const [addNewTaskLine, setAddNewTaskLine] = useState([])
 	const {user} = useContext(AuthContext)
 	const history = useHistory()
 	
 	const {auth, firestore} = useContext(Context)
-	const [tasks, loading] = useCollectionData(
-		firestore.collection('roomTask')
+	
+	const [tasksList, loading] = useCollectionData(
+		firestore.collection('roomTask/1635406920867threeroom/test')
+		// firestore.collection('roomTask').doc('1635406920867threeroom').collection('test')
 	)
-	
-	console.log(tasks)
-	
+
 	
 	const goBackButton = () => {
 		history.goBack()
 	}
-	// const addNewTaskLineChangeHandler = (id, name, value) => {
-	// 	const listIngredients = addNewTaskLine.map(item => {
-	// 		if (item.id === id) {
-	// 			const updated = item
-	// 			updated[name] = value
-	// 			return updated
-	// 		}
-	// 		return item
-	// 	})
-	// 	setAddNewTaskLine(listIngredients)
-	// }
-	
 	
 	const addNewTaskLineHandler = (value, valueSelect) => {
 		setAddNewTaskLine(addNewTaskLine.concat({
@@ -49,17 +31,18 @@ const Urgently = () => {
 			statusProgress: valueSelect,
 			user: user.displayName
 		}))
+		console.log(addNewTaskLine)
 	}
-	// console.log('addNewTaskLine', addNewTaskLine)
 	
-	// useEffect(() => {
-	// 	setAddNewTaskLine(addNewTaskLine.concat([{
-	// 		id: Date.now(),
-	// 		task: title,
-	// 		statusProgress: 'wait',
-	// 		user: user
-	// 	}]))
-	// }, [setAddNewTaskLine])
+	useEffect((value, valueSelect)=> {
+		setAddNewTaskLine(addNewTaskLine.concat({
+			id: Date.now(),
+			task: value,
+			statusProgress: valueSelect,
+			user: user.displayName
+		}))
+	}, [tasksList])
+	
 	const deleteTaskLine = (id) => {
 		setAddNewTaskLine(addNewTaskLine.filter(item => item.id !== id))
 	}
@@ -84,11 +67,11 @@ const Urgently = () => {
 					id={newLine.id || index}
 					addNewTaskLine={addNewTaskLine}
 					addNewTaskLineHandler={addNewTaskLineHandler}
-					// onChangeHandler={addNewTaskLineChangeHandler}
 					deleteTaskLine={deleteTaskLine}
-					// addNewTaskLineChangeHandler={addNewTaskLineChangeHandler}
 					isAddVisible={addNewTaskLine.length - 1 === index}
 					isDelete={addNewTaskLine.length > 1}
+					tasksList={tasksList}
+					loading={loading}
 				/>)
 				}
 			</ul>
