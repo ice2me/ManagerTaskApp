@@ -4,7 +4,7 @@
 	position: relative
 
 
-.todo-task
+.todo-task, .form__todo-task
 	display: flex
 	align-items: center
 	justify-content: space-between
@@ -22,8 +22,7 @@
 		align-items: center
 		@media screen and (max-width: 980px)
 			width: 95%
-	&__title
-
+			flex-wrap: wrap
 	&__title, &__input
 		height: 41px
 		width: -webkit-fill-available
@@ -90,3 +89,12 @@
 	&__icon
 		width: 20px
 		height: 20px
+
+.form__todo-task
+	width: 90%
+	justify-content: flex-start
+	&__delete
+		margin-left: 20px
+	@media screen and (max-width: 980px)
+		&__delete
+			margin: 20px

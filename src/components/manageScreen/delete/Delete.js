@@ -1,6 +1,6 @@
 import React from 'react';
 import exit from "../../../images/arrowExit.svg";
-import TodoTaskForDelete from "../todoTask/TodoTaskForDelete";
+
 import {useHistory} from "react-router-dom";
 
 const Delete = () => {
@@ -20,13 +20,7 @@ const Delete = () => {
 				<h1 className="urgently-name">No Urgently</h1>
 			</div>
 			<ul className="urgently-ul__state">
-				<TodoTaskForDelete />
-				<TodoTaskForDelete />
-				<TodoTaskForDelete />
-				<TodoTaskForDelete />
-				<TodoTaskForDelete />
-				<TodoTaskForDelete />
-				<TodoTaskForDelete />
+				<li>Delete page</li>
 			</ul>
 		</div>
 	);

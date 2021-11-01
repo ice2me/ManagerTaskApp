@@ -7,8 +7,7 @@ import UserInfo from "../userInfo/UserInfo";
 
 const ManageScreen = () => {
 	const {user, auth} = useContext(AuthContext)
-	// console.log(auth)
-	const {roomId, task, createdTask} = useContext(RoomContext)
+	// const {roomId, task, createdTask} = useContext(RoomContext)
 	// console.log(roomId, task, createdTask)
 	
 	const history = useHistory()
