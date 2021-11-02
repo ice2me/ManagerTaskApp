@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react';
+import React, {useCallback, useContext, useEffect, useMemo, useState} from 'react';
 import './Urgently.css'
 import TodoTask from "../todoTask/TodoTask";
 import exit from '../../../images/arrowExit.svg'
@@ -8,26 +8,49 @@ import {useCollectionData} from "react-firebase-hooks/firestore";
 import {Context} from "../../../index";
 import AddTaskForm from "../todoTask/addTaskForm/AddTaskForm";
 
+const linkSaveTask = 'roomTask/1635853195348tworoom/urgently'
+
 const Urgently = () => {
 	const [taskListValue, setTaskListValue] = useState([])
+	const [statusFinishProgress, setStatusFinishProgress] = useState([])
+	const [statusAnotherProgress, setStatusAnotherProgress] = useState([])
 	const [pushBlock, setPushBlock] = useState(false)
 	const {user} = useContext(AuthContext)
 	const history = useHistory()
-	
 	const {auth, firestore} = useContext(Context)
 	
-	const [tasksList, loading] = useCollectionData(
-		firestore.collection('roomTask/1635406920867threeroom/test').orderBy('taskId', 'desc')
+	
+	const [tasksList = [], loading] = useCollectionData(
+		firestore.collection(linkSaveTask).orderBy('taskId', 'desc')
 	)
 	
+	const deleteTaskLine = (id) => {
+		firestore.collection(linkSaveTask).doc(id).delete()
+	}
+	
+	const resultFiltered = () => {
+		const statusProgress = {statusProgress: 'finish'}
+		const resultFinish = tasksList.filter(item => {
+			return item.statusProgress === statusProgress.statusProgress
+		})
+		const resultAnother = tasksList.filter(item => {
+			return item.statusProgress !== statusProgress.statusProgress
+		})
+		return (setStatusFinishProgress(resultFinish), setStatusAnotherProgress(resultAnother))
+	}
+	useEffect(() => {
+		resultFiltered()
+	}, [tasksList])
 	
 	const goBackButton = () => {
 		history.goBack()
 	}
 	
+	
 	useEffect(async () => {
 		await setTaskListValue(tasksList)
 	}, [tasksList])
+	
 	
 	const showPushBlock = () => {
 		setPushBlock(true)
@@ -35,32 +58,10 @@ const Urgently = () => {
 	const closePushBlock = () => {
 		setPushBlock(false)
 	}
-	// console.log('taskListValue', taskListValue)
-	// const addNewTaskLineHandler = (value, valueSelect) => {
-	// 	setAddNewTaskLine(addNewTaskLine.concat({
-	// 		id: Date.now(),
-	// 		task: value,
-	// 		statusProgress: valueSelect,
-	// 		user: user.displayName
-	// 	}))
-	// 	// console.log(addNewTaskLine)
-	// }
-	
-	//
-	// useEffect((value, valueSelect)=> {
-	// 	setTaskListValue(taskListValue.concat({
-	// 		id: Date.now(),
-	// 		task: value,
-	// 		statusProgress: valueSelect,
-	// 		user: user.displayName
-	// 	}))
-	// }, [tasksList])
 	
 	useEffect(() => {}, [taskListValue])
 	
-	const deleteTaskLine = (id) => {
-		firestore.collection('roomTask/1635406920867threeroom/test').doc(id).delete()
-	}
+	
 	return (
 		<div className="urgently">
 			<div className="urgently-header">
@@ -82,17 +83,20 @@ const Urgently = () => {
 			>
 				add new task
 			</button>
-			{pushBlock && <AddTaskForm closePushBlock={closePushBlock} />}
+			{pushBlock && <AddTaskForm
+				closePushBlock={closePushBlock}
+				linkForSave={linkSaveTask}
+			/>}
 			<ul className="urgently-ul__state">
 				<TodoTask
-					tasksList={taskListValue}
+					tasksList={statusAnotherProgress}
 					deleteTaskLine={deleteTaskLine}
 					loading={loading}
 				/>
 			</ul>
-			{/*<ul className="urgently-ul__finish">*/}
-			{/*	<TodoTask />*/}
-			{/*</ul>*/}
+			<ul className="urgently-ul__finish">
+				<TodoTask tasksList={statusFinishProgress} />
+			</ul>
 		</div>
 	);
 };

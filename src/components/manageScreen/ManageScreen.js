@@ -1,12 +1,13 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import './manageScreen.css'
 import {Link, Router, useHistory} from "react-router-dom";
 import {AuthContext, RoomContext} from "../../context/auth.context";
 import UserInfo from "../userInfo/UserInfo";
 
 
-const ManageScreen = () => {
+const ManageScreen = ({id}) => {
 	const {user, auth} = useContext(AuthContext)
+	// console.log(id)
 	// const {roomId, task, createdTask} = useContext(RoomContext)
 	// console.log(roomId, task, createdTask)
 	
@@ -14,6 +15,7 @@ const ManageScreen = () => {
 	const goBackButton = () => {
 		history.goBack()
 	}
+	
 	return (
 		<div className="manageScreen">
 			<h1 className="manageScreen-name">Task management</h1>

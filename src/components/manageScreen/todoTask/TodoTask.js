@@ -3,10 +3,9 @@ import './TodoTask.css'
 import Loader from "../../loader/Loader";
 import UserInfo from "../../userInfo/UserInfo";
 
-const TodoTask = ({ deleteTaskLine, tasksList, loading}) => {
+const TodoTask = ({deleteTaskLine, tasksList, loading}) => {
 	const [valueSelect, setValueSelect] = useState()
-	// console.log(tasksList)
-
+	
 	//todo toggle loader-----------------------------------
 	if (loading) {
 		return <Loader />
@@ -20,8 +19,7 @@ const TodoTask = ({ deleteTaskLine, tasksList, loading}) => {
 						key={task.taskId}
 					>
 						<div className="todo-task__wrapper">
-								<p className="todo-task__title">{loading || task.taskValue}</p>
-
+							<p className="todo-task__title">{loading || task.taskValue}</p>
 							<div className="todo-task__progress">
 								<select
 									onChange={e => setValueSelect(e.target.value)}
@@ -42,13 +40,13 @@ const TodoTask = ({ deleteTaskLine, tasksList, loading}) => {
 						<div className="todo-task__block">
 							<UserInfo />
 						</div>
-							<button
-								className="todo-task__delete"
-								onClick={(() => {deleteTaskLine(task.taskId)})}
-								disabled={!tasksList.length >= 1}
-							>
-								del
-							</button>
+						<button
+							className="todo-task__delete"
+							onClick={(() => {deleteTaskLine(task.taskId)})}
+							disabled={!tasksList.length >= 1}
+						>
+							del
+						</button>
 					</div>
 				)}
 		</li>

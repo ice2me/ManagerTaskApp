@@ -3,7 +3,7 @@ import {Context} from "../../../../index";
 import {useAuthState} from "react-firebase-hooks/auth";
 
 
-const AddTaskForm = ({closePushBlock}) => {
+const AddTaskForm = ({closePushBlock, linkForSave}) => {
 	const [valueSelect, setValueSelect] = useState('waiting')
 	const [valueInput, setValueInput] = useState('')
 	const {auth, firestore} = useContext(Context)
@@ -16,7 +16,7 @@ const AddTaskForm = ({closePushBlock}) => {
 	const id = (Date.now() + valueInput).split(' ').join('')
 	const pushNewTask = async (e) => {
 		e.preventDefault()
-		await firestore.collection('roomTask/1635406920867threeroom/test').doc(id).set({
+		await firestore.collection(linkForSave).doc(id).set({
 			taskId: id,
 			taskValue: valueInput,
 			statusProgress: valueSelect
@@ -32,7 +32,6 @@ const AddTaskForm = ({closePushBlock}) => {
 						className="form__todo-task__input"
 						autoComplete="off"
 						type="text"
-						// value={valueInput.length < 1 ? task.task : valueInput}
 						value={valueInput}
 						autoFocus={true}
 						name="task-title"

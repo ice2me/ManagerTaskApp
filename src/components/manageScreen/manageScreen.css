@@ -1,13 +1,16 @@
 .manageScreen {
-  width: 100vw;
-  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: flex-start;
   flex-direction: column;
   background-color: #004445;
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   overflow-x: hidden;
+  z-index: 100;
 }
 .manageScreen-name {
   font-size: 40px;

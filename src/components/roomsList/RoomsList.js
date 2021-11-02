@@ -14,6 +14,8 @@ const RoomsList = () => {
 	const {logout} = useAuth();
 	const {auth, firestore} = useContext(Context)
 	const [user] = useAuthState(auth)
+	
+	
 	const [roomTasks, loading] = useCollectionData(
 		firestore.collection('roomTask').orderBy('createdAt', 'desc')
 	)
@@ -21,7 +23,6 @@ const RoomsList = () => {
 		e.preventDefault()
 		firestore.collection('roomTask').doc(id).delete()
 	}
-
 
 //todo handler modal window-----------------------------------
 	const openAddRoomModal = (e) => {
