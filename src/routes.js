@@ -13,7 +13,7 @@ export const useRoutes = (isAuthenticated) => {
 		return (
 			<Switch>
 				<Route path="/roomsList" component={RoomsList}/>
-				<Route path="/manageScreen/" component={ManageScreen}/>
+				<Route path='/manageScreen/:id' component={ManageScreen}/>
 				<Route path="/delegate" component={Delegate}/>
 				<Route path="/delete" component={Delete}/>
 				<Route path="/noUrgently" component={NoUrgently}/>

@@ -1,10 +1,12 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './TodoTask.css'
 import Loader from "../../loader/Loader";
 import UserInfo from "../../userInfo/UserInfo";
 
 const TodoTask = ({deleteTaskLine, tasksList, loading}) => {
 	const [valueSelect, setValueSelect] = useState()
+	
+	useEffect(() => {}, [valueSelect])
 	
 	//todo toggle loader-----------------------------------
 	if (loading) {

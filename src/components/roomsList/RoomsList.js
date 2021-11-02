@@ -2,7 +2,6 @@ import React, {useContext, useState} from 'react';
 import RoomFromList from "./RoomFromList/RoomFromList";
 import './RoomsList.css'
 import {Context} from "../../index";
-import {useAuthState} from "react-firebase-hooks/auth";
 import {useCollectionData} from "react-firebase-hooks/firestore";
 import Loader from "../loader/Loader";
 import AddRoom from "../addRoom/AddRoom";
@@ -12,8 +11,7 @@ import UserInfo from "../userInfo/UserInfo";
 const RoomsList = () => {
 	const [addRoomModal, setAddRoomModal] = useState(false)
 	const {logout} = useAuth();
-	const {auth, firestore} = useContext(Context)
-	const [user] = useAuthState(auth)
+	const { firestore} = useContext(Context)
 	
 	
 	const [roomTasks, loading] = useCollectionData(

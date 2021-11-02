@@ -1,23 +1,19 @@
-import React, {useCallback, useContext, useEffect, useMemo, useState} from 'react';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import './Urgently.css'
 import TodoTask from "../todoTask/TodoTask";
 import exit from '../../../images/arrowExit.svg'
-import {useHistory} from "react-router-dom";
-import {AuthContext} from "../../../context/auth.context";
 import {useCollectionData} from "react-firebase-hooks/firestore";
 import {Context} from "../../../index";
 import AddTaskForm from "../todoTask/addTaskForm/AddTaskForm";
 
-const linkSaveTask = 'roomTask/1635853195348tworoom/urgently'
 
-const Urgently = () => {
-	const [taskListValue, setTaskListValue] = useState([])
+
+const Urgently = ({closeTaskComponent, customStringUrl}) => {
 	const [statusFinishProgress, setStatusFinishProgress] = useState([])
 	const [statusAnotherProgress, setStatusAnotherProgress] = useState([])
 	const [pushBlock, setPushBlock] = useState(false)
-	const {user} = useContext(AuthContext)
-	const history = useHistory()
-	const {auth, firestore} = useContext(Context)
+	const {firestore} = useContext(Context)
+	const linkSaveTask = `roomTask/${customStringUrl}`
 	
 	
 	const [tasksList = [], loading] = useCollectionData(
@@ -28,7 +24,7 @@ const Urgently = () => {
 		firestore.collection(linkSaveTask).doc(id).delete()
 	}
 	
-	const resultFiltered = () => {
+	const resultFiltered = useCallback(() => {
 		const statusProgress = {statusProgress: 'finish'}
 		const resultFinish = tasksList.filter(item => {
 			return item.statusProgress === statusProgress.statusProgress
@@ -37,18 +33,11 @@ const Urgently = () => {
 			return item.statusProgress !== statusProgress.statusProgress
 		})
 		return (setStatusFinishProgress(resultFinish), setStatusAnotherProgress(resultAnother))
-	}
-	useEffect(() => {
-		resultFiltered()
 	}, [tasksList])
 	
-	const goBackButton = () => {
-		history.goBack()
-	}
 	
-	
-	useEffect(async () => {
-		await setTaskListValue(tasksList)
+	useEffect(() => {
+		resultFiltered()
 	}, [tasksList])
 	
 	
@@ -59,15 +48,12 @@ const Urgently = () => {
 		setPushBlock(false)
 	}
 	
-	useEffect(() => {}, [taskListValue])
-	
-	
 	return (
 		<div className="urgently">
 			<div className="urgently-header">
 				<button
 					className="urgently-exit"
-					onClick={goBackButton}
+					onClick={closeTaskComponent}
 				>
 					<img
 						src={exit}

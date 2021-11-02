@@ -1,7 +1,7 @@
 import React, {useContext} from "react";
 import './App.css'
 import {BrowserRouter} from "react-router-dom";
-import {AuthContext, RoomContext} from '../context/auth.context'
+import {AuthContext} from '../context/auth.context'
 import {Context} from "../index";
 import {useRoutes} from "../routes";
 import {useAuthState} from "react-firebase-hooks/auth";
@@ -12,7 +12,6 @@ function App() {
 	const [user, loading, error] = useAuthState(auth)
 	const isAuthenticated = user && !!user.refreshToken;
 	const routes = useRoutes(isAuthenticated);
-	const {roomId, task, createdTask} = useContext(RoomContext)
 
 	if (loading || error) {
 		return <Loader />
@@ -22,13 +21,9 @@ function App() {
 			<AuthContext.Provider
 				value={{isAuthenticated, loading, user, auth}}
 			>
-				<RoomContext.Provider
-					value={{roomId, task, createdTask}}
-				>
 				<BrowserRouter>
 					<>{routes}</>
 				</BrowserRouter>
-				</RoomContext.Provider>
 			</AuthContext.Provider>
 		</div>
 	)

@@ -3,17 +3,15 @@ import {useHistory} from "react-router-dom";
 import ManageScreen from "../../manageScreen/ManageScreen";
 
 
-const RoomFromList = ({id, roomTaskCard, index, deletedRoomTaskHandler}) => {
+const RoomFromList = ({ roomTaskCard, index, deletedRoomTaskHandler}) => {
 		const [showManageMenuPage, setShowManageMenuPage] = useState(false)
 		const {nameRoom, uid} = roomTaskCard
 		const history = useHistory()
+		const pointUri = uid ? `/manageScreen/${uid}` : '/roomsList'
 		
-		// const openManageMenu = (e) => {
-		// 	e.preventDefault()
-		// 	history.push('/manageScreen/')
-		// }
+		
 		const openManageMenuPage = () => {
-			history.push('/manageScreen/')
+			history.push(pointUri)
 			setShowManageMenuPage(true)
 		}
 		return (
@@ -25,7 +23,6 @@ const RoomFromList = ({id, roomTaskCard, index, deletedRoomTaskHandler}) => {
 				>
 					<h3
 						className="rooms-block__title"
-						// onClick={(e) => {openManageMenu(e)}}
 						onClick={openManageMenuPage}
 					>
 						<span className="rooms-block__num">{index + 1}</span>
@@ -40,7 +37,7 @@ const RoomFromList = ({id, roomTaskCard, index, deletedRoomTaskHandler}) => {
 						</button>
 					</div>
 				</div>
-				{showManageMenuPage && <ManageScreen id={uid} />}
+				{showManageMenuPage && <ManageScreen/>}
 			</li>
 		);
 	}

@@ -1,14 +1,11 @@
 import React, {useContext, useState} from 'react';
 import {Context} from "../../../../index";
-import {useAuthState} from "react-firebase-hooks/auth";
 
 
 const AddTaskForm = ({closePushBlock, linkForSave}) => {
 	const [valueSelect, setValueSelect] = useState('waiting')
 	const [valueInput, setValueInput] = useState('')
-	const {auth, firestore} = useContext(Context)
-	const [user] = useAuthState(auth)
-	
+	const { firestore} = useContext(Context)
 	
 	const onChangeHandler = (value) => {
 		setValueInput(value)

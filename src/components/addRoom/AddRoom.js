@@ -5,10 +5,10 @@ import {Context} from "../../index";
 import {useCollectionData} from "react-firebase-hooks/firestore";
 
 const AddRoom = ({closeRoomModal}) => {
-	const {auth, firestore} = useContext(Context)
+	const {firestore} = useContext(Context)
 	const [value, setValue] = useState('')
 	let wrapperInput = useRef('')
-	const [roomTasks, loading, error] = useCollectionData(
+	const [loading] = useCollectionData(
 		firestore.collection('roomTask').orderBy('createdAt')
 	)
 	
