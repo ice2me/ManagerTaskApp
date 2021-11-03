@@ -6,6 +6,7 @@ import Urgently from "./urgently/Urgently";
 import Delegate from "./delegate/Delegate";
 import NoUrgently from "./noUrgently/NoUrgently";
 import Delete from "./delete/Delete";
+import AddRoom from "../addRoom/AddRoom";
 
 
 const ManageScreen = () => {
@@ -19,7 +20,6 @@ const ManageScreen = () => {
 	// const pointUri = manageUri.pathname ? `${manageUri.pathname}/urgently` : '/manageScreen'
 	
 	const toggleUrl = (value) => {
-		console.log(value)
 		return manageUri.pathname ? `${manageUri.pathname}${value}` : '/manageScreen'
 	}
 	

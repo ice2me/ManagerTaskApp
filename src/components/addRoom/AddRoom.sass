@@ -1,22 +1,29 @@
 .create-room
-	width: 100vw
-	height: 100vh
-	display: flex
-	align-items: center
-	justify-content: flex-start
-	flex-direction: column
 	background-color: #004445
 	position: fixed
 	top: 0
 	left: 0
+	right: 0
+	bottom: 0
 	overflow-x: hidden
-	z-index: 200
+	z-index: 300
+	&__block
+		max-width: 980px
+		width: 100%
+		height: 100%
+		position: relative
+		display: flex
+		align-items: center
+		justify-content: flex-start
+		flex-direction: column
+		margin: auto
 	&__close
 		position: absolute
 		right: 20px
 		top: 50px
 		color: #fff
 		font-size: 30px
+
 	&__name
 		font-size: 40px
 		color: #000
@@ -34,31 +41,36 @@
 		margin: 50px auto
 		position: relative
 		overflow-x: hidden
+
 	&__p
 		width: 0
 		height: 5px
-		background-color: rgba(255,255,255, 1)
+		background-color: rgba(255, 255, 255, 1)
 		position: absolute
 		bottom: 0
+
 	&__input
-		color: rgba(111,185,143, 1)
+		color: rgba(111, 185, 143, 1)
 		width: auto
 		min-width: 100%
 		font-size: 1.5rem
 		line-height: 2em
-		border-bottom: 5px solid rgba(111,185,143, 1)
+		border-bottom: 5px solid rgba(111, 185, 143, 1)
 		background-color: transparent
 		text-overflow: ellipsis
 		white-space: nowrap
 		overflow: hidden
+
 	&__generation
 		margin-top: 2%
 		display: flex
 		align-items: center
 		justify-content: center
 		flex-direction: column
+
 		&-button
 			margin-top: 15px
+
 		&-out
 			width: 100%
 			height: 50px
@@ -70,13 +82,16 @@
 			padding: 0 20px
 			background-color: rgba(111, 185, 143, 1)
 			cursor: text
+
 			&:hover
 				box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.2)
 				background-color: #fff
+
 		&-mes
 			margin-top: 15px
-			color: rgba(255,255,255, 0.5)
+			color: rgba(255, 255, 255, 0.5)
 			text-transform: uppercase
+
 	&__button, .create-room__generation-button
 		height: 50px
 		display: flex
@@ -87,9 +102,11 @@
 		background-color: rgba(111, 185, 143, 1)
 		@media screen and (max-width: 580px)
 			font-size: 16px
+
 		&:hover
 			box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.2)
 			background-color: #fff
+
 	&__button
 		position: absolute
 		bottom: 2%

@@ -23,12 +23,8 @@ const RoomsList = () => {
 	}
 
 //todo handler modal window-----------------------------------
-	const openAddRoomModal = (e) => {
-		e.preventDefault()
-		setAddRoomModal(true)
-	}
-	const closeRoomModal = (e) => {
-		e.preventDefault()
+
+	const closeRoomModal = () => {
 		setAddRoomModal(false)
 	}
 //todo toggle loader-----------------------------------
@@ -50,7 +46,8 @@ const RoomsList = () => {
 			{addRoomModal && <AddRoom closeRoomModal={closeRoomModal} />}
 			<button
 				className="rooms-addButton"
-				onClick={openAddRoomModal}
+				// onClick={openAddRoomModal}
+				onClick={()=> setAddRoomModal(true)}
 			>
 				Add new room
 				<span>&rarr;</span>

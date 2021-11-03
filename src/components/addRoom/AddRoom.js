@@ -31,63 +31,65 @@ const AddRoom = ({closeRoomModal}) => {
 		closeRoomModal(e)
 	}
 	
-	if (loading) {
+	if (!loading) {
 		return <Loader />
 	}
 	return (
 		<div className="create-room">
-			<button
-				className="create-room__close"
-				onClick={(e) => closeRoomModal(e)}
-			>
-				&#10006;
-			</button>
-			<h1 className="create-room__name">Create room</h1>
-			<div className="create-room__wrapper">
-				<input
-					type="text"
-					className="create-room__input"
-					name="create-room__name"
-					placeholder="Enter name"
-					autoComplete="new-password"
-					value={value}
-					autoFocus
-					onChange={e => {
-						setValue(e.target.value)
-						borderBottom()
-					}}
-					onKeyPress={e => {
-						if (e.key === 'Enter') {
-							addRoomName(e)
-						}
-					}}
-				/>
-				<p
-					className="create-room__p"
-					data-text=""
-					ref={wrapperInput}
+			<div className="create-room__block">
+				<button
+					className="create-room__close"
+					onClick={(e) => closeRoomModal(e)}
 				>
-				</p>
-			</div>
-			
-			<div className="create-room__generation">
-				<button className="create-room__generation-button">
-					Create link for new room
+					&#10006;
 				</button>
-				<p className="create-room__generation-out">
-					...
-				</p>
-				<p className="create-room__generation-mes">
-					send a link to your team to add people to it
-				</p>
+				<h1 className="create-room__name">Create room</h1>
+				<div className="create-room__wrapper">
+					<input
+						type="text"
+						className="create-room__input"
+						name="create-room__name"
+						placeholder="Enter name"
+						autoComplete="new-password"
+						value={value}
+						autoFocus
+						onChange={e => {
+							setValue(e.target.value)
+							borderBottom()
+						}}
+						onKeyPress={e => {
+							if (e.key === 'Enter') {
+								addRoomName(e)
+							}
+						}}
+					/>
+					<p
+						className="create-room__p"
+						data-text=""
+						ref={wrapperInput}
+					>
+					</p>
+				</div>
+				
+				<div className="create-room__generation">
+					<button className="create-room__generation-button">
+						Create link for new room
+					</button>
+					<p className="create-room__generation-out">
+						...
+					</p>
+					<p className="create-room__generation-mes">
+						send a link to your team to add people to it
+					</p>
+				</div>
+				<button
+					className="create-room__button"
+					onClick={addRoomName}
+					disabled={value === ''}
+				>
+					Create room
+				</button>
 			</div>
-			<button
-				className="create-room__button"
-				onClick={addRoomName}
-				disabled={value === ''}
-			>
-				Create room
-			</button>
 		</div>
 	);
 };

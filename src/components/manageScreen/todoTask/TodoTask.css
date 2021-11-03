@@ -21,7 +21,7 @@
   }
 }
 .todo-task__wrapper, .form__todo-task__wrapper {
-  width: 50%;
+  width: 55%;
   display: flex;
   align-items: center;
 }
@@ -96,6 +96,25 @@
 .todo-task__progress, .form__todo-task__progress {
   position: relative;
   margin: 5px;
+}
+.todo-task__progress select, .form__todo-task__progress select {
+  height: 41px;
+  font-family: monospace;
+  font-size: 20px;
+  background-color: transparent;
+  color: #fff;
+  border: 1px solid #6fb98f;
+  padding: 0 10px;
+  cursor: pointer;
+}
+.todo-task__progress select:focus, .form__todo-task__progress select:focus {
+  outline: none;
+}
+.todo-task__progress select option, .form__todo-task__progress select option {
+  background-color: transparent;
+  color: #000;
+  padding: 3px;
+  font-family: monospace;
 }
 .todo-task__block, .form__todo-task__block {
   min-width: 220px;

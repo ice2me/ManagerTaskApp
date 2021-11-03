@@ -7,7 +7,6 @@ import {Context} from "../../../index";
 import AddTaskForm from "../todoTask/addTaskForm/AddTaskForm";
 
 
-
 const Urgently = ({closeTaskComponent, customStringUrl}) => {
 	const [statusFinishProgress, setStatusFinishProgress] = useState([])
 	const [statusAnotherProgress, setStatusAnotherProgress] = useState([])
@@ -62,22 +61,28 @@ const Urgently = ({closeTaskComponent, customStringUrl}) => {
 				</button>
 				<h1 className="urgently-name">Urgently</h1>
 			</div>
-			<button
-				style={{width: '80%', marginBottom: 20}}
-				className="todo-task__delete"
-				onClick={showPushBlock}
-			>
-				add new task
-			</button>
-			{pushBlock && <AddTaskForm
-				closePushBlock={closePushBlock}
-				linkForSave={linkSaveTask}
-			/>}
+			{pushBlock
+				?
+				<AddTaskForm
+					closePushBlock={closePushBlock}
+					linkForSave={linkSaveTask}
+				/>
+				:
+				<button
+					style={{width: '80%', marginBottom: 20}}
+					className="todo-task__delete"
+					onClick={showPushBlock}
+				>
+					add new task
+				</button>
+			}
 			<ul className="urgently-ul__state">
 				<TodoTask
 					tasksList={statusAnotherProgress}
 					deleteTaskLine={deleteTaskLine}
 					loading={loading}
+					closePushBlock={closePushBlock}
+					linkForSave={linkSaveTask}
 				/>
 			</ul>
 			<ul className="urgently-ul__finish">
