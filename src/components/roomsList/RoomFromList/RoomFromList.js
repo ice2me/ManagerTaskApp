@@ -3,13 +3,11 @@ import {useHistory} from "react-router-dom";
 import ManageScreen from "../../manageScreen/ManageScreen";
 
 
-const RoomFromList = ({ roomTaskCard, index, deletedRoomTaskHandler}) => {
+const RoomFromList = ({roomTaskCard, index, deletedRoomTaskHandler}) => {
 		const [showManageMenuPage, setShowManageMenuPage] = useState(false)
 		const {nameRoom, uid} = roomTaskCard
 		const history = useHistory()
 		const pointUri = uid ? `/manageScreen/${uid}` : '/roomsList'
-		
-		
 		const openManageMenuPage = () => {
 			history.push(pointUri)
 			setShowManageMenuPage(true)

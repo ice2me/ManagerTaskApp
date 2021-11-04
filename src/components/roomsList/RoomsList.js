@@ -19,9 +19,12 @@ const RoomsList = () => {
 	)
 	const deletedRoomTaskHandler = async (e, id) => {
 		e.preventDefault()
-		firestore.collection('roomTask').doc(id).delete()
+		// firestore.collection('roomTask').doc(id).delete()
+		// firestore.collection('roomTask').doc(id)
+		// const p= firestore.collection('roomTask').doc(id).collection('urgently').delete()
+		// console.log(p)
 	}
-
+	// /manageScreen/1635853195348tworoom/urgently
 //todo handler modal window-----------------------------------
 
 	const closeRoomModal = () => {

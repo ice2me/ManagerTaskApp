@@ -1,48 +1,34 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './Urgently.css'
-import TodoTask from "../todoTask/TodoTask";
+import TaskTodo from "../todoTask/TaskTodo";
 import exit from '../../../images/arrowExit.svg'
-import {useCollectionData} from "react-firebase-hooks/firestore";
-import {Context} from "../../../index";
 import AddTaskForm from "../todoTask/addTaskForm/AddTaskForm";
+import TaskTodoFinish from "../todoTask/TaskTodoFinish";
 
 
-const Urgently = ({closeTaskComponent, customStringUrl}) => {
-	const [statusFinishProgress, setStatusFinishProgress] = useState([])
-	const [statusAnotherProgress, setStatusAnotherProgress] = useState([])
+const Urgently = ({
+					  closeTaskComponent,
+					  statusFinishProgress = [],
+					  statusAnotherProgress = [],
+					  linkSaveTask,
+					  deleteTaskLine,
+					  loading
+				  }) => {
 	const [pushBlock, setPushBlock] = useState(false)
-	const {firestore} = useContext(Context)
-	const linkSaveTask = `roomTask/${customStringUrl}`
 	
+	// const p =()=>{
+	// 	const str = '/manageScreen/1635853195348tworoom/urgently'
+	// 	const winLocation = window.location.pathname
+	// 	console.log(transformationString(winLocation))
+	// 	console.log(transformationString(str))
+	//
+	// }
 	
-	const [tasksList = [], loading] = useCollectionData(
-		firestore.collection(linkSaveTask).orderBy('taskId', 'desc')
-	)
-	
-	const deleteTaskLine = (id) => {
-		firestore.collection(linkSaveTask).doc(id).delete()
-	}
-	
-	const resultFiltered = useCallback(() => {
-		const statusProgress = {statusProgress: 'finish'}
-		const resultFinish = tasksList.filter(item => {
-			return item.statusProgress === statusProgress.statusProgress
-		})
-		const resultAnother = tasksList.filter(item => {
-			return item.statusProgress !== statusProgress.statusProgress
-		})
-		return (setStatusFinishProgress(resultFinish), setStatusAnotherProgress(resultAnother))
-	}, [tasksList])
-	
-	
-	useEffect(() => {
-		resultFiltered()
-	}, [tasksList])
-	
-	
-	const showPushBlock = () => {
-		setPushBlock(true)
-	}
+	// const transformationString=(str)=>{
+	// 	return str.split('/').slice(0, -1).join()
+	// }
+	// console.log(tasksList)
+
 	const closePushBlock = () => {
 		setPushBlock(false)
 	}
@@ -71,22 +57,26 @@ const Urgently = ({closeTaskComponent, customStringUrl}) => {
 				<button
 					style={{width: '80%', marginBottom: 20}}
 					className="todo-task__delete"
-					onClick={showPushBlock}
+					onClick={() => setPushBlock(true)}
 				>
 					add new task
 				</button>
 			}
 			<ul className="urgently-ul__state">
-				<TodoTask
+				<TaskTodo
 					tasksList={statusAnotherProgress}
 					deleteTaskLine={deleteTaskLine}
-					loading={loading}
 					closePushBlock={closePushBlock}
 					linkForSave={linkSaveTask}
+					loading={loading}
 				/>
 			</ul>
 			<ul className="urgently-ul__finish">
-				<TodoTask tasksList={statusFinishProgress} />
+				<TaskTodoFinish
+					tasksList={statusFinishProgress}
+					deleteTaskLine={deleteTaskLine}
+					loading={loading}
+				/>
 			</ul>
 		</div>
 	);
