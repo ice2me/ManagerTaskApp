@@ -1,12 +1,13 @@
 import React, {useContext, useState} from 'react';
-import {Context} from "../../../../index";
+import {Context} from "../../../../../../index";
 
 
-const AddTaskForm = ({closePushBlock, linkForSave}) => {
+const EditTaskForm = ({closePushBlock, linkForSave, pushMenuFinish}) => {
 	const [valueSelect, setValueSelect] = useState('waiting')
 	const [valueInput, setValueInput] = useState('')
-	const { firestore} = useContext(Context)
+	const {firestore} = useContext(Context)
 	
+	console.log(pushMenuFinish)
 	const onChangeHandler = (value) => {
 		setValueInput(value)
 	}
@@ -29,7 +30,7 @@ const AddTaskForm = ({closePushBlock, linkForSave}) => {
 						className="form__todo-task__input"
 						autoComplete="off"
 						type="text"
-						value={valueInput}
+						value={`${pushMenuFinish.taskValue} ${valueInput}`}
 						autoFocus={true}
 						name="task-title"
 						placeholder="Enter task"
@@ -41,7 +42,7 @@ const AddTaskForm = ({closePushBlock, linkForSave}) => {
 				<div className="form__todo-task__progress">
 					<select
 						onChange={e => setValueSelect(e.target.value)}
-						value={valueSelect}
+						value={pushMenuFinish.statusProgress}
 					>
 						<option
 							value="waiting"
@@ -61,8 +62,8 @@ const AddTaskForm = ({closePushBlock, linkForSave}) => {
 			<button
 				className="form__todo-task__delete"
 				onClick={(e) => {
-					pushNewTask(e)
-					closePushBlock()
+					// pushNewTask(e)
+					// closePushBlock()
 				}}
 			>
 				Push
@@ -80,4 +81,4 @@ const AddTaskForm = ({closePushBlock, linkForSave}) => {
 	);
 };
 
-export default AddTaskForm;
+export default EditTaskForm;

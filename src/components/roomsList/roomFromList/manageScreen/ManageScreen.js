@@ -1,70 +1,69 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react';
-import './manageScreen.css'
+import React, {useCallback, useContext, useEffect, useMemo, useState} from 'react';
+import './ManageScreen.css'
 import {Router, useHistory, useLocation} from "react-router-dom";
-import UserInfo from "../userInfo/UserInfo";
+import UserInfo from "../../../userInfo/UserInfo";
 import Urgently from "./urgently/Urgently";
-import Delegate from "./delegate/Delegate";
 import NoUrgently from "./noUrgently/NoUrgently";
-import Delete from "./delete/Delete";
-import AddRoom from "../addRoom/AddRoom";
-import {logDOM} from "@testing-library/react";
 import {useCollectionData} from "react-firebase-hooks/firestore";
-import {Context} from "../../index";
+import {Context} from "../../../../index";
 
 const statusProgress = {statusProgress: 'finish'}
 
-const ManageScreen = () => {
+const ManageScreen = ({id, closeUrgentlyModal}) => {
 	const [urgentlyComponent, setUrgentlyComponent] = useState(false)
 	const [noUrgentlyComponent, setNoUrgentlyComponent] = useState(false)
-	// const [delegateComponent, setDelegateComponent] = useState(false)
-	// const [deleteComponent, setDeleteComponent] = useState(false)
 	const [statusFinishProgress, setStatusFinishProgress] = useState([])
 	const [statusAnotherProgress, setStatusAnotherProgress] = useState([])
+	const [newData, setNewData] = useState(false)
+
 	const {firestore} = useContext(Context)
 	const history = useHistory()
 	const manageUri = useLocation()
 	
 	const customStringUrl = manageUri.pathname.split('/').slice(-2).join('/')
 	const linkSaveTask = `roomTask/${customStringUrl}`
-	
 	const [tasksList = [], loading] = useCollectionData(firestore.collection(linkSaveTask).orderBy('taskId', 'desc'))
-	
-	
+	const setNewDataHandler = () => {
+		// setNewData(true)
+	}
 	const toggleUrl = (value) => {
 		const url = manageUri.pathname ? `${manageUri.pathname}${value}` : '/manageScreen'
-		return history.push(url)
+		history.push(url)
+		sessionStorage.setItem('url', url)
 	}
-	
+	// const urgentlyHandler()
 	const filterTasksList = () => {
+		//
 		const resultAnother = tasksList.filter(item => {
 			return item.statusProgress !== statusProgress.statusProgress
 		})
 		const resultFinish = tasksList.filter(item => {
 			return item.statusProgress === statusProgress.statusProgress
 		})
-		return (setStatusAnotherProgress(resultAnother), setStatusFinishProgress(resultFinish))
+		//
+		setStatusAnotherProgress(resultAnother);
+		setStatusFinishProgress(resultFinish)
 	}
-	const tasks = useCallback(() => {
-		filterTasksList()
-	}, [tasksList.length > 0])
 	
 	useEffect(() => {
-		tasks()
-	}, [tasksList.length > 0])
+		if (!loading) filterTasksList()
+	}, [tasksList])
 	
-	console.log(statusAnotherProgress)
+	// useEffect(() => {
+	// 	filterTasksList()
+	// 	console.log('new data=============', tasksList)
+	// }, [newData, setNewData, tasksList])
+	//
 	
 	const deleteTaskLine = (id) => {
 		firestore.collection(linkSaveTask).doc(id).delete()
 	}
 	
 	const closeTaskComponent = () => {
-		history.goBack()
 		setUrgentlyComponent(false)
-		setNoUrgentlyComponent(false)
-		// setDelegateComponent(false)
-		// setDeleteComponent(false)
+		history.goBack()
 	}
+	
 	return (
 		<div className="manageScreen">
 			<h1 className="manageScreen-name">Task management</h1>
@@ -83,70 +82,41 @@ const ManageScreen = () => {
 						statusFinishProgress={statusFinishProgress}
 						statusAnotherProgress={statusAnotherProgress}
 						linkSaveTask={linkSaveTask}
-						loading={!loading}
+						// loading={!loading}
 						deleteTaskLine={deleteTaskLine}
 						closeTaskComponent={closeTaskComponent}
-						customStringUrl={customStringUrl}
+						// customStringUrl={customStringUrl}
 					/>}
-					{/*<button*/}
-					{/*	className="manageScreen-link"*/}
-					{/*	onClick={() => {*/}
-					{/*		setDelegateComponent(true)*/}
-					{/*		toggleUrl('/delegate')*/}
-					{/*	}}*/}
-					{/*>*/}
-					{/*	Delegate*/}
-					{/*</button>*/}
-					{/*{delegateComponent && <Delegate*/}
-					{/*	closeTaskComponent={closeTaskComponent}*/}
-					{/*	customStringUrl={customStringUrl}*/}
-					{/*/>}*/}
 					<button
 						className="manageScreen-link"
 						onClick={() => {
 							setNoUrgentlyComponent(true)
-							toggleUrl('/noUrgently')
+							// toggleUrl('/noUrgently')
 						}}
 					>
 						no urgently
 					</button>
 					{noUrgentlyComponent && <NoUrgently
-						statusFinishProgress={statusFinishProgress}
-						statusAnotherProgress={statusAnotherProgress}
-						linkSaveTask={linkSaveTask}
-						loading={!loading}
-						deleteTaskLine={deleteTaskLine}
-						closeTaskComponent={closeTaskComponent}
-						customStringUrl={customStringUrl}
+						// statusFinishProgress={statusFinishProgress}
+						// statusAnotherProgress={statusAnotherProgress}
+						// linkSaveTask={linkSaveTask}
+						// loading={!loading}
+						// deleteTaskLine={deleteTaskLine}
+						// closeTaskComponent={closeTaskComponent}
+						// customStringUrl={customStringUrl}
 					/>}
-					
-					{/*<button*/}
-					{/*	className="manageScreen-link"*/}
-					{/*	onClick={() => {*/}
-					{/*		setDeleteComponent(true)*/}
-					{/*		toggleUrl('/delete')*/}
-					{/*	}}*/}
-					{/*>*/}
-					{/*	Delete*/}
-					{/*</button>*/}
-					{/*{deleteComponent && <Delete*/}
-					{/*	closeTaskComponent={closeTaskComponent}*/}
-					{/*	customStringUrl={customStringUrl}*/}
-					{/*/>}*/}
-				
 				</div>
 			</Router>
 			<div className="manageScreen-footer">
 				<button
 					className="manageScreen-exit"
-					onClick={() => history.goBack()}
+					onClick={closeUrgentlyModal}
 				>exit
 				</button>
 				<UserInfo />
 			</div>
 		</div>
-	)
-		;
+	);
 };
 
 export default ManageScreen;

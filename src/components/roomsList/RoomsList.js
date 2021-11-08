@@ -1,34 +1,56 @@
-import React, {useContext, useState} from 'react';
-import RoomFromList from "./RoomFromList/RoomFromList";
+import React, {useContext, useEffect, useState} from 'react';
+import RoomFromList from "./roomFromList/RoomFromList";
 import './RoomsList.css'
 import {Context} from "../../index";
 import {useCollectionData} from "react-firebase-hooks/firestore";
 import Loader from "../loader/Loader";
-import AddRoom from "../addRoom/AddRoom";
+import AddRoom from "./addRoom/AddRoom";
 import {useAuth} from "../../hooks/auth.hook";
 import UserInfo from "../userInfo/UserInfo";
+import {useHistory} from "react-router-dom";
+import ManageScreen from "./roomFromList/manageScreen/ManageScreen";
 
 const RoomsList = () => {
 	const [addRoomModal, setAddRoomModal] = useState(false)
+	const [showManageMenuPage, setShowManageMenuPage] = useState(false)
+	const [parentIdState, setParentIdState] = useState('')
 	const {logout} = useAuth();
 	const { firestore} = useContext(Context)
-	
+	const history = useHistory()
 	
 	const [roomTasks, loading] = useCollectionData(
 		firestore.collection('roomTask').orderBy('createdAt', 'desc')
 	)
+
 	const deletedRoomTaskHandler = async (e, id) => {
 		e.preventDefault()
-		// firestore.collection('roomTask').doc(id).delete()
+		firestore.collection('roomTask').doc(id).delete()
 		// firestore.collection('roomTask').doc(id)
 		// const p= firestore.collection('roomTask').doc(id).collection('urgently').delete()
 		// console.log(p)
 	}
 	// /manageScreen/1635853195348tworoom/urgently
 //todo handler modal window-----------------------------------
-
+	
+	// useEffect(()=>{sessionStorage.clear()},[])
+	const parentId= (id) => {
+		return setParentIdState(id)
+	}
+	const openManageMenuPage = (bool, uid) => {
+		const pointUri = uid ? `/roomsList/manageScreen/${uid}` : '/roomsList'
+		history.push(pointUri)
+		setShowManageMenuPage(bool)
+	}
+	
 	const closeRoomModal = () => {
 		setAddRoomModal(false)
+		history.push('/roomList')
+		// console.log('modal')
+	}
+	const closeUrgentlyModal = () => {
+		setShowManageMenuPage(false)
+		history.goBack()
+		// console.log('urgentlyModal')
 	}
 //todo toggle loader-----------------------------------
 	if (loading) {
@@ -44,12 +66,13 @@ const RoomsList = () => {
 					roomTaskCard={roomTask}
 					index={index}
 					deletedRoomTaskHandler={deletedRoomTaskHandler}
+					openManageMenuPage={openManageMenuPage}
+					parentId={parentId}
 				/>)}
 			</ul>
 			{addRoomModal && <AddRoom closeRoomModal={closeRoomModal} />}
 			<button
 				className="rooms-addButton"
-				// onClick={openAddRoomModal}
 				onClick={()=> setAddRoomModal(true)}
 			>
 				Add new room
@@ -64,6 +87,7 @@ const RoomsList = () => {
 				</button>
 				<UserInfo />
 			</div>
+			{showManageMenuPage && <ManageScreen id={parentIdState} closeUrgentlyModal={closeUrgentlyModal}/>}
 		</div>
 	);
 };

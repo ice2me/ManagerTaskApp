@@ -1,7 +1,7 @@
 import React, {useContext, useRef, useState} from 'react';
 import './AddRoom.css'
-import Loader from "../loader/Loader";
-import {Context} from "../../index";
+import Loader from "../../loader/Loader";
+import {Context} from "../../../index";
 import {useCollectionData} from "react-firebase-hooks/firestore";
 
 const AddRoom = ({closeRoomModal}) => {

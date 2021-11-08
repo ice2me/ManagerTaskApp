@@ -1,38 +1,23 @@
-import React, {useEffect, useState} from 'react';
-import './Urgently.css'
-import TaskTodo from "../todoTask/TaskTodo";
-import exit from '../../../images/arrowExit.svg'
+import React, {useState} from 'react';
+import '../urgently/Urgently.css'
+import exit from "../../../../../images/arrowExit.svg";
 import AddTaskForm from "../todoTask/addTaskForm/AddTaskForm";
-import TaskTodoFinish from "../todoTask/TaskTodoFinish";
+import TaskTodo from "../todoTask/TaskTodo";
 
-
-const Urgently = ({
-					  closeTaskComponent,
-					  statusFinishProgress = [],
-					  statusAnotherProgress = [],
-					  linkSaveTask,
-					  deleteTaskLine,
-					  loading
-				  }) => {
+const NoUrgently = ({
+						closeTaskComponent,
+						statusFinishProgress = [],
+						statusAnotherProgress = [],
+						linkSaveTask,
+						deleteTaskLine,
+						loading}) => {
+	
 	const [pushBlock, setPushBlock] = useState(false)
 	
-	// const p =()=>{
-	// 	const str = '/manageScreen/1635853195348tworoom/urgently'
-	// 	const winLocation = window.location.pathname
-	// 	console.log(transformationString(winLocation))
-	// 	console.log(transformationString(str))
-	//
-	// }
 	
-	// const transformationString=(str)=>{
-	// 	return str.split('/').slice(0, -1).join()
-	// }
-	// console.log(tasksList)
-
 	const closePushBlock = () => {
 		setPushBlock(false)
 	}
-	
 	return (
 		<div className="urgently">
 			<div className="urgently-header">
@@ -45,7 +30,7 @@ const Urgently = ({
 						alt="eit"
 					/>
 				</button>
-				<h1 className="urgently-name">Urgently</h1>
+				<h1 className="urgently-name"> NO Urgently</h1>
 			</div>
 			{pushBlock
 				?
@@ -72,9 +57,11 @@ const Urgently = ({
 				/>
 			</ul>
 			<ul className="urgently-ul__finish">
-				<TaskTodoFinish
+				<TaskTodo
 					tasksList={statusFinishProgress}
 					deleteTaskLine={deleteTaskLine}
+					closePushBlock={closePushBlock}
+					linkForSave={linkSaveTask}
 					loading={loading}
 				/>
 			</ul>
@@ -82,4 +69,4 @@ const Urgently = ({
 	);
 };
 
-export default Urgently;
+export default NoUrgently;
