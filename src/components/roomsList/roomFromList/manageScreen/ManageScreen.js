@@ -1,6 +1,6 @@
-import React, {useCallback, useContext, useEffect, useMemo, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import './ManageScreen.css'
-import {Router, useHistory, useLocation} from "react-router-dom";
+import {Router, useHistory} from "react-router-dom";
 import UserInfo from "../../../userInfo/UserInfo";
 import Urgently from "./urgently/Urgently";
 import NoUrgently from "./noUrgently/NoUrgently";
@@ -9,38 +9,25 @@ import {Context} from "../../../../index";
 
 const statusProgress = {statusProgress: 'finish'}
 
-const ManageScreen = ({id, closeUrgentlyModal}) => {
+const ManageScreen = ({parentIdState, closeUrgentlyModal}) => {
 	const [urgentlyComponent, setUrgentlyComponent] = useState(false)
 	const [noUrgentlyComponent, setNoUrgentlyComponent] = useState(false)
 	const [statusFinishProgress, setStatusFinishProgress] = useState([])
 	const [statusAnotherProgress, setStatusAnotherProgress] = useState([])
-	const [newData, setNewData] = useState(false)
-
 	const {firestore} = useContext(Context)
 	const history = useHistory()
-	const manageUri = useLocation()
 	
-	const customStringUrl = manageUri.pathname.split('/').slice(-2).join('/')
-	const linkSaveTask = `roomTask/${customStringUrl}`
-	const [tasksList = [], loading] = useCollectionData(firestore.collection(linkSaveTask).orderBy('taskId', 'desc'))
-	const setNewDataHandler = () => {
-		// setNewData(true)
-	}
-	const toggleUrl = (value) => {
-		const url = manageUri.pathname ? `${manageUri.pathname}${value}` : '/manageScreen'
-		history.push(url)
-		sessionStorage.setItem('url', url)
-	}
-	// const urgentlyHandler()
+	const urlForSaveTodoTask = `/roomTask/${parentIdState}/urgently`
+	
+	const [tasksList = [], loading] = useCollectionData(firestore.collection(urlForSaveTodoTask).orderBy('taskId', 'desc'))
+	
 	const filterTasksList = () => {
-		//
 		const resultAnother = tasksList.filter(item => {
 			return item.statusProgress !== statusProgress.statusProgress
 		})
 		const resultFinish = tasksList.filter(item => {
 			return item.statusProgress === statusProgress.statusProgress
 		})
-		//
 		setStatusAnotherProgress(resultAnother);
 		setStatusFinishProgress(resultFinish)
 	}
@@ -49,14 +36,8 @@ const ManageScreen = ({id, closeUrgentlyModal}) => {
 		if (!loading) filterTasksList()
 	}, [tasksList])
 	
-	// useEffect(() => {
-	// 	filterTasksList()
-	// 	console.log('new data=============', tasksList)
-	// }, [newData, setNewData, tasksList])
-	//
-	
-	const deleteTaskLine = (id) => {
-		firestore.collection(linkSaveTask).doc(id).delete()
+	const deleteTaskLine = (taskId) => {
+		firestore.collection(`/roomTask/${parentIdState}/urgently`).doc(taskId).delete()
 	}
 	
 	const closeTaskComponent = () => {
@@ -73,7 +54,6 @@ const ManageScreen = ({id, closeUrgentlyModal}) => {
 						className="manageScreen-link"
 						onClick={() => {
 							setUrgentlyComponent(true)
-							toggleUrl('/urgently')
 						}}
 					>
 						urgently
@@ -81,7 +61,8 @@ const ManageScreen = ({id, closeUrgentlyModal}) => {
 					{urgentlyComponent && <Urgently
 						statusFinishProgress={statusFinishProgress}
 						statusAnotherProgress={statusAnotherProgress}
-						linkSaveTask={linkSaveTask}
+						parentIdState={parentIdState}
+						urlForSaveTodoTask={urlForSaveTodoTask}
 						// loading={!loading}
 						deleteTaskLine={deleteTaskLine}
 						closeTaskComponent={closeTaskComponent}

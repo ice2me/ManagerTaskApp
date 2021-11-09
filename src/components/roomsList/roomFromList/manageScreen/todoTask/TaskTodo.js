@@ -1,16 +1,43 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './TaskTodo.css'
 import UserInfo from "../../../../userInfo/UserInfo";
-import AddTaskForm from "./addTaskForm/AddTaskForm";
+import EditTaskForm from "./editTaskForm/EditTaskForm";
+import Delete from '../../../../../images/trashIcon.svg'
+import Edit from '../../../../../images/editIcon.svg'
 
 const TaskTodo = ({
 					  deleteTaskLine,
 					  tasksList,
-					  showEditMenu
+					  parentIdState,
+					  urlForSaveTodoTask
 				  }) => {
+	const [editTask, setEditTask] = useState(false)
+	const [taskIdEdit, setTaskIdEdit] = useState('')
+	const [editTodoActive, setEditTodoActive] = useState('')
+	
+	const editTaskHandler = (id) => {
+		setEditTask(true)
+		setTaskIdEdit(id)
+	}
+	
+	const editCloseTaskHandler = () => {
+		setEditTask(false)
+	}
+	
+	const addValueInpAndSel = (id) => {
+		const editTodoActive = tasksList.find(todo => todo.taskId === id)
+		setEditTodoActive(editTodoActive)
+	}
 	
 	return (
 		<li>
+			{editTask && <EditTaskForm
+				editCloseTaskHandler={editCloseTaskHandler}
+				parentIdState={parentIdState}
+				urlForSaveTodoTask={urlForSaveTodoTask}
+				taskIdEdit={taskIdEdit}
+				editTodoActive={editTodoActive}
+			/>}
 			{
 				tasksList && tasksList.map(task => {
 						return < div
@@ -24,11 +51,13 @@ const TaskTodo = ({
 									className="todo-task__title"
 								> {task.taskValue}
 								</p>
+								
 								<div className="todo-task__progress">
 									<select
 										onChange={(e) => {
 											// setValueSelect(e.target.value)
 										}}
+										disabled={true}
 										value={task && task.statusProgress}
 									>
 										<option value="waiting">
@@ -47,17 +76,28 @@ const TaskTodo = ({
 								<UserInfo />
 							</div>
 							<button
-								className="todo-task__delete"
-								onClick={() => {showEditMenu(task.taskId, task.taskValue, task.statusProgress)}}
+								className="todo-task__edit"
+								onClick={() => {
+									editTaskHandler(task.taskId)
+									addValueInpAndSel(task.taskId)
+								}}
 							>
-								edit
+								<img
+									src={Edit}
+									alt="Edit"
+								/>
 							</button>
 							<button
 								className="todo-task__delete"
-								onClick={(() => {deleteTaskLine(task.taskId)})}
+								onClick={(() => {
+									deleteTaskLine(task.taskId)
+								})}
 								disabled={!tasksList.length >= 1}
 							>
-								del
+								<img
+									src={Delete}
+									alt="Delete"
+								/>
 							</button>
 						</div>
 					}

@@ -1,27 +1,29 @@
 import React, {useContext, useState} from 'react';
 import {Context} from "../../../../../../index";
+import Push from '../../../../../../images/checkedIcon.svg'
+import Closed from '../../../../../../images/closeIcon.svg'
 
 
-const EditTaskForm = ({closePushBlock, linkForSave, pushMenuFinish}) => {
-	const [valueSelect, setValueSelect] = useState('waiting')
+const EditTaskForm = ({editCloseTaskHandler, urlForSaveTodoTask, taskIdEdit, editTodoActive}) => {
 	const [valueInput, setValueInput] = useState('')
+	const [valueSelect, setValueSelect] = useState('waiting')
 	const {firestore} = useContext(Context)
+	const {statusProgress, taskId, taskValue} = editTodoActive
 	
-	console.log(pushMenuFinish)
 	const onChangeHandler = (value) => {
 		setValueInput(value)
 	}
-	const id = (Date.now() + valueInput).split(' ').join('')
-	const pushNewTask = async (e) => {
+	
+	const pushEditTask = (e) => {
 		e.preventDefault()
-		await firestore.collection(linkForSave).doc(id).set({
-			taskId: id,
-			taskValue: valueInput,
-			statusProgress: valueSelect
-		})
+		firestore.collection(urlForSaveTodoTask).doc(taskIdEdit).update({
+			taskValue: (valueInput === '') ? taskValue : valueInput,
+			statusProgress: (valueSelect === 'waiting') ? statusProgress : valueSelect
+		}).then(res => res)
 		setValueInput('')
 		setValueSelect('waiting')
 	}
+	
 	return (
 		<form className="form__todo-task">
 			<div className="form__todo-task__wrapper">
@@ -30,7 +32,7 @@ const EditTaskForm = ({closePushBlock, linkForSave, pushMenuFinish}) => {
 						className="form__todo-task__input"
 						autoComplete="off"
 						type="text"
-						value={`${pushMenuFinish.taskValue} ${valueInput}`}
+						value={(valueInput === '') ? taskValue : valueInput}
 						autoFocus={true}
 						name="task-title"
 						placeholder="Enter task"
@@ -42,7 +44,7 @@ const EditTaskForm = ({closePushBlock, linkForSave, pushMenuFinish}) => {
 				<div className="form__todo-task__progress">
 					<select
 						onChange={e => setValueSelect(e.target.value)}
-						value={pushMenuFinish.statusProgress}
+						value={(valueSelect === 'waiting') ? statusProgress : valueSelect}
 					>
 						<option
 							value="waiting"
@@ -62,20 +64,26 @@ const EditTaskForm = ({closePushBlock, linkForSave, pushMenuFinish}) => {
 			<button
 				className="form__todo-task__delete"
 				onClick={(e) => {
-					// pushNewTask(e)
-					// closePushBlock()
+					pushEditTask(e)
+					editCloseTaskHandler()
 				}}
 			>
-				Push
+				<img
+					src={Push}
+					alt="push"
+				/>
 			</button>
 			<button
 				className="form__todo-task__delete"
 				onClick={(e) => {
 					e.preventDefault()
-					closePushBlock()
+					editCloseTaskHandler()
 				}}
 			>
-				Closed
+				<img
+					src={Closed}
+					alt="closed"
+				/>
 			</button>
 		</form>
 	);

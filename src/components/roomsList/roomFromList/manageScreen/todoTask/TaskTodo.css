@@ -75,23 +75,38 @@
     right: 0;
   }
 }
-.todo-task__delete, .form__todo-task__delete {
+.todo-task__delete, .todo-task__edit, .form__todo-task__delete, .form__todo-task__edit {
   height: auto;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 20px;
   padding: 8px 20px;
-  background-color: #6fb98f;
+  background-color: rgba(111, 185, 143, 0.5);
 }
 @media screen and (max-width: 580px) {
-  .todo-task__delete, .form__todo-task__delete {
+  .todo-task__delete, .todo-task__edit, .form__todo-task__delete, .form__todo-task__edit {
     font-size: 16px;
   }
 }
-.todo-task__delete:hover, .form__todo-task__delete:hover {
+.todo-task__delete:hover, .todo-task__edit:hover, .form__todo-task__delete:hover, .form__todo-task__edit:hover {
   box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.2);
-  background-color: #fff;
+  background-color: rgba(150, 150, 150, 0.5);
+}
+.todo-task__delete:hover img, .todo-task__edit:hover img, .form__todo-task__delete:hover img, .form__todo-task__edit:hover img {
+  animation: animationTrash 2s infinite linear;
+}
+.todo-task__delete img, .todo-task__edit img, .form__todo-task__delete img, .form__todo-task__edit img {
+  margin: 0 5px;
+}
+.todo-task__edit, .form__todo-task__edit {
+  background-color: rgba(44, 120, 115, 0.5);
+}
+.todo-task__edit img, .form__todo-task__edit img {
+  margin: 0 5px;
+}
+.todo-task__edit:hover img, .form__todo-task__edit:hover img {
+  animation: animationTrash 2s infinite linear;
 }
 .todo-task__progress, .form__todo-task__progress {
   position: relative;
@@ -147,6 +162,24 @@
 @media screen and (max-width: 980px) {
   .form__todo-task__delete {
     margin: 20px;
+  }
+}
+
+@keyframes animationTrash {
+  0% {
+    transform: rotate(-45deg);
+  }
+  25% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(45deg);
+  }
+  75% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-45deg);
   }
 }
 

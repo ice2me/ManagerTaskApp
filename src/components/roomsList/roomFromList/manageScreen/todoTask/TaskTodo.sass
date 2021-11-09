@@ -15,7 +15,8 @@
 		justify-content: space-around
 		height: max-content
 		padding: 10px
-		border: 1px solid rgba(111,185,143, 1)
+		border: 1px solid rgba(111, 185, 143, 1)
+
 	&__wrapper
 		width: 55%
 		display: flex
@@ -23,13 +24,14 @@
 		@media screen and (max-width: 980px)
 			width: 95%
 			flex-wrap: wrap
+
 	&__title, &__input
 		height: 41px
 		width: -webkit-fill-available
 		margin: 0 5px
 		padding: 15px
 		border: 1px solid #6fb98f
-		color: rgba(255,255,255, 0.8)
+		color: rgba(255, 255, 255, 0.8)
 		font-size: 20px
 		max-width: 85%
 		text-overflow: ellipsis
@@ -40,12 +42,15 @@
 		justify-content: flex-start
 		@media screen and (max-width: 980px)
 			width: 95%
+
 	&__container
 		width: 100%
 		position: relative
+
 	&__input
 		width: 100%
 		border: 1px solid #999
+
 	&__submit
 		width: 41px
 		height: 41px
@@ -57,22 +62,42 @@
 		@media screen and (max-width: 980px)
 			top: 0
 			right: 0
-	&__delete
+
+	&__delete, &__edit
 		height: auto
 		display: flex
 		align-items: center
 		justify-content: center
 		font-size: 20px
 		padding: 8px 20px
-		background-color: rgba(111, 185, 143, 1)
+		background-color: rgba(111, 185, 143, 0.5)
 		@media screen and (max-width: 580px)
 			font-size: 16px
+
 		&:hover
 			box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.2)
-			background-color: #fff
+			background-color: rgba(150, 150, 150, 0.5)
+
+			img
+				animation: animationTrash 2s infinite linear
+
+		img
+			margin: 0 5px
+
+	&__edit
+		background-color: rgba(44, 120, 115, 0.5)
+
+		img
+			margin: 0 5px
+
+		&:hover
+			img
+				animation: animationTrash 2s infinite linear
+
 	&__progress
 		position: relative
 		margin: 5px
+
 		select
 			height: 41px
 			font-family: monospace
@@ -82,26 +107,32 @@
 			border: 1px solid #6fb98f
 			padding: 0 10px
 			cursor: pointer
+
 			&:focus
 				outline: none
+
 			option
 				background-color: transparent
 				color: #000
 				padding: 3px
 				font-family: monospace
+
 	&__block
 		min-width: 220px
+
 	&__user
 		display: flex
 		align-items: center
 		justify-content: center
 		color: white
+
 		img
 			margin-left: 10px
 			max-width: 60px
 			width: 100%
 			max-height: 60px
 			height: 100%
+
 	&__icon
 		width: 20px
 		height: 20px
@@ -109,8 +140,23 @@
 .form__todo-task
 	width: 90%
 	justify-content: flex-start
+
 	&__delete
 		margin-left: 20px
+
 	@media screen and (max-width: 980px)
 		&__delete
 			margin: 20px
+
+
+@keyframes animationTrash
+	0%
+		transform: rotate(-45deg)
+	25%
+		transform: rotate(0deg)
+	50%
+		transform: rotate(45deg)
+	75%
+		transform: rotate(0deg)
+	100%
+		transform: rotate(-45deg)

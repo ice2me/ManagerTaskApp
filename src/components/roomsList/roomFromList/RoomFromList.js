@@ -1,8 +1,8 @@
 import React from 'react';
+import Delete from '../../../images/trashIcon.svg'
 
-const RoomFromList = ({roomTaskCard, index, deletedRoomTaskHandler,openManageMenuPage, parentId}) => {
+const RoomFromList = ({roomTaskCard, index, deletedRoomTaskHandler, openManageMenuPage, parentId}) => {
 	const {nameRoom, uid} = roomTaskCard
-	
 	return (
 		<li
 			className="rooms-block__li"
@@ -13,7 +13,7 @@ const RoomFromList = ({roomTaskCard, index, deletedRoomTaskHandler,openManageMen
 				<h3
 					className="rooms-block__title"
 					onClick={() => {
-						openManageMenuPage(true, uid)
+						openManageMenuPage(true)
 						parentId(uid)
 					}}
 				>
@@ -25,11 +25,14 @@ const RoomFromList = ({roomTaskCard, index, deletedRoomTaskHandler,openManageMen
 						className="rooms-block__delete"
 						onClick={(e) => deletedRoomTaskHandler(e, uid)}
 					>
-						delete
+						<img
+							src={Delete}
+							alt="Delete"
+						/>
 					</button>
 				</div>
 			</div>
-
+		
 		</li>
 	);
 };

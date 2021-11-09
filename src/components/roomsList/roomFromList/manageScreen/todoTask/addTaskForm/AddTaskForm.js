@@ -1,5 +1,7 @@
 import React, {useContext, useState} from 'react';
 import {Context} from "../../../../../../index";
+import Push from "../../../../../../images/checkedIcon.svg";
+import Closed from "../../../../../../images/closeIcon.svg";
 
 
 const AddTaskForm = ({closePushBlock, linkForSave}) => {
@@ -20,8 +22,7 @@ const AddTaskForm = ({closePushBlock, linkForSave}) => {
 		setValueInput('')
 		setValueSelect('waiting')
 	}
-	
-	
+
 	return (
 		<form className="form__todo-task">
 			<div className="form__todo-task__wrapper">
@@ -66,7 +67,10 @@ const AddTaskForm = ({closePushBlock, linkForSave}) => {
 					closePushBlock()
 				}}
 			>
-				Push
+				<img
+					src={Push}
+					alt="push"
+				/>
 			</button>
 			<button
 				className="form__todo-task__delete"
@@ -75,7 +79,10 @@ const AddTaskForm = ({closePushBlock, linkForSave}) => {
 					closePushBlock()
 				}}
 			>
-				Closed
+				<img
+					src={Closed}
+					alt="closed"
+				/>
 			</button>
 		</form>
 	);
