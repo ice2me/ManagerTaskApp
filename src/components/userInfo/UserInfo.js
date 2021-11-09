@@ -6,8 +6,7 @@ const UserInfo = () => {
 	return (
 		<>
 			{user &&
-			<div className="manageScreen-user">
-				
+			<div className="manageScreen-user" title='User info'>
 				<p>
 					{user.displayName}
 				</p>

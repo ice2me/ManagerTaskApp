@@ -6,6 +6,7 @@ const RoomFromList = ({roomTaskCard, index, deletedRoomTaskHandler, openManageMe
 	return (
 		<li
 			className="rooms-block__li"
+			title='open a room with tasks'
 		>
 			<div
 				className="rooms-block__a"
@@ -23,6 +24,7 @@ const RoomFromList = ({roomTaskCard, index, deletedRoomTaskHandler, openManageMe
 				<div className="rooms-block__wrapper">
 					<button
 						className="rooms-block__delete"
+						title='Delete this room'
 						onClick={(e) => deletedRoomTaskHandler(e, uid)}
 					>
 						<img

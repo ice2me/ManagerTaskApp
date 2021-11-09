@@ -68,6 +68,7 @@ const RoomsList = () => {
 			{addRoomModal && <AddRoom closeRoomModal={closeRoomModal} />}
 			<button
 				className="rooms-addButton"
+				title='Add new room'
 				onClick={() => setAddRoomModal(true)}
 			>
 				Add new room
@@ -76,6 +77,7 @@ const RoomsList = () => {
 			<div className="manageScreen-footer">
 				<button
 					className="manageScreen-exit"
+					title='Log out Google'
 					onClick={() => logout()}
 				>
 					Log out

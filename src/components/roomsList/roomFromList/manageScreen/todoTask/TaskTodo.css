@@ -9,16 +9,21 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  margin: 15px 0;
+  padding: 8px;
+  margin: 5px 0;
 }
 @media screen and (max-width: 980px) {
   .todo-task, .form__todo-task {
     flex-direction: column;
-    justify-content: space-around;
+    align-items: inherit;
     height: max-content;
-    padding: 10px;
-    border: 1px solid #6fb98f;
+    padding: 30px;
+    margin-bottom: 15px;
+    border: 1px solid rgba(111, 185, 143, 0.2);
   }
+}
+.todo-task:hover, .form__todo-task:hover {
+  background-color: rgba(150, 150, 150, 0.2);
 }
 .todo-task__wrapper, .form__todo-task__wrapper {
   width: 55%;
@@ -27,7 +32,12 @@
 }
 @media screen and (max-width: 980px) {
   .todo-task__wrapper, .form__todo-task__wrapper {
-    width: 95%;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .todo-task__wrapper, .form__todo-task__wrapper {
     flex-wrap: wrap;
   }
 }
@@ -36,7 +46,7 @@
   width: -webkit-fill-available;
   margin: 0 5px;
   padding: 15px;
-  border: 1px solid #6fb98f;
+  border: 1px solid rgba(44, 120, 115, 0.5);
   color: rgba(255, 255, 255, 0.8);
   font-size: 20px;
   max-width: 85%;
@@ -108,6 +118,11 @@
 .todo-task__edit:hover img, .form__todo-task__edit:hover img {
   animation: animationTrash 2s infinite linear;
 }
+@media screen and (max-width: 980px) {
+  .todo-task__edit, .form__todo-task__edit {
+    margin: 5px 0;
+  }
+}
 .todo-task__progress, .form__todo-task__progress {
   position: relative;
   margin: 5px;
@@ -118,9 +133,8 @@
   font-size: 20px;
   background-color: transparent;
   color: #fff;
-  border: 1px solid #6fb98f;
+  border: 1px solid rgba(44, 120, 115, 0.5);
   padding: 0 10px;
-  cursor: pointer;
 }
 .todo-task__progress select:focus, .form__todo-task__progress select:focus {
   outline: none;

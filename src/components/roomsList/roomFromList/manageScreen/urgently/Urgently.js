@@ -29,7 +29,8 @@ const Urgently = ({
 				>
 					<img
 						src={exit}
-						alt="eit"
+						alt="exit"
+						title='Exit'
 					/>
 				</button>
 				<h1 className="urgently-name">Urgently</h1>
@@ -45,6 +46,7 @@ const Urgently = ({
 					style={{width: '80%', marginBottom: 20}}
 					className="todo-task__edit"
 					onClick={() => setPushBlock(true)}
+					title='add new task'
 				>
 					add new task
 					<img

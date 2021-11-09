@@ -49,15 +49,14 @@ const TaskTodo = ({
 							>
 								< p
 									className="todo-task__title"
+									title={task.taskValue}
 								> {task.taskValue}
 								</p>
 								
 								<div className="todo-task__progress">
 									<select
-										onChange={(e) => {
-											// setValueSelect(e.target.value)
-										}}
 										disabled={true}
+										title={`Status Task => ${task.statusProgress}`}
 										value={task && task.statusProgress}
 									>
 										<option value="waiting">
@@ -77,6 +76,7 @@ const TaskTodo = ({
 							</div>
 							<button
 								className="todo-task__edit"
+								title='Edit task'
 								onClick={() => {
 									editTaskHandler(task.taskId)
 									addValueInpAndSel(task.taskId)
@@ -89,6 +89,7 @@ const TaskTodo = ({
 							</button>
 							<button
 								className="todo-task__delete"
+								title='Delete task'
 								onClick={(() => {
 									deleteTaskLine(task.taskId)
 								})}

@@ -52,6 +52,7 @@ const ManageScreen = ({parentIdState, closeUrgentlyModal}) => {
 				<div className="manageScreen-wrapper">
 					<button
 						className="manageScreen-link"
+						title='Open urgently tasks list'
 						onClick={() => {
 							setUrgentlyComponent(true)
 						}}
@@ -63,36 +64,34 @@ const ManageScreen = ({parentIdState, closeUrgentlyModal}) => {
 						statusAnotherProgress={statusAnotherProgress}
 						parentIdState={parentIdState}
 						urlForSaveTodoTask={urlForSaveTodoTask}
-						// loading={!loading}
 						deleteTaskLine={deleteTaskLine}
 						closeTaskComponent={closeTaskComponent}
-						// customStringUrl={customStringUrl}
 					/>}
 					<button
 						className="manageScreen-link"
+						title='Open no urgently tasks list'
 						onClick={() => {
 							setNoUrgentlyComponent(true)
-							// toggleUrl('/noUrgently')
 						}}
 					>
 						no urgently
 					</button>
 					{noUrgentlyComponent && <NoUrgently
-						// statusFinishProgress={statusFinishProgress}
-						// statusAnotherProgress={statusAnotherProgress}
-						// linkSaveTask={linkSaveTask}
-						// loading={!loading}
-						// deleteTaskLine={deleteTaskLine}
-						// closeTaskComponent={closeTaskComponent}
-						// customStringUrl={customStringUrl}
+						statusFinishProgress={statusFinishProgress}
+						statusAnotherProgress={statusAnotherProgress}
+						parentIdState={parentIdState}
+						urlForSaveTodoTask={urlForSaveTodoTask}
+						deleteTaskLine={deleteTaskLine}
+						closeTaskComponent={closeTaskComponent}
 					/>}
 				</div>
 			</Router>
 			<div className="manageScreen-footer">
 				<button
 					className="manageScreen-exit"
+					title='Go back'
 					onClick={closeUrgentlyModal}
-				>exit
+				>Go back
 				</button>
 				<UserInfo />
 			</div>

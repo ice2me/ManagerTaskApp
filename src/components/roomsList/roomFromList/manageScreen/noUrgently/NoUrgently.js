@@ -3,21 +3,23 @@ import '../urgently/Urgently.css'
 import exit from "../../../../../images/arrowExit.svg";
 import AddTaskForm from "../todoTask/addTaskForm/AddTaskForm";
 import TaskTodo from "../todoTask/TaskTodo";
+import addNewTask from "../../../../../images/addNewNameIcon.svg";
 
 const NoUrgently = ({
 						closeTaskComponent,
-						statusFinishProgress = [],
-						statusAnotherProgress = [],
-						linkSaveTask,
+						statusFinishProgress,
+						statusAnotherProgress,
+						urlForSaveTodoTask,
 						deleteTaskLine,
-						loading}) => {
-	
+						parentIdState,
+						loading
+					}) => {
 	const [pushBlock, setPushBlock] = useState(false)
-	
 	
 	const closePushBlock = () => {
 		setPushBlock(false)
 	}
+	
 	return (
 		<div className="urgently">
 			<div className="urgently-header">
@@ -30,43 +32,48 @@ const NoUrgently = ({
 						alt="eit"
 					/>
 				</button>
-				<h1 className="urgently-name"> NO Urgently</h1>
+				<h1 className="urgently-name">Urgently</h1>
 			</div>
 			{pushBlock
 				?
 				<AddTaskForm
 					closePushBlock={closePushBlock}
-					linkForSave={linkSaveTask}
+					linkForSave={urlForSaveTodoTask}
 				/>
 				:
 				<button
 					style={{width: '80%', marginBottom: 20}}
-					className="todo-task__delete"
+					className="todo-task__edit"
 					onClick={() => setPushBlock(true)}
 				>
 					add new task
+					<img
+						src={addNewTask}
+						alt="add new task"
+					/>
 				</button>
 			}
 			<ul className="urgently-ul__state">
-				<TaskTodo
+				{!loading && <TaskTodo
 					tasksList={statusAnotherProgress}
 					deleteTaskLine={deleteTaskLine}
 					closePushBlock={closePushBlock}
-					linkForSave={linkSaveTask}
-					loading={loading}
+					urlForSaveTodoTask={urlForSaveTodoTask}
+					parentIdState={parentIdState}
 				/>
+				}
 			</ul>
 			<ul className="urgently-ul__finish">
-				<TaskTodo
+				{!loading && <TaskTodo
 					tasksList={statusFinishProgress}
 					deleteTaskLine={deleteTaskLine}
 					closePushBlock={closePushBlock}
-					linkForSave={linkSaveTask}
-					loading={loading}
+					urlForSaveTodoTask={urlForSaveTodoTask}
+					parentIdState={parentIdState}
 				/>
+				}
 			</ul>
 		</div>
 	);
 };
-
 export default NoUrgently;
