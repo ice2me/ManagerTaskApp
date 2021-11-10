@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, {useState} from 'react';
 import './Urgently.css'
 import TaskTodo from "../todoTask/TaskTodo";
 import exit from '../../../../../images/arrowExit.svg'
@@ -15,6 +15,17 @@ const Urgently = ({
 					  loading
 				  }) => {
 	const [pushBlock, setPushBlock] = useState(false)
+	const [editTask, setEditTask] = useState(false)
+	const [taskIdEdit, setTaskIdEdit] = useState('')
+	
+	const editTaskHandler = (id) => {
+		setEditTask(true)
+		setTaskIdEdit(id)
+	}
+	
+	const editCloseTaskHandler = () => {
+		setEditTask(false)
+	}
 	
 	const closePushBlock = () => {
 		setPushBlock(false)
@@ -30,7 +41,7 @@ const Urgently = ({
 					<img
 						src={exit}
 						alt="exit"
-						title='Exit'
+						title="Exit"
 					/>
 				</button>
 				<h1 className="urgently-name">Urgently</h1>
@@ -46,7 +57,7 @@ const Urgently = ({
 					style={{width: '80%', marginBottom: 20}}
 					className="todo-task__edit"
 					onClick={() => setPushBlock(true)}
-					title='add new task'
+					title="add new task"
 				>
 					add new task
 					<img
@@ -55,6 +66,7 @@ const Urgently = ({
 					/>
 				</button>
 			}
+			
 			<ul className="urgently-ul__state">
 				{!loading && <TaskTodo
 					tasksList={statusAnotherProgress}
@@ -62,6 +74,10 @@ const Urgently = ({
 					closePushBlock={closePushBlock}
 					urlForSaveTodoTask={urlForSaveTodoTask}
 					parentIdState={parentIdState}
+					editTask={editTask}
+					taskIdEdit={taskIdEdit}
+					editTaskHandler={editTaskHandler}
+					editCloseTaskHandler={editCloseTaskHandler}
 				/>
 				}
 			</ul>
@@ -72,9 +88,14 @@ const Urgently = ({
 					closePushBlock={closePushBlock}
 					urlForSaveTodoTask={urlForSaveTodoTask}
 					parentIdState={parentIdState}
+					editTask={editTask}
+					taskIdEdit={taskIdEdit}
+					editTaskHandler={editTaskHandler}
+					editCloseTaskHandler={editCloseTaskHandler}
 				/>
 				}
 			</ul>
+		
 		</div>
 	);
 };

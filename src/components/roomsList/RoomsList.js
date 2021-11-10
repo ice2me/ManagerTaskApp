@@ -9,17 +9,19 @@ import {useAuth} from "../../hooks/auth.hook";
 import UserInfo from "../userInfo/UserInfo";
 import ManageScreen from "./roomFromList/manageScreen/ManageScreen";
 import addNewTask from "../../images/addNewNameIcon.svg";
+import AddNewUsersRoom from "./addNewUsersRoom/addNewUsersRoom";
 
 const RoomsList = () => {
 	const [addRoomModal, setAddRoomModal] = useState(false)
 	const [showManageMenuPage, setShowManageMenuPage] = useState(false)
+	const [addNewUser, setAddNewUser] = useState(false)
+
 	const [parentIdState, setParentIdState] = useState('')
+
 	const {logout} = useAuth();
 	const {firestore} = useContext(Context)
 	
-	const [roomTasks, loading] = useCollectionData(
-		firestore.collection('roomTask').orderBy('createdAt', 'desc')
-	)
+	const [roomTasks, loading] = useCollectionData(firestore.collection('roomTask').orderBy('createdAt', 'desc'))
 	
 	const deletedRoomTaskHandler = async (e, id) => {
 		e.preventDefault()
@@ -49,6 +51,9 @@ const RoomsList = () => {
 	}
 	const closeUrgentlyModal = () => {
 		setShowManageMenuPage(false)
+	}
+	const closeAddNewUser = () => {
+		setAddNewUser(false)
 	}
 //todo toggle loader-----------------------------------
 	if (loading) {
@@ -88,6 +93,14 @@ const RoomsList = () => {
 				>
 					Log out
 				</button>
+				<button
+					className="manageScreen-exit"
+					title="add new user"
+					onClick={()=> setAddNewUser(true)}
+				>
+					add new user
+				</button>
+				{addNewUser && <AddNewUsersRoom closeAddNewUser={closeAddNewUser}/>}
 				<UserInfo />
 			</div>
 			{showManageMenuPage && <ManageScreen

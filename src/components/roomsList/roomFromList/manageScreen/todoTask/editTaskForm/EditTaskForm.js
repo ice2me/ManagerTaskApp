@@ -10,10 +10,10 @@ const EditTaskForm = ({editCloseTaskHandler, urlForSaveTodoTask, taskIdEdit, edi
 	const {firestore} = useContext(Context)
 	const {statusProgress, taskId, taskValue} = editTodoActive
 	
-	const onChangeHandler = (value) => {
-		setValueInput(value)
-	}
-	
+	// const onChangeHandler = (value) => {
+	// 	setValueInput(value)
+	// }
+	//
 	const pushEditTask = (e) => {
 		e.preventDefault()
 		firestore.collection(urlForSaveTodoTask).doc(taskIdEdit).update({
@@ -28,18 +28,25 @@ const EditTaskForm = ({editCloseTaskHandler, urlForSaveTodoTask, taskIdEdit, edi
 		<form className="form__todo-task">
 			<div className="form__todo-task__wrapper">
 				<div className="form__todo-task__container">
-					<input
-						className="form__todo-task__input"
-						autoComplete="off"
-						type="text"
-						value={(valueInput === '') ? taskValue : valueInput}
-						autoFocus={true}
-						name="task-title"
-						placeholder="Enter task"
-						onChange={(e) => {
-							onChangeHandler(e.target.value)
-						}}
-					/>
+					{/*<input*/}
+					{/*	className="form__todo-task__input"*/}
+					{/*	autoComplete="off"*/}
+					{/*	type="text"*/}
+					{/*	// value={(valueInput === '') ? taskValue : valueInput}*/}
+					{/*	value={(valueInput === '') ? taskValue : valueInput}*/}
+					{/*	disabled={true}*/}
+					{/*	autoFocus={true}*/}
+					{/*	name="task-title"*/}
+					{/*	placeholder="Enter task"*/}
+					{/*	// onChange={(e) => {*/}
+					{/*	// 	onChangeHandler(e.target.value)*/}
+					{/*	// }}*/}
+					{/*/>*/}
+					< p
+						className="todo-task__title"
+						title={taskValue}
+					> {taskValue}
+					</p>
 				</div>
 				<div className="form__todo-task__progress">
 					<select

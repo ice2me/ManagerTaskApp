@@ -70,18 +70,6 @@ const AddRoom = ({closeRoomModal}) => {
 					>
 					</p>
 				</div>
-				
-				<div className="create-room__generation">
-					<button className="create-room__generation-button">
-						Create link for new room
-					</button>
-					<p className="create-room__generation-out">
-						...
-					</p>
-					<p className="create-room__generation-mes">
-						send a link to your team to add people to it
-					</p>
-				</div>
 				<button
 					className="create-room__button"
 					onClick={addRoomName}

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import './TaskTodo.css'
 import UserInfo from "../../../../userInfo/UserInfo";
 import EditTaskForm from "./editTaskForm/EditTaskForm";
@@ -9,20 +9,14 @@ const TaskTodo = ({
 					  deleteTaskLine,
 					  tasksList,
 					  parentIdState,
-					  urlForSaveTodoTask
+					  urlForSaveTodoTask,
+					  taskIdEdit,
+					  editTask,
+					  editTaskHandler,
+					  editCloseTaskHandler
 				  }) => {
-	const [editTask, setEditTask] = useState(false)
-	const [taskIdEdit, setTaskIdEdit] = useState('')
+	
 	const [editTodoActive, setEditTodoActive] = useState('')
-	
-	const editTaskHandler = (id) => {
-		setEditTask(true)
-		setTaskIdEdit(id)
-	}
-	
-	const editCloseTaskHandler = () => {
-		setEditTask(false)
-	}
 	
 	const addValueInpAndSel = (id) => {
 		const editTodoActive = tasksList.find(todo => todo.taskId === id)
@@ -30,6 +24,7 @@ const TaskTodo = ({
 	}
 	
 	return (
+		
 		<li>
 			{editTask && <EditTaskForm
 				editCloseTaskHandler={editCloseTaskHandler}
@@ -40,7 +35,7 @@ const TaskTodo = ({
 			/>}
 			{
 				tasksList && tasksList.map(task => {
-						return < div
+						return <div
 							className="todo-task"
 							key={task.taskId}
 						>
@@ -54,21 +49,11 @@ const TaskTodo = ({
 								</p>
 								
 								<div className="todo-task__progress">
-									<select
-										disabled={true}
+									<p
+										className="todo-task__title"
 										title={`Status Task => ${task.statusProgress}`}
-										value={task && task.statusProgress}
-									>
-										<option value="waiting">
-											Waiting
-										</option>
-										<option value="progress">
-											Progress
-										</option>
-										<option value="finish">
-											Finish
-										</option>
-									</select>
+									>{task && task.statusProgress}
+									</p>
 								</div>
 							</div>
 							<div className="todo-task__block">

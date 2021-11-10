@@ -15,6 +15,17 @@ const NoUrgently = ({
 						loading
 					}) => {
 	const [pushBlock, setPushBlock] = useState(false)
+	const [editTask, setEditTask] = useState(false)
+	const [taskIdEdit, setTaskIdEdit] = useState('')
+	
+	const editTaskHandler = (id) => {
+		setEditTask(true)
+		setTaskIdEdit(id)
+	}
+	
+	const editCloseTaskHandler = () => {
+		setEditTask(false)
+	}
 	
 	const closePushBlock = () => {
 		setPushBlock(false)
@@ -60,6 +71,10 @@ const NoUrgently = ({
 					closePushBlock={closePushBlock}
 					urlForSaveTodoTask={urlForSaveTodoTask}
 					parentIdState={parentIdState}
+					editTask={editTask}
+					taskIdEdit={taskIdEdit}
+					editTaskHandler={editTaskHandler}
+					editCloseTaskHandler={editCloseTaskHandler}
 				/>
 				}
 			</ul>
@@ -70,6 +85,10 @@ const NoUrgently = ({
 					closePushBlock={closePushBlock}
 					urlForSaveTodoTask={urlForSaveTodoTask}
 					parentIdState={parentIdState}
+					editTask={editTask}
+					taskIdEdit={taskIdEdit}
+					editTaskHandler={editTaskHandler}
+					editCloseTaskHandler={editCloseTaskHandler}
 				/>
 				}
 			</ul>

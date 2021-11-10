@@ -22,7 +22,7 @@ const AddTaskForm = ({closePushBlock, linkForSave}) => {
 		setValueInput('')
 		setValueSelect('waiting')
 	}
-
+	
 	return (
 		<form className="form__todo-task">
 			<div className="form__todo-task__wrapper">

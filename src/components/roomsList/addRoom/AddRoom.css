@@ -69,17 +69,10 @@
   white-space: nowrap;
   overflow: hidden;
 }
-.create-room__generation {
-  margin-top: 2%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
-.create-room__generation-button {
+.create-room__input-button {
   margin-top: 15px;
 }
-.create-room__generation-out {
+.create-room__input-out {
   width: 100%;
   height: 50px;
   display: flex;
@@ -91,16 +84,16 @@
   background-color: #6fb98f;
   cursor: text;
 }
-.create-room__generation-out:hover {
+.create-room__input-out:hover {
   box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.2);
   background-color: #fff;
 }
-.create-room__generation-mes {
+.create-room__input-mes {
   margin-top: 15px;
   color: rgba(255, 255, 255, 0.5);
   text-transform: uppercase;
 }
-.create-room__button, .create-room .create-room__generation-button {
+.create-room__button {
   height: 50px;
   display: flex;
   align-items: center;
@@ -110,17 +103,13 @@
   background-color: #6fb98f;
 }
 @media screen and (max-width: 580px) {
-  .create-room__button, .create-room .create-room__generation-button {
+  .create-room__button {
     font-size: 16px;
   }
 }
-.create-room__button:hover, .create-room .create-room__generation-button:hover {
+.create-room__button:hover {
   box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.2);
   background-color: #fff;
-}
-.create-room__button {
-  position: absolute;
-  bottom: 2%;
 }
 
 /*# sourceMappingURL=AddRoom.css.map */

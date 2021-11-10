@@ -12,7 +12,6 @@ function App() {
 	const [user, loading, error] = useAuthState(auth)
 	const isAuthenticated = user && !!user.refreshToken;
 	const routes = useRoutes(isAuthenticated);
-
 	if (loading || error) {
 		return <Loader />
 	}

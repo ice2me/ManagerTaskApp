@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect, useMemo, useState} from 'react';
+import React, { useContext, useEffect, useState} from 'react';
 import './ManageScreen.css'
 import {Router, useHistory} from "react-router-dom";
 import UserInfo from "../../../userInfo/UserInfo";
@@ -10,10 +10,12 @@ import {Context} from "../../../../index";
 const statusProgress = {statusProgress: 'finish'}
 
 const ManageScreen = ({parentIdState, closeUrgentlyModal}) => {
-	const [urgentlyComponent, setUrgentlyComponent] = useState(false)
-	const [noUrgentlyComponent, setNoUrgentlyComponent] = useState(false)
 	const [statusFinishProgress, setStatusFinishProgress] = useState([])
 	const [statusAnotherProgress, setStatusAnotherProgress] = useState([])
+	
+	const [urgentlyComponent, setUrgentlyComponent] = useState(false)
+	const [noUrgentlyComponent, setNoUrgentlyComponent] = useState(false)
+	
 	const [urlForMangeTasks, setUrlForMangeTasks] = useState('/urgently')
 	const {firestore} = useContext(Context)
 	const history = useHistory()
