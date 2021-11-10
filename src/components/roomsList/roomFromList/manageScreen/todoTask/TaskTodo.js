@@ -76,7 +76,7 @@ const TaskTodo = ({
 							</div>
 							<button
 								className="todo-task__edit"
-								title='Edit task'
+								title="Edit task"
 								onClick={() => {
 									editTaskHandler(task.taskId)
 									addValueInpAndSel(task.taskId)
@@ -89,9 +89,9 @@ const TaskTodo = ({
 							</button>
 							<button
 								className="todo-task__delete"
-								title='Delete task'
+								title="Delete task"
 								onClick={(() => {
-									deleteTaskLine(task.taskId)
+									deleteTaskLine(task.taskId, urlForSaveTodoTask)
 								})}
 								disabled={!tasksList.length >= 1}
 							>

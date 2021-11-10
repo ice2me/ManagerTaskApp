@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useCallback, useContext, useEffect, useMemo, useState} from 'react';
 import './ManageScreen.css'
 import {Router, useHistory} from "react-router-dom";
 import UserInfo from "../../../userInfo/UserInfo";
@@ -14,12 +14,15 @@ const ManageScreen = ({parentIdState, closeUrgentlyModal}) => {
 	const [noUrgentlyComponent, setNoUrgentlyComponent] = useState(false)
 	const [statusFinishProgress, setStatusFinishProgress] = useState([])
 	const [statusAnotherProgress, setStatusAnotherProgress] = useState([])
+	const [urlForMangeTasks, setUrlForMangeTasks] = useState('/urgently')
 	const {firestore} = useContext(Context)
 	const history = useHistory()
 	
-	const urlForSaveTodoTask = `/roomTask/${parentIdState}/urgently`
+	const urlBuild = (url) => {
+		return setUrlForMangeTasks(`/roomTask/${parentIdState}${url}`)
+	}
 	
-	const [tasksList = [], loading] = useCollectionData(firestore.collection(urlForSaveTodoTask).orderBy('taskId', 'desc'))
+	const [tasksList = [], loading] = useCollectionData(firestore.collection(urlForMangeTasks).orderBy('taskId', 'desc'))
 	
 	const filterTasksList = () => {
 		const resultAnother = tasksList.filter(item => {
@@ -36,12 +39,13 @@ const ManageScreen = ({parentIdState, closeUrgentlyModal}) => {
 		if (!loading) filterTasksList()
 	}, [tasksList])
 	
-	const deleteTaskLine = (taskId) => {
-		firestore.collection(`/roomTask/${parentIdState}/urgently`).doc(taskId).delete()
+	const deleteTaskLine = (taskId, url) => {
+		firestore.collection(url).doc(taskId).delete()
 	}
 	
 	const closeTaskComponent = () => {
 		setUrgentlyComponent(false)
+		setNoUrgentlyComponent(false)
 		history.goBack()
 	}
 	
@@ -52,9 +56,10 @@ const ManageScreen = ({parentIdState, closeUrgentlyModal}) => {
 				<div className="manageScreen-wrapper">
 					<button
 						className="manageScreen-link"
-						title='Open urgently tasks list'
+						title="Open urgently tasks list"
 						onClick={() => {
 							setUrgentlyComponent(true)
+							urlBuild('/urgently')
 						}}
 					>
 						urgently
@@ -63,15 +68,16 @@ const ManageScreen = ({parentIdState, closeUrgentlyModal}) => {
 						statusFinishProgress={statusFinishProgress}
 						statusAnotherProgress={statusAnotherProgress}
 						parentIdState={parentIdState}
-						urlForSaveTodoTask={urlForSaveTodoTask}
+						urlForSaveTodoTask={urlForMangeTasks}
 						deleteTaskLine={deleteTaskLine}
 						closeTaskComponent={closeTaskComponent}
 					/>}
 					<button
 						className="manageScreen-link"
-						title='Open no urgently tasks list'
+						title="Open no urgently tasks list"
 						onClick={() => {
 							setNoUrgentlyComponent(true)
+							urlBuild('/noUrgently')
 						}}
 					>
 						no urgently
@@ -80,7 +86,7 @@ const ManageScreen = ({parentIdState, closeUrgentlyModal}) => {
 						statusFinishProgress={statusFinishProgress}
 						statusAnotherProgress={statusAnotherProgress}
 						parentIdState={parentIdState}
-						urlForSaveTodoTask={urlForSaveTodoTask}
+						urlForSaveTodoTask={urlForMangeTasks}
 						deleteTaskLine={deleteTaskLine}
 						closeTaskComponent={closeTaskComponent}
 					/>}
@@ -89,7 +95,7 @@ const ManageScreen = ({parentIdState, closeUrgentlyModal}) => {
 			<div className="manageScreen-footer">
 				<button
 					className="manageScreen-exit"
-					title='Go back'
+					title="Go back"
 					onClick={closeUrgentlyModal}
 				>Go back
 				</button>

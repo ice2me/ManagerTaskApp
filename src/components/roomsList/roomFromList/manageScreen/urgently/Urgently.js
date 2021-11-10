@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState} from 'react';
 import './Urgently.css'
 import TaskTodo from "../todoTask/TaskTodo";
 import exit from '../../../../../images/arrowExit.svg'

@@ -7,8 +7,8 @@ import Loader from "../loader/Loader";
 import AddRoom from "./addRoom/AddRoom";
 import {useAuth} from "../../hooks/auth.hook";
 import UserInfo from "../userInfo/UserInfo";
-import {useHistory} from "react-router-dom";
 import ManageScreen from "./roomFromList/manageScreen/ManageScreen";
+import addNewTask from "../../images/addNewNameIcon.svg";
 
 const RoomsList = () => {
 	const [addRoomModal, setAddRoomModal] = useState(false)
@@ -16,16 +16,19 @@ const RoomsList = () => {
 	const [parentIdState, setParentIdState] = useState('')
 	const {logout} = useAuth();
 	const {firestore} = useContext(Context)
-	const history = useHistory()
 	
 	const [roomTasks, loading] = useCollectionData(
 		firestore.collection('roomTask').orderBy('createdAt', 'desc')
 	)
 	
 	const deletedRoomTaskHandler = async (e, id) => {
-		console.log(id)
 		e.preventDefault()
 		firestore.collection('roomTask').doc(id).collection('urgently').get().then(function (querySnapshot) {
+			querySnapshot.forEach(function (doc) {
+				doc.ref.delete();
+			});
+		});
+		firestore.collection('roomTask').doc(id).collection('noUrgently').get().then(function (querySnapshot) {
 			querySnapshot.forEach(function (doc) {
 				doc.ref.delete();
 			});
@@ -68,16 +71,19 @@ const RoomsList = () => {
 			{addRoomModal && <AddRoom closeRoomModal={closeRoomModal} />}
 			<button
 				className="rooms-addButton"
-				title='Add new room'
+				title="Add new room"
 				onClick={() => setAddRoomModal(true)}
 			>
 				Add new room
-				<span>&rarr;</span>
+				<img
+					src={addNewTask}
+					alt="add new task"
+				/>
 			</button>
 			<div className="manageScreen-footer">
 				<button
 					className="manageScreen-exit"
-					title='Log out Google'
+					title="Log out Google"
 					onClick={() => logout()}
 				>
 					Log out

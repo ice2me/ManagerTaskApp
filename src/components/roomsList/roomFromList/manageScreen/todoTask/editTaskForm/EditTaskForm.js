@@ -18,7 +18,7 @@ const EditTaskForm = ({editCloseTaskHandler, urlForSaveTodoTask, taskIdEdit, edi
 		e.preventDefault()
 		firestore.collection(urlForSaveTodoTask).doc(taskIdEdit).update({
 			taskValue: (valueInput === '') ? taskValue : valueInput,
-			statusProgress: (valueSelect === 'waiting') ? statusProgress : valueSelect
+			statusProgress: (valueSelect === '') ? statusProgress : valueSelect
 		}).then(res => res)
 		setValueInput('')
 		setValueSelect('waiting')
@@ -44,7 +44,7 @@ const EditTaskForm = ({editCloseTaskHandler, urlForSaveTodoTask, taskIdEdit, edi
 				<div className="form__todo-task__progress">
 					<select
 						onChange={e => setValueSelect(e.target.value)}
-						value={(valueSelect === 'waiting') ? statusProgress : valueSelect}
+						value={(valueSelect === '') ? statusProgress : valueSelect}
 					>
 						<option
 							value="waiting"

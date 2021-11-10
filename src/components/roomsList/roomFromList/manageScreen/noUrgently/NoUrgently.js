@@ -32,7 +32,7 @@ const NoUrgently = ({
 						alt="eit"
 					/>
 				</button>
-				<h1 className="urgently-name">Urgently</h1>
+				<h1 className="urgently-name">No urgently</h1>
 			</div>
 			{pushBlock
 				?
