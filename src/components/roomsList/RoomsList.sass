@@ -16,7 +16,6 @@
 		text-transform: uppercase
 		@media screen and (max-width: 580px)
 			font-size: 28px
-
 	&-block
 		max-width: 980px
 		max-height: 60vh
@@ -26,7 +25,6 @@
 		padding: 0 10px
 		//box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.4)
 		animation: 1s ease
-
 		&__li
 			width: 100%
 			display: flex
@@ -35,9 +33,7 @@
 			border: 1px solid rgba(150,150,150, 0.3)
 			height: auto
 			&:hover
-				//border: 1px solid #fff
 				background-color: rgba(150,150,150, 0.3)
-
 		&__a
 			width: 100%
 			height: 60px
@@ -54,11 +50,9 @@
 				flex-direction: column
 				justify-content: center
 				height: max-content
-
 		&__num
 			padding: 0 20px
 			font-size: 22px
-
 		&__title
 			padding: 0 10px
 			max-width: 70%
@@ -85,11 +79,9 @@
 			&:hover
 				img
 					animation: animationTrash 1.5s infinite linear
-
-
-
-
-
+		&__error-email
+			position: absolute
+			color: #eb4f37
 	&-addButton
 		height: 50px
 		display: flex
@@ -112,6 +104,7 @@
 			margin-left: 8px
 			font-size: 30px
 			opacity: 0
+
 
 @keyframes animationTrash
 	0%

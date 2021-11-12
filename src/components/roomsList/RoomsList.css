@@ -100,6 +100,10 @@
 .rooms-block__delete:hover img, .rooms-block__edit:hover img {
   animation: animationTrash 1.5s infinite linear;
 }
+.rooms-block__error-email {
+  position: absolute;
+  color: #eb4f37;
+}
 .rooms-addButton {
   height: 50px;
   display: flex;

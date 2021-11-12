@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import RoomFromList from "./roomFromList/RoomFromList";
 import './RoomsList.css'
 import {Context} from "../../index";
@@ -9,17 +9,37 @@ import {useAuth} from "../../hooks/auth.hook";
 import UserInfo from "../userInfo/UserInfo";
 import ManageScreen from "./roomFromList/manageScreen/ManageScreen";
 import addNewTask from "../../images/addNewNameIcon.svg";
-import AddNewUsersRoom from "./addNewUsersRoom/addNewUsersRoom";
+import {AuthContext} from "../../context/auth.context";
 
 const RoomsList = () => {
 	const [addRoomModal, setAddRoomModal] = useState(false)
 	const [showManageMenuPage, setShowManageMenuPage] = useState(false)
-	const [addNewUser, setAddNewUser] = useState(false)
+	
 
 	const [parentIdState, setParentIdState] = useState('')
 
-	const {logout} = useAuth();
+	const {logout, token} = useAuth();
+	const {user} = useContext(AuthContext)
 	const {firestore} = useContext(Context)
+	
+	
+	const [userEmail] = useCollectionData(firestore.collection('groupUsers'))
+	
+	// const halfwayUserId = () => {
+	// 	return userEmail && userEmail.map(item => item.uid)
+	// }
+	
+	const addDateNewUser = (id) => {
+		firestore.collection('groupUsers').doc(id).update({
+			createdAt: Date.now(),
+			userId: user.uid,
+			userEmail: user.email,
+			userName: user.displayName,
+			photoURL: user.photoURL
+		}).then(res => res)
+	}
+
+	
 	
 	const [roomTasks, loading] = useCollectionData(firestore.collection('roomTask').orderBy('createdAt', 'desc'))
 	
@@ -52,9 +72,7 @@ const RoomsList = () => {
 	const closeUrgentlyModal = () => {
 		setShowManageMenuPage(false)
 	}
-	const closeAddNewUser = () => {
-		setAddNewUser(false)
-	}
+	
 //todo toggle loader-----------------------------------
 	if (loading) {
 		return <Loader />
@@ -71,6 +89,8 @@ const RoomsList = () => {
 					deletedRoomTaskHandler={deletedRoomTaskHandler}
 					openManageMenuPage={openManageMenuPage}
 					parentId={parentId}
+					user={user}
+					addDateNewUser={addDateNewUser}
 				/>)}
 			</ul>
 			{addRoomModal && <AddRoom closeRoomModal={closeRoomModal} />}
@@ -93,14 +113,6 @@ const RoomsList = () => {
 				>
 					Log out
 				</button>
-				<button
-					className="manageScreen-exit"
-					title="add new user"
-					onClick={()=> setAddNewUser(true)}
-				>
-					add new user
-				</button>
-				{addNewUser && <AddNewUsersRoom closeAddNewUser={closeAddNewUser}/>}
 				<UserInfo />
 			</div>
 			{showManageMenuPage && <ManageScreen

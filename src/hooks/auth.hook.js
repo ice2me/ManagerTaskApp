@@ -9,7 +9,6 @@ export const useAuth = () => {
 	const history = useHistory()
 	const {auth} = useContext(Context)
 	
-	
 	const login = useCallback(async () => {
 		const provider = new firebase.auth.GoogleAuthProvider()
 		const {user} = await auth.signInWithPopup(provider)

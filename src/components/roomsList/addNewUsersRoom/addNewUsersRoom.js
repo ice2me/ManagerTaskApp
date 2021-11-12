@@ -4,33 +4,41 @@ import Push from "../../../images/checkedIcon.svg";
 import Closed from "../../../images/closeIcon.svg";
 import {Context} from "../../../index";
 
-const AddNewUsersRoom = ({closeAddNewUser}) => {
+const AddNewUsersRoom = ({closeAddNewUser, uid, windowReqHasBeenSent}) => {
 	const [emailValue, setEmailValue] = useState('')
 	const [validation, setValidation] = useState(false)
+	const [errorEmail, setErrorEmail] = useState('')
 	const {firestore} = useContext(Context)
+	const id = (Date.now() + emailValue).split('').join('')
 	
-	const id = (Date.now() + emailValue).split(' ').join('')
 	const addNewUser = (e) => {
 		e.preventDefault()
-		if (validation){
+		if (validation) {
 			firestore.collection('groupUsers').doc(id).set({
-				uid: id,
+				createdAt: Date.now(),
+				userId: '',
 				userEmail: emailValue,
-				createdAt: Date.now()
+				userName: '',
+				photoURL: '',
+				permissionsUser: [uid],
+				uid: id
 			}).then(res => res)
 			closeAddNewUser()
-		}else{
-			console.log('error validation')
+			windowReqHasBeenSent()
+		} else {
+			return setErrorEmail(
+				<p className="rooms-block__error-email"> Enter straight e-mail </p>
+			)
 		}
-		
 	}
-	
 	const validationEmail = (email) => {
 		const reg = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
 		setValidation(reg.test(String(email).toLowerCase()))
 	}
-	console.log(validation)
+	
 	useEffect(() => {}, [emailValue])
+	
+	
 	return (
 		<div className="add-user">
 			<input
@@ -41,22 +49,25 @@ const AddNewUsersRoom = ({closeAddNewUser}) => {
 				className="add-user__input"
 				name="add-user__email"
 				placeholder="Enter e-mail"
-				autoComplete="new-password"
+				autoComplete="off"
 				value={emailValue}
 				autoFocus
 				onChange={e => {
 					setEmailValue(e.target.value)
 					validationEmail(emailValue)
 				}}
-				// onKeyPress={e => {
-				// 	if (e.key === 'Enter') {
-				// 		addRoomName(e)
-				// 	}
-				// }}
+				onKeyPress={e => {
+					if (e.key === 'Enter') {
+						addNewUser(e)
+					}
+				}}
 			/>
+			{errorEmail && errorEmail}
 			<button
 				className="add-user__button"
-				onClick={(e) => addNewUser(e)}
+				onClick={(e) => {
+					addNewUser(e)
+				}}
 				title="Push user e-mail"
 			>
 				<img
