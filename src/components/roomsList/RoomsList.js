@@ -14,10 +14,10 @@ import {AuthContext} from "../../context/auth.context";
 const RoomsList = () => {
 	const [addRoomModal, setAddRoomModal] = useState(false)
 	const [showManageMenuPage, setShowManageMenuPage] = useState(false)
-	const [currentUser, setCurrentUser] = useState(null)
+	// const [currentUser, setCurrentUser] = useState(null)
 	const [eligibleRooms, setEligibleRooms] = useState([])
 	const [filteredRoomTasksUser, setFilteredRoomTasksUser] = useState([])
-	const [deletePermissionUser, setDeletePermissionUser] = useState([])
+	const [tehDocId, setTehDocId] = useState('')
 	
 	const [parentIdState, setParentIdState] = useState('')
 	const {logout, token} = useAuth();
@@ -65,10 +65,9 @@ const RoomsList = () => {
 		if (!isUserEmailGetLading && userEmailGet) {
 			const myUser = userEmailGet.find(myUser => myUser.userId === user.uid)
 			setEligibleRooms((myUser && myUser.permissionsUser) || [])
+			setTehDocId(myUser && myUser.docId)
 		}
-	}, [userEmailGet, setEligibleRooms, eligibleRooms])
-	
-	const tehDocId = userEmailGet && userEmailGet.map(item => item.docId)[0]
+	}, [userEmailGet, setEligibleRooms, eligibleRooms, setTehDocId])
 	
 	const updatePermissionRoom = (id) => {
 		const tehArr = [...eligibleRooms, id]
@@ -122,6 +121,7 @@ const RoomsList = () => {
 		setShowManageMenuPage(false)
 	}
 //todo handler modal window-----------------------------------------------------------------
+	console.log(tehDocId)
 	return (
 		<>
 			{
