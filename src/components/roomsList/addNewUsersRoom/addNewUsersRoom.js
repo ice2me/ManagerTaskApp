@@ -38,7 +38,6 @@ const AddNewUsersRoom = ({closeAddNewUser, uid, windowReqHasBeenSent}) => {
 	
 	useEffect(() => {}, [emailValue])
 	
-	
 	return (
 		<div className="add-user">
 			<input

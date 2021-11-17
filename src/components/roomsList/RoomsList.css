@@ -104,6 +104,15 @@
   position: absolute;
   color: #eb4f37;
 }
+.rooms-block__newUser {
+  color: #888;
+  padding: 0 15px;
+  font-weight: bold;
+}
+.rooms-block__newUser:hover {
+  background-color: #6fb98f;
+  color: #000;
+}
 .rooms-addButton {
   height: 50px;
   display: flex;

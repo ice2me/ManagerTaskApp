@@ -31,6 +31,5 @@ export const useAuth = () => {
 		const data  = JSON.parse(localStorage.getItem(storageName))
 		data && setToken(data.token)
 	}, [token, setToken, login])
-	
 	return {login, logout, token}
 }

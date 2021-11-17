@@ -4,14 +4,14 @@ import Loader from "../../loader/Loader";
 import {Context} from "../../../index";
 import {useCollectionData} from "react-firebase-hooks/firestore";
 
-const AddRoom = ({closeRoomModal}) => {
+const AddRoom = ({closeRoomModal,updatePermissionRoom}) => {
 	const {firestore} = useContext(Context)
 	const [value, setValue] = useState('')
 	let wrapperInput = useRef('')
+
 	const [loading] = useCollectionData(
 		firestore.collection('roomTask').orderBy('createdAt')
 	)
-	
 	const borderBottom = () => {
 		const val = value.length + 1
 		wrapperInput.current.style.width = `${val * 15}px`
@@ -20,16 +20,18 @@ const AddRoom = ({closeRoomModal}) => {
 		}
 	}
 	
-	const id = (Date.now() + value).split(' ').join('')
+	const tId = (Date.now() + value).split(' ').join('')
 	const addRoomName = async (e) => {
-		firestore.collection('roomTask').doc(id).set({
-			uid: id,
+		firestore.collection('roomTask').doc(tId).set({
+			uid: tId,
 			nameRoom: value,
 			createdAt: Date.now()
 		})
+		updatePermissionRoom(tId)
 		setValue('')
 		closeRoomModal(e)
 	}
+	
 	
 	if (!loading) {
 		return <Loader />

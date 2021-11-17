@@ -44,7 +44,7 @@ const RoomFromList = ({roomTaskCard, index, deletedRoomTaskHandler, openManageMe
 				</h3>
 				<div className="rooms-block__wrapper">
 					<button
-						className="manageScreen-exit"
+						className="rooms-block__newUser"
 						title="add new user"
 						onClick={
 							(e) => {
