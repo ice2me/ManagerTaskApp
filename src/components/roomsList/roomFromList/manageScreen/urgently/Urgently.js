@@ -4,6 +4,7 @@ import TaskTodo from "../todoTask/TaskTodo";
 import exit from '../../../../../images/arrowExit.svg'
 import AddTaskForm from "../todoTask/addTaskForm/AddTaskForm";
 import addNewTask from '../../../../../images/addNewNameIcon.svg'
+import Loader from "../../../../loader/Loader";
 
 const Urgently = ({
 					  closeTaskComponent,
@@ -30,7 +31,7 @@ const Urgently = ({
 	const closePushBlock = () => {
 		setPushBlock(false)
 	}
-	
+	console.log(loading)
 	return (
 		<div className="urgently">
 			<div className="urgently-header">
@@ -68,7 +69,7 @@ const Urgently = ({
 			}
 			
 			<ul className="urgently-ul__state">
-				{!loading && <TaskTodo
+				{!loading ? <TaskTodo
 					tasksList={statusAnotherProgress}
 					deleteTaskLine={deleteTaskLine}
 					closePushBlock={closePushBlock}
@@ -78,11 +79,11 @@ const Urgently = ({
 					taskIdEdit={taskIdEdit}
 					editTaskHandler={editTaskHandler}
 					editCloseTaskHandler={editCloseTaskHandler}
-				/>
+				/>: <Loader />
 				}
 			</ul>
 			<ul className="urgently-ul__finish">
-				{!loading && <TaskTodo
+				{!loading ? <TaskTodo
 					tasksList={statusFinishProgress}
 					deleteTaskLine={deleteTaskLine}
 					closePushBlock={closePushBlock}
@@ -92,7 +93,7 @@ const Urgently = ({
 					taskIdEdit={taskIdEdit}
 					editTaskHandler={editTaskHandler}
 					editCloseTaskHandler={editCloseTaskHandler}
-				/>
+				/>: <Loader />
 				}
 			</ul>
 		

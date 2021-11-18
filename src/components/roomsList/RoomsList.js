@@ -25,7 +25,7 @@ const RoomsList = () => {
 	const {firestore} = useContext(Context)
 	
 	const [userEmailSet, loading] = useCollectionData(firestore.collection('groupUsers').where('userEmail', '==', user.email))
-	const [userEmailGet, isUserEmailGetLading] = useCollectionData(firestore.collection('groupUsers'))
+	const [userEmailGet, isUserEmailGetLoading] = useCollectionData(firestore.collection('groupUsers'))
 	const [roomTasks, isRoomLoading] = useCollectionData(firestore.collection('roomTask').orderBy('createdAt', 'desc'))
 
 //todo filtered rooms task user+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -61,7 +61,7 @@ const RoomsList = () => {
 //todo create new user------------------------------------------------------------------
 //todo add room in user permissions+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	useEffect(() => {
-		if (!isUserEmailGetLading && userEmailGet) {
+		if (!isUserEmailGetLoading && userEmailGet) {
 			const myUser = userEmailGet.find(myUser => myUser.userId === user.uid)
 			setEligibleRooms((myUser && myUser.permissionsUser) || [])
 			setTehDocId(myUser && myUser.docId)
@@ -129,16 +129,19 @@ const RoomsList = () => {
 						<div className="rooms">
 							<h1 className="rooms-name">List Rooms</h1>
 							<ul className="rooms-block">
-								{filteredRoomTasksUser && filteredRoomTasksUser.map((roomTask, index) => <RoomFromList
-									id={roomTask.uid}
-									key={roomTask.uid + index}
-									roomTaskCard={roomTask}
-									index={index}
-									deletedRoomTaskHandler={deletedRoomTaskHandler}
-									openManageMenuPage={openManageMenuPage}
-									parentId={parentId}
-									user={user}
-								/>)}
+								{!loading ? (filteredRoomTasksUser && filteredRoomTasksUser.map((roomTask, index) =>
+										<RoomFromList
+											id={roomTask.uid}
+											key={roomTask.uid + index}
+											roomTaskCard={roomTask}
+											index={index}
+											deletedRoomTaskHandler={deletedRoomTaskHandler}
+											openManageMenuPage={openManageMenuPage}
+											parentId={parentId}
+											user={user}
+										/>)) :
+									<Loader />
+								}
 							</ul>
 							{addRoomModal && <AddRoom
 								closeRoomModal={closeRoomModal}

@@ -73,6 +73,7 @@ const ManageScreen = ({parentIdState, closeUrgentlyModal}) => {
 						urlForSaveTodoTask={urlForMangeTasks}
 						deleteTaskLine={deleteTaskLine}
 						closeTaskComponent={closeTaskComponent}
+						loading={loading}
 					/>}
 					<button
 						className="manageScreen-link"
@@ -91,6 +92,7 @@ const ManageScreen = ({parentIdState, closeUrgentlyModal}) => {
 						urlForSaveTodoTask={urlForMangeTasks}
 						deleteTaskLine={deleteTaskLine}
 						closeTaskComponent={closeTaskComponent}
+						loading={loading}
 					/>}
 				</div>
 			</Router>
