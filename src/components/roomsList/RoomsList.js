@@ -44,7 +44,7 @@ const RoomsList = () => {
 
 //todo filtered rooms task user------------------------------------------------------------------
 // todo create new user+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	const createDefaultId = (Date.now() + 'automateDefaultCreate').split('').join('')
+	const createDefaultId = (Date.now() + user.email).split('').join('')
 	useEffect(() => {
 		if (!loading && userEmailSet.length === 0) {
 			firestore.collection('groupUsers').doc(createDefaultId).set({
@@ -57,7 +57,6 @@ const RoomsList = () => {
 				docId: createDefaultId
 			}).then(res => res)
 		}
-		
 	}, [loading])
 //todo create new user------------------------------------------------------------------
 //todo add room in user permissions+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -121,7 +120,6 @@ const RoomsList = () => {
 		setShowManageMenuPage(false)
 	}
 //todo handler modal window-----------------------------------------------------------------
-	console.log(tehDocId)
 	return (
 		<>
 			{

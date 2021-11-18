@@ -7,6 +7,7 @@ import Closed from "../../../../../../images/closeIcon.svg";
 const AddTaskForm = ({closePushBlock, linkForSave}) => {
 	const [valueSelect, setValueSelect] = useState('waiting')
 	const [valueInput, setValueInput] = useState('')
+	const [noEnterInput, setNoEnterInput] = useState('')
 	const {firestore} = useContext(Context)
 	const onChangeHandler = (value) => {
 		setValueInput(value)
@@ -14,13 +15,18 @@ const AddTaskForm = ({closePushBlock, linkForSave}) => {
 	const id = (Date.now() + valueInput).split(' ').join('')
 	const pushNewTask = (e) => {
 		e.preventDefault()
-		firestore.collection(linkForSave).doc(id).set({
-			taskId: id,
-			taskValue: valueInput,
-			statusProgress: valueSelect
-		}).then(res => res)
-		setValueInput('')
-		setValueSelect('waiting')
+		if(valueInput !== ''){
+			firestore.collection(linkForSave).doc(id).set({
+				taskId: id,
+				taskValue: valueInput,
+				statusProgress: valueSelect
+			}).then(res => res)
+			setValueInput('')
+			setValueSelect('waiting')
+			closePushBlock()
+		}else{
+			setNoEnterInput(<p className="rooms-block__error-email"> Enter your task </p>)
+		}
 	}
 	
 	return (
@@ -39,6 +45,7 @@ const AddTaskForm = ({closePushBlock, linkForSave}) => {
 							onChangeHandler(e.target.value)
 						}}
 					/>
+					{noEnterInput}
 				</div>
 				<div className="form__todo-task__progress">
 					<select
@@ -64,7 +71,6 @@ const AddTaskForm = ({closePushBlock, linkForSave}) => {
 				className="form__todo-task__delete"
 				onClick={(e) => {
 					pushNewTask(e)
-					closePushBlock()
 				}}
 			>
 				<img

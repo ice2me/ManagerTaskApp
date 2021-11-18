@@ -26,9 +26,7 @@ const AddNewUsersRoom = ({closeAddNewUser, uid, windowReqHasBeenSent}) => {
 			closeAddNewUser()
 			windowReqHasBeenSent()
 		} else {
-			return setErrorEmail(
-				<p className="rooms-block__error-email"> Enter straight e-mail </p>
-			)
+			setErrorEmail(<p className="rooms-block__error-email"> Enter straight e-mail </p>)
 		}
 	}
 	const validationEmail = (email) => {
