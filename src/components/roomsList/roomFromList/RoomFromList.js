@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import Delete from '../../../images/trashIcon.svg'
 import AddNewUsersRoom from "../addNewUsersRoom/addNewUsersRoom";
 
-const RoomFromList = ({roomTaskCard, index, deletedRoomTaskHandler, openManageMenuPage, parentId}) => {
+const RoomFromList = ({roomTaskCard, index, deletedRoomTaskHandler, openManageMenuPage, parentId, userEmailGet, updatePermissionRoom}) => {
 	const {nameRoom, uid} = roomTaskCard
 	const [addNewUser, setAddNewUser] = useState(false)
 	const [reqHasBeenSent, setReqHasBeenSent] = useState('')
@@ -58,6 +58,8 @@ const RoomFromList = ({roomTaskCard, index, deletedRoomTaskHandler, openManageMe
 						closeAddNewUser={closeAddNewUser}
 						uid={uid}
 						windowReqHasBeenSent={windowReqHasBeenSent}
+						userEmailGet={userEmailGet}
+						updatePermissionRoom={updatePermissionRoom}
 					/>}
 					<button
 						className="rooms-block__delete"

@@ -1,35 +1,35 @@
-import React, {useContext, useState, useEffect, useCallback} from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import RoomFromList from "./roomFromList/RoomFromList";
 import './RoomsList.css'
-import {Context} from "../../index";
-import {useCollectionData} from "react-firebase-hooks/firestore";
+import { Context } from "../../index";
+import { useCollectionData } from "react-firebase-hooks/firestore";
 import Loader from "../loader/Loader";
 import AddRoom from "./addRoom/AddRoom";
-import {useAuth} from "../../hooks/auth.hook";
+import { useAuth } from "../../hooks/auth.hook";
 import UserInfo from "../userInfo/UserInfo";
 import ManageScreen from "./roomFromList/manageScreen/ManageScreen";
 import addNewTask from "../../images/addNewNameIcon.svg";
-import {AuthContext} from "../../context/auth.context";
+import { AuthContext } from "../../context/auth.context";
 
 const RoomsList = () => {
 	const [addRoomModal, setAddRoomModal] = useState(false)
 	const [showManageMenuPage, setShowManageMenuPage] = useState(false)
-	// const [currentUser, setCurrentUser] = useState(null)
 	const [eligibleRooms, setEligibleRooms] = useState([])
 	const [filteredRoomTasksUser, setFilteredRoomTasksUser] = useState([])
 	const [tehDocId, setTehDocId] = useState('')
+	const [updateInvitedUsers, setUpdateInvitedUsers] = useState([])
 	
 	const [parentIdState, setParentIdState] = useState('')
-	const {logout, token} = useAuth();
-	const {user} = useContext(AuthContext)
-	const {firestore} = useContext(Context)
+	const { logout, token } = useAuth();
+	const { user } = useContext(AuthContext)
+	const { firestore } = useContext(Context)
 	
 	const [userEmailSet, loading] = useCollectionData(firestore.collection('groupUsers').where('userEmail', '==', user.email))
 	const [userEmailGet, isUserEmailGetLoading] = useCollectionData(firestore.collection('groupUsers'))
 	const [roomTasks, isRoomLoading] = useCollectionData(firestore.collection('roomTask').orderBy('createdAt', 'desc'))
+	const createDefaultId = (Date.now() + user.email).split('').join('')
 
 //todo filtered rooms task user+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	
 	useEffect(() => {
 		const p = []
 		if (!isRoomLoading) {
@@ -43,8 +43,27 @@ const RoomsList = () => {
 	}, [roomTasks, eligibleRooms, setEligibleRooms])
 
 //todo filtered rooms task user------------------------------------------------------------------
-// todo create new user+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	const createDefaultId = (Date.now() + user.email).split('').join('')
+	useEffect(() => {
+		userEmailGet && userEmailGet.map(item => {
+			const freeUserInfo = []
+			if (item.userId === "" && item.userEmail === user.email) {
+				freeUserInfo.push(item)
+				setUpdateInvitedUsers(freeUserInfo)
+			}
+		})
+	}, [isUserEmailGetLoading])
+
+	const getDocId = updateInvitedUsers.map(item => item.docId)[0]
+
+	useEffect(() => {
+		!isUserEmailGetLoading && firestore.collection('groupUsers').doc(getDocId).update({
+			userId: user.uid,
+			userName: user.displayName,
+			photoURL: user.photoURL
+		}).then(res => res)
+	}, [updateInvitedUsers])
+//todo create new user+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	
 	useEffect(() => {
 		if (!loading && userEmailSet.length === 0) {
 			firestore.collection('groupUsers').doc(createDefaultId).set({
@@ -71,11 +90,7 @@ const RoomsList = () => {
 	const updatePermissionRoom = (id) => {
 		const tehArr = [...eligibleRooms, id]
 		firestore.collection('groupUsers').doc(tehDocId).update({
-			// createdAt: Date.now(),
-			// userId: user.uid,
 			permissionsUser: tehArr,
-			// userName: user.displayName,
-			// photoURL: user.photoURL
 		}).then(res => res)
 	}
 //todo add room in user permissions------------------------------------------------------------------
@@ -139,6 +154,8 @@ const RoomsList = () => {
 											openManageMenuPage={openManageMenuPage}
 											parentId={parentId}
 											user={user}
+											userEmailGet={userEmailGet}
+											updatePermissionRoom={updatePermissionRoom}
 										/>)) :
 									<Loader />
 								}

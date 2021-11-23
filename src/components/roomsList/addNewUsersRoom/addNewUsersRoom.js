@@ -1,34 +1,74 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './addNewUsersRoom.css'
 import Push from "../../../images/checkedIcon.svg";
 import Closed from "../../../images/closeIcon.svg";
-import {Context} from "../../../index";
+import { Context } from "../../../index";
 
-const AddNewUsersRoom = ({closeAddNewUser, uid, windowReqHasBeenSent}) => {
+const AddNewUsersRoom = ({ closeAddNewUser, uid, windowReqHasBeenSent, userEmailGet, updatePermissionRoom }) => {
 	const [emailValue, setEmailValue] = useState('')
 	const [validation, setValidation] = useState(false)
 	const [errorEmail, setErrorEmail] = useState('')
-	const {firestore} = useContext(Context)
+	const [sortRoomsForUser, setSortRoomsForUser] = useState([])
+	const { firestore } = useContext(Context)
+	// const { user } = useContext(AuthContext)
 	const id = (Date.now() + emailValue).split('').join('')
+	const createDefaultId = (Date.now() + emailValue).split('').join('')
 	
+	useEffect(() => {
+		setSortRoomsForUser(userEmailGet.find(us => us.userEmail === emailValue))
+		// const tehArr = [...eligibleRooms, id]
+	}, [setEmailValue, emailValue])
+	console.log(sortRoomsForUser)
 	const addNewUser = (e) => {
 		e.preventDefault()
-		if (validation) {
-			firestore.collection('groupUsers').doc(id).set({
-				createdAt: Date.now(),
-				userId: '',
-				userEmail: emailValue,
-				userName: '',
-				photoURL: '',
-				permissionsUser: [uid],
-				uid: id
+		if (sortRoomsForUser) {
+			
+			// const tehArr = [...eligibleRooms, id]
+			firestore.collection('groupUsers').doc(sortRoomsForUser.docId).update({
+				permissionsUser: [`test__________${uid}`],
 			}).then(res => res)
 			closeAddNewUser()
 			windowReqHasBeenSent()
 		} else {
-			setErrorEmail(<p className="rooms-block__error-email"> Enter straight e-mail </p>)
+			if (validation) {
+				console.log('validation', validation)
+				firestore.collection('groupUsers').doc(id).set({
+					createdAt: Date.now(),
+					userId: '',
+					userEmail: emailValue,
+					userName: '',
+					photoURL: '',
+					permissionsUser: [uid],
+					uid: id,
+					docId: createDefaultId
+				}).then(res => res)
+				closeAddNewUser()
+				windowReqHasBeenSent()
+			} else {
+				setErrorEmail(<p className="rooms-block__error-email"> Enter straight e-mail </p>)
+			}
 		}
+		
 	}
+	// const addNewUser = (e) => {
+	// 	e.preventDefault()
+	// 	if (validation) {
+	// 		firestore.collection('groupUsers').doc(id).set({
+	// 			createdAt: Date.now(),
+	// 			userId: '',
+	// 			userEmail: emailValue,
+	// 			userName: '',
+	// 			photoURL: '',
+	// 			permissionsUser: [uid],
+	// 			uid: id,
+	// 			docId: createDefaultId
+	// 		}).then(res => res)
+	// 		closeAddNewUser()
+	// 		windowReqHasBeenSent()
+	// 	} else {
+	// 		setErrorEmail(<p className="rooms-block__error-email"> Enter straight e-mail </p>)
+	// 	}
+	// }
 	const validationEmail = (email) => {
 		const reg = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
 		setValidation(reg.test(String(email).toLowerCase()))
