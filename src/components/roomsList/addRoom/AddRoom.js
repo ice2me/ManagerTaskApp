@@ -19,7 +19,7 @@ const AddRoom = ({closeRoomModal,updatePermissionRoom}) => {
 			return wrapperInput.current.style.width = '0px'
 		}
 	}
-	
+
 	const tId = (Date.now() + value).split(' ').join('')
 	const addRoomName = async (e) => {
 		firestore.collection('roomTask').doc(tId).set({
@@ -31,8 +31,7 @@ const AddRoom = ({closeRoomModal,updatePermissionRoom}) => {
 		setValue('')
 		closeRoomModal(e)
 	}
-	
-	
+
 	if (!loading) {
 		return <Loader />
 	}
@@ -48,11 +47,11 @@ const AddRoom = ({closeRoomModal,updatePermissionRoom}) => {
 				<h1 className="create-room__name">Create room</h1>
 				<div className="create-room__wrapper">
 					<input
-						type="text"
+						type="email"
 						className="create-room__input"
 						name="create-room__name"
 						placeholder="Enter name"
-						autoComplete="new-password"
+						// autoComplete="new-password"
 						value={value}
 						autoFocus
 						onChange={e => {

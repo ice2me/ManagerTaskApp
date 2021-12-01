@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect, useCallback } from 'react';
 import RoomFromList from "./roomFromList/RoomFromList";
 import './RoomsList.css'
 import { Context } from "../../index";
@@ -28,8 +28,7 @@ const RoomsList = () => {
 	const [userEmailGet, isUserEmailGetLoading] = useCollectionData(firestore.collection('groupUsers'))
 	const [roomTasks, isRoomLoading] = useCollectionData(firestore.collection('roomTask').orderBy('createdAt', 'desc'))
 	const createDefaultId = (Date.now() + user.email).split('').join('')
-
-//todo filtered rooms task user+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// filtered rooms task user+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	useEffect(() => {
 		const p = []
 		if (!isRoomLoading) {
@@ -42,7 +41,7 @@ const RoomsList = () => {
 		}
 	}, [roomTasks, eligibleRooms, setEligibleRooms])
 
-//todo filtered rooms task user------------------------------------------------------------------
+// filtered rooms task user------------------------------------------------------------------
 	useEffect(() => {
 		userEmailGet && userEmailGet.map(item => {
 			const freeUserInfo = []
@@ -52,17 +51,15 @@ const RoomsList = () => {
 			}
 		})
 	}, [isUserEmailGetLoading])
-
-	const getDocId = updateInvitedUsers.map(item => item.docId)[0]
-
+	
+	
 	useEffect(() => {
+		const getDocId = updateInvitedUsers.map(item => item.docId)[0]
 		!isUserEmailGetLoading && firestore.collection('groupUsers').doc(getDocId).update({
-			userId: user.uid,
-			userName: user.displayName,
-			photoURL: user.photoURL
+			userId: user.uid, userName: user.displayName, photoURL: user.photoURL
 		}).then(res => res)
 	}, [updateInvitedUsers])
-//todo create new user+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// create new user+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	
 	useEffect(() => {
 		if (!loading && userEmailSet.length === 0) {
@@ -73,19 +70,22 @@ const RoomsList = () => {
 				userEmail: user.email,
 				userName: user.displayName,
 				photoURL: user.photoURL,
-				docId: createDefaultId
+				docId: createDefaultId,
+				uid: (Date.now() + user.email).split(' ').join('')
 			}).then(res => res)
 		}
 	}, [loading])
-//todo create new user------------------------------------------------------------------
-//todo add room in user permissions+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// create new user------------------------------------------------------------------
+// add room in user permissions+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	useEffect(() => {
 		if (!isUserEmailGetLoading && userEmailGet) {
 			const myUser = userEmailGet.find(myUser => myUser.userId === user.uid)
-			setEligibleRooms((myUser && myUser.permissionsUser) || [])
-			setTehDocId(myUser && myUser.docId)
+			if (myUser) {
+				setEligibleRooms((myUser.permissionsUser) || [])
+				setTehDocId(myUser.docId)
+			}
 		}
-	}, [userEmailGet, setEligibleRooms, eligibleRooms, setTehDocId])
+	}, [userEmailGet])
 	
 	const updatePermissionRoom = (id) => {
 		const tehArr = [...eligibleRooms, id]
@@ -93,8 +93,8 @@ const RoomsList = () => {
 			permissionsUser: tehArr,
 		}).then(res => res)
 	}
-//todo add room in user permissions------------------------------------------------------------------
-//todo deletedRoomTaskHandler ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// add room in user permissions------------------------------------------------------------------
+// deletedRoomTaskHandler ++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	const deletedRoomTaskHandler = (e, id) => {
 		e.preventDefault()
 		const updatedRoomsList = eligibleRooms.filter(it => it !== id)
@@ -118,8 +118,8 @@ const RoomsList = () => {
 		firestore.collection('roomTask').doc(id).delete()
 	}
 
-//todo deletedRoomTaskHandler ------------------------------------------------------------
-//todo handler modal window+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// deletedRoomTaskHandler ------------------------------------------------------------
+// handler modal window+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	const parentId = (id) => {
 		return setParentIdState(id)
 	}
@@ -134,68 +134,62 @@ const RoomsList = () => {
 	const closeUrgentlyModal = () => {
 		setShowManageMenuPage(false)
 	}
-//todo handler modal window-----------------------------------------------------------------
-	return (
-		<>
-			{
-				token
-					?
-					<>
-						<div className="rooms">
-							<h1 className="rooms-name">List Rooms</h1>
-							<ul className="rooms-block">
-								{!loading ? (filteredRoomTasksUser && filteredRoomTasksUser.map((roomTask, index) =>
-										<RoomFromList
-											id={roomTask.uid}
-											key={roomTask.uid + index}
-											roomTaskCard={roomTask}
-											index={index}
-											deletedRoomTaskHandler={deletedRoomTaskHandler}
-											openManageMenuPage={openManageMenuPage}
-											parentId={parentId}
-											user={user}
-											userEmailGet={userEmailGet}
-											updatePermissionRoom={updatePermissionRoom}
-										/>)) :
-									<Loader />
-								}
-							</ul>
-							{addRoomModal && <AddRoom
-								closeRoomModal={closeRoomModal}
-								updatePermissionRoom={updatePermissionRoom}
-							/>}
-							<button
-								className="rooms-addButton"
-								title="Add new room"
-								onClick={() => setAddRoomModal(true)}
-							>
-								Add new room
-								<img
-									src={addNewTask}
-									alt="add new task"
-								/>
-							</button>
-							<div className="manageScreen-footer">
-								<button
-									className="manageScreen-exit"
-									title="Log out Google"
-									onClick={() => logout()}
-								>
-									Log out
-								</button>
-								<UserInfo />
-							</div>
-							{showManageMenuPage && <ManageScreen
-								parentIdState={parentIdState}
-								closeUrgentlyModal={closeUrgentlyModal}
-							/>}
-						</div>
-					</>
-					:
-					<Loader />
-			}
-		</>
-	)
+	
+	if (loading || isUserEmailGetLoading || isRoomLoading) {
+		return <Loader />
+	}
+// handler modal window-----------------------------------------------------------------
+	return (<>
+		{token ? <>
+			<div className="rooms">
+				<h1 className="rooms-name">List Rooms</h1>
+				<ul className="rooms-block">
+					{!loading ? (filteredRoomTasksUser && filteredRoomTasksUser.map((roomTask, index) =>
+						<RoomFromList
+							id={roomTask.uid}
+							key={roomTask.uid + index}
+							roomTaskCard={roomTask}
+							index={index}
+							deletedRoomTaskHandler={deletedRoomTaskHandler}
+							openManageMenuPage={openManageMenuPage}
+							parentId={parentId}
+							user={user}
+							userEmailGet={userEmailGet}
+							updatePermissionRoom={updatePermissionRoom}
+						/>)) : <Loader />}
+				</ul>
+				{addRoomModal && <AddRoom
+					closeRoomModal={closeRoomModal}
+					updatePermissionRoom={updatePermissionRoom}
+				/>}
+				<button
+					className="rooms-addButton"
+					title="Add new room"
+					onClick={() => setAddRoomModal(true)}
+				>
+					Add new room
+					<img
+						src={addNewTask}
+						alt="add new task"
+					/>
+				</button>
+				<div className="manageScreen-footer">
+					<button
+						className="manageScreen-exit"
+						title="Log out Google"
+						onClick={() => logout()}
+					>
+						Log out
+					</button>
+					<UserInfo />
+				</div>
+				{showManageMenuPage && <ManageScreen
+					parentIdState={parentIdState}
+					closeUrgentlyModal={closeUrgentlyModal}
+				/>}
+			</div>
+		</> : <Loader />}
+	</>)
 }
 
 

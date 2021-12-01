@@ -3,7 +3,6 @@ import {Context} from "../../../../../../index";
 import Push from '../../../../../../images/checkedIcon.svg'
 import Closed from '../../../../../../images/closeIcon.svg'
 
-
 const EditTaskForm = ({editCloseTaskHandler, urlForSaveTodoTask, taskIdEdit, editTodoActive}) => {
 	const [valueInput, setValueInput] = useState('')
 	const [valueSelect, setValueSelect] = useState('waiting')
@@ -23,7 +22,6 @@ const EditTaskForm = ({editCloseTaskHandler, urlForSaveTodoTask, taskIdEdit, edi
 		setValueInput('')
 		setValueSelect('waiting')
 	}
-	
 	return (
 		<form className="form__todo-task">
 			<div className="form__todo-task__wrapper">
@@ -51,7 +49,7 @@ const EditTaskForm = ({editCloseTaskHandler, urlForSaveTodoTask, taskIdEdit, edi
 				<div className="form__todo-task__progress">
 					<select
 						onChange={e => setValueSelect(e.target.value)}
-						value={(valueSelect === '') ? statusProgress : valueSelect}
+						value={(valueSelect === 'dvdv') ? statusProgress : valueSelect}
 					>
 						<option
 							value="waiting"

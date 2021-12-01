@@ -18,20 +18,23 @@ const AddNewUsersRoom = ({ closeAddNewUser, uid, windowReqHasBeenSent, userEmail
 		setSortRoomsForUser(userEmailGet.find(us => us.userEmail === emailValue))
 		// const tehArr = [...eligibleRooms, id]
 	}, [setEmailValue, emailValue])
-	console.log(sortRoomsForUser)
+	
 	const addNewUser = (e) => {
 		e.preventDefault()
 		if (sortRoomsForUser) {
+			const tehUid = sortRoomsForUser.permissionsUser.find(item => item === uid)
+			console.log(tehUid)
+			console.log(uid)
+			if (tehUid !== uid) {
+				firestore.collection('groupUsers').doc(sortRoomsForUser.docId).update({
+					permissionsUser: [...sortRoomsForUser.permissionsUser, uid],
+				}).then(res => res)
+			}
 			
-			// const tehArr = [...eligibleRooms, id]
-			firestore.collection('groupUsers').doc(sortRoomsForUser.docId).update({
-				permissionsUser: [`test__________${uid}`],
-			}).then(res => res)
 			closeAddNewUser()
 			windowReqHasBeenSent()
 		} else {
 			if (validation) {
-				console.log('validation', validation)
 				firestore.collection('groupUsers').doc(id).set({
 					createdAt: Date.now(),
 					userId: '',
@@ -50,25 +53,6 @@ const AddNewUsersRoom = ({ closeAddNewUser, uid, windowReqHasBeenSent, userEmail
 		}
 		
 	}
-	// const addNewUser = (e) => {
-	// 	e.preventDefault()
-	// 	if (validation) {
-	// 		firestore.collection('groupUsers').doc(id).set({
-	// 			createdAt: Date.now(),
-	// 			userId: '',
-	// 			userEmail: emailValue,
-	// 			userName: '',
-	// 			photoURL: '',
-	// 			permissionsUser: [uid],
-	// 			uid: id,
-	// 			docId: createDefaultId
-	// 		}).then(res => res)
-	// 		closeAddNewUser()
-	// 		windowReqHasBeenSent()
-	// 	} else {
-	// 		setErrorEmail(<p className="rooms-block__error-email"> Enter straight e-mail </p>)
-	// 	}
-	// }
 	const validationEmail = (email) => {
 		const reg = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
 		setValidation(reg.test(String(email).toLowerCase()))

@@ -31,7 +31,6 @@ const Urgently = ({
 	const closePushBlock = () => {
 		setPushBlock(false)
 	}
-	console.log(loading)
 	return (
 		<div className="urgently">
 			<div className="urgently-header">

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState} from 'react';
 import Delete from '../../../images/trashIcon.svg'
 import AddNewUsersRoom from "../addNewUsersRoom/addNewUsersRoom";
 
