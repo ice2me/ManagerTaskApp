@@ -7,14 +7,13 @@ import addNewTask from '../../../../../images/addNewNameIcon.svg'
 import Loader from "../../../../loader/Loader";
 
 const Urgently = ({
-					  closeTaskComponent,
-					  statusFinishProgress,
-					  statusAnotherProgress,
-					  urlForSaveTodoTask,
-					  deleteTaskLine,
-					  parentIdState,
-					  loading
-				  }) => {
+	closeTaskComponent, statusFinishProgress,
+	statusAnotherProgress,
+	urlForSaveTodoTask,
+	deleteTaskLine,
+	parentIdState,
+	loading
+}) => {
 	const [pushBlock, setPushBlock] = useState(false)
 	const [editTask, setEditTask] = useState(false)
 	const [taskIdEdit, setTaskIdEdit] = useState('')
@@ -66,7 +65,7 @@ const Urgently = ({
 					/>
 				</button>
 			}
-			
+			<h2 className="title-ul"><p>Waiting or progress</p></h2>
 			<ul className="urgently-ul__state">
 				{!loading ? <TaskTodo
 					tasksList={statusAnotherProgress}
@@ -78,9 +77,10 @@ const Urgently = ({
 					taskIdEdit={taskIdEdit}
 					editTaskHandler={editTaskHandler}
 					editCloseTaskHandler={editCloseTaskHandler}
-				/>: <Loader />
+				/> : <Loader />
 				}
 			</ul>
+			<h2 className="title-ul"><p>Finish</p></h2>
 			<ul className="urgently-ul__finish">
 				{!loading ? <TaskTodo
 					tasksList={statusFinishProgress}
@@ -92,10 +92,9 @@ const Urgently = ({
 					taskIdEdit={taskIdEdit}
 					editTaskHandler={editTaskHandler}
 					editCloseTaskHandler={editCloseTaskHandler}
-				/>: <Loader />
+				/> : <Loader />
 				}
 			</ul>
-		
 		</div>
 	);
 };

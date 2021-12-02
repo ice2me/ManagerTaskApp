@@ -3,12 +3,13 @@ import './AddRoom.css'
 import Loader from "../../loader/Loader";
 import {Context} from "../../../index";
 import {useCollectionData} from "react-firebase-hooks/firestore";
+import {AuthContext} from "../../../context/auth.context";
 
-const AddRoom = ({closeRoomModal,updatePermissionRoom}) => {
+const AddRoom = ({closeRoomModal, updatePermissionRoom}) => {
 	const {firestore} = useContext(Context)
 	const [value, setValue] = useState('')
 	let wrapperInput = useRef('')
-
+	const {user} = useContext(AuthContext)
 	const [loading] = useCollectionData(
 		firestore.collection('roomTask').orderBy('createdAt')
 	)
@@ -19,19 +20,20 @@ const AddRoom = ({closeRoomModal,updatePermissionRoom}) => {
 			return wrapperInput.current.style.width = '0px'
 		}
 	}
-
+	
 	const tId = (Date.now() + value).split(' ').join('')
 	const addRoomName = async (e) => {
 		firestore.collection('roomTask').doc(tId).set({
 			uid: tId,
 			nameRoom: value,
-			createdAt: Date.now()
+			createdAt: Date.now(),
+			email: user.email
 		})
 		updatePermissionRoom(tId)
 		setValue('')
 		closeRoomModal(e)
 	}
-
+	
 	if (!loading) {
 		return <Loader />
 	}
@@ -51,7 +53,6 @@ const AddRoom = ({closeRoomModal,updatePermissionRoom}) => {
 						className="create-room__input"
 						name="create-room__name"
 						placeholder="Enter name"
-						// autoComplete="new-password"
 						value={value}
 						autoFocus
 						onChange={e => {

@@ -1,20 +1,29 @@
-import React, {useContext} from 'react';
-import {AuthContext} from "../../context/auth.context";
+import React from 'react';
 
-const UserInfo = () => {
-	const {user} = useContext(AuthContext)
+const UserInfo = ({user}) => {
 	return (
 		<>
 			{user &&
-			<div className="manageScreen-user" title='User info'>
-				<p>
-					{user.displayName}
-				</p>
-				<img
-					src={user.photoURL}
-					alt="user"
-				/>
-			</div>}
+				<>
+					<div
+						className="manageScreen-user"
+						title="User info"
+					>
+						<div className="userInfoBlock">
+							<p>
+								{user.displayName}
+							</p>
+							<p className="userEmail">
+								{user.email}
+							</p>
+						</div>
+						<img
+							src={user.photoURL}
+							alt="user"
+						/>
+					</div>
+				</>
+			}
 		</>
 	);
 };

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import './ManageScreen.css'
 import {Router, useHistory} from "react-router-dom";
 import UserInfo from "../../../userInfo/UserInfo";
@@ -6,6 +6,7 @@ import Urgently from "./urgently/Urgently";
 import NoUrgently from "./noUrgently/NoUrgently";
 import {useCollectionData} from "react-firebase-hooks/firestore";
 import {Context} from "../../../../index";
+import {AuthContext} from "../../../../context/auth.context";
 
 const statusProgress = {statusProgress: 'finish'}
 
@@ -19,13 +20,13 @@ const ManageScreen = ({parentIdState, closeUrgentlyModal}) => {
 	const [urlForMangeTasks, setUrlForMangeTasks] = useState('/urgently')
 	const {firestore} = useContext(Context)
 	const history = useHistory()
+	const {user} = useContext(AuthContext)
 	
 	const urlBuild = (url) => {
 		return setUrlForMangeTasks(`/roomTask/${parentIdState}${url}`)
 	}
 	
 	const [tasksList = [], loading] = useCollectionData(firestore.collection(urlForMangeTasks).orderBy('taskId', 'desc'))
-	
 	const filterTasksList = () => {
 		const resultAnother = tasksList.filter(item => {
 			return item.statusProgress !== statusProgress.statusProgress
@@ -41,8 +42,11 @@ const ManageScreen = ({parentIdState, closeUrgentlyModal}) => {
 		if (!loading) filterTasksList()
 	}, [tasksList])
 	
-	const deleteTaskLine = (taskId, url) => {
-		firestore.collection(url).doc(taskId).delete()
+	const deleteTaskLine = (taskId, url, userInf) => {
+		if ((user.email || user.displayName) === (userInf.email || userInf.displayName)) {
+			firestore.collection(url).doc(taskId).delete()
+		}
+		
 	}
 	
 	const closeTaskComponent = () => {
@@ -50,7 +54,6 @@ const ManageScreen = ({parentIdState, closeUrgentlyModal}) => {
 		setNoUrgentlyComponent(false)
 		history.goBack()
 	}
-	
 	return (
 		<div className="manageScreen">
 			<h1 className="manageScreen-name">Task management</h1>
@@ -103,7 +106,7 @@ const ManageScreen = ({parentIdState, closeUrgentlyModal}) => {
 					onClick={closeUrgentlyModal}
 				>Go back
 				</button>
-				<UserInfo />
+				<UserInfo user={user} />
 			</div>
 		</div>
 	);

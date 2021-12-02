@@ -59,6 +59,10 @@
 		&:hover
 			box-shadow: 0 0 100px 20px rgba(255,255,255, 0.1) inset
 			color: #004445
+		@media screen and (max-width: 980px)
+			height: 250px
+		@media screen and (max-width: 680px)
+			height: 150px
 	&-footer
 		max-width: 655px
 		width: 100%
@@ -90,12 +94,24 @@
 		align-items: center
 		justify-content: center
 		color: white
+		margin: 0 10px
+		&:hover
+			.userEmail
+				opacity: 1
+		@media screen and (max-width: 980px)
+			width: 100%
+			margin-top: 20px
 		p
 			white-space: nowrap
 		img
 			margin-left: 10px
-			max-width: 60px
+			max-width: 40px
 			width: 100%
-			max-height: 60px
 			height: 100%
-			border-radius: 50%
+.userEmail
+	font-size: 15px
+	background-color: #004445
+	//opacity: 0
+
+.userInfoBlock
+	text-align: right

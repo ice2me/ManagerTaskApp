@@ -1,12 +1,21 @@
-import React, { useState} from 'react';
+import React, {useContext, useState} from 'react';
 import Delete from '../../../images/trashIcon.svg'
 import AddNewUsersRoom from "../addNewUsersRoom/addNewUsersRoom";
+import {AuthContext} from "../../../context/auth.context";
 
-const RoomFromList = ({roomTaskCard, index, deletedRoomTaskHandler, openManageMenuPage, parentId, userEmailGet, updatePermissionRoom}) => {
-	const {nameRoom, uid} = roomTaskCard
+const RoomFromList = ({
+	roomTaskCard,
+	index,
+	deletedRoomTaskHandler,
+	openManageMenuPage,
+	parentId,
+	userEmailGet,
+	updatePermissionRoom
+}) => {
+	const {nameRoom, uid, email} = roomTaskCard
 	const [addNewUser, setAddNewUser] = useState(false)
 	const [reqHasBeenSent, setReqHasBeenSent] = useState('')
-	
+	const {user} = useContext(AuthContext)
 	const closeAddNewUser = () => {
 		setAddNewUser(false)
 	}
@@ -21,7 +30,9 @@ const RoomFromList = ({roomTaskCard, index, deletedRoomTaskHandler, openManageMe
 				</h3>
 			</div>
 		)
-		return setTimeout(() => {setReqHasBeenSent('')}, 1000)
+		return setTimeout(() => {
+			setReqHasBeenSent('')
+		}, 1000)
 	}
 	return (
 		<li
@@ -61,19 +72,21 @@ const RoomFromList = ({roomTaskCard, index, deletedRoomTaskHandler, openManageMe
 						userEmailGet={userEmailGet}
 						updatePermissionRoom={updatePermissionRoom}
 					/>}
-					<button
-						className="rooms-block__delete"
-						title="Delete this room"
-						onClick={(e) => deletedRoomTaskHandler(e, uid)}
-					>
-						<img
-							src={Delete}
-							alt="Delete"
-						/>
-					</button>
+					{
+						(user.email === email)
+						&&
+						<button
+							className="rooms-block__delete"
+							title="Delete this room"
+							onClick={(e) => deletedRoomTaskHandler(e, uid)}
+						>
+							<img
+								src={Delete}
+								alt="Delete"
+							/>
+						</button>}
 				</div>
 			</div>
-		
 		</li>
 	);
 };

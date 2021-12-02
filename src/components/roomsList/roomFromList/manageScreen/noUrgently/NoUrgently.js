@@ -18,16 +18,13 @@ const NoUrgently = ({
 	const [pushBlock, setPushBlock] = useState(false)
 	const [editTask, setEditTask] = useState(false)
 	const [taskIdEdit, setTaskIdEdit] = useState('')
-	
 	const editTaskHandler = (id) => {
 		setEditTask(true)
 		setTaskIdEdit(id)
 	}
-	
 	const editCloseTaskHandler = () => {
 		setEditTask(false)
 	}
-	
 	const closePushBlock = () => {
 		setPushBlock(false)
 	}
@@ -64,6 +61,7 @@ const NoUrgently = ({
 					/>
 				</button>
 			}
+			<h2 className="title-ul"><p>Waiting or progress</p></h2>
 			<ul className="urgently-ul__state">
 				{!loading ? <TaskTodo
 					tasksList={statusAnotherProgress}
@@ -78,6 +76,7 @@ const NoUrgently = ({
 				/> : <Loader />
 				}
 			</ul>
+			<h2 className="title-ul"><p>Finish</p></h2>
 			<ul className="urgently-ul__finish">
 				{!loading ? <TaskTodo
 					tasksList={statusFinishProgress}
@@ -89,7 +88,7 @@ const NoUrgently = ({
 					taskIdEdit={taskIdEdit}
 					editTaskHandler={editTaskHandler}
 					editCloseTaskHandler={editCloseTaskHandler}
-				/>: <Loader />
+				/> : <Loader />
 				}
 			</ul>
 		</div>

@@ -1,28 +1,28 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import './addNewUsersRoom.css'
 import Push from "../../../images/checkedIcon.svg";
 import Closed from "../../../images/closeIcon.svg";
-import { Context } from "../../../index";
+import {Context} from "../../../index";
 
-const AddNewUsersRoom = ({ closeAddNewUser, uid, windowReqHasBeenSent, userEmailGet, updatePermissionRoom }) => {
+const AddNewUsersRoom = ({closeAddNewUser, uid, windowReqHasBeenSent, userEmailGet, updatePermissionRoom}) => {
 	const [emailValue, setEmailValue] = useState('')
 	const [validation, setValidation] = useState(false)
 	const [errorEmail, setErrorEmail] = useState('')
 	const [sortRoomsForUser, setSortRoomsForUser] = useState([])
-	const { firestore } = useContext(Context)
+	const {firestore} = useContext(Context)
 	// const { user } = useContext(AuthContext)
 	const id = (Date.now() + emailValue).split('').join('')
 	const createDefaultId = (Date.now() + emailValue).split('').join('')
 	
 	useEffect(() => {
 		setSortRoomsForUser(userEmailGet.find(us => us.userEmail === emailValue))
-		// const tehArr = [...eligibleRooms, id]
 	}, [setEmailValue, emailValue])
 	
 	const addNewUser = (e) => {
 		e.preventDefault()
 		if (sortRoomsForUser) {
 			const tehUid = sortRoomsForUser.permissionsUser.find(item => item === uid)
+			console.log(sortRoomsForUser)
 			console.log(tehUid)
 			console.log(uid)
 			if (tehUid !== uid) {
@@ -30,7 +30,6 @@ const AddNewUsersRoom = ({ closeAddNewUser, uid, windowReqHasBeenSent, userEmail
 					permissionsUser: [...sortRoomsForUser.permissionsUser, uid],
 				}).then(res => res)
 			}
-			
 			closeAddNewUser()
 			windowReqHasBeenSent()
 		} else {
@@ -58,7 +57,8 @@ const AddNewUsersRoom = ({ closeAddNewUser, uid, windowReqHasBeenSent, userEmail
 		setValidation(reg.test(String(email).toLowerCase()))
 	}
 	
-	useEffect(() => {}, [emailValue])
+	useEffect(() => {
+	}, [emailValue])
 	
 	return (
 		<div className="add-user">

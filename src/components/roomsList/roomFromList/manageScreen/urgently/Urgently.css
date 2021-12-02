@@ -40,9 +40,8 @@
 }
 .urgently-ul__finish {
   width: 100%;
-  height: 25vh;
+  height: 30vh;
   overflow-y: auto;
-  margin-top: 50px;
   padding: 0 15px;
 }
 .urgently-header {
@@ -75,6 +74,32 @@
 }
 .urgently-exit:hover img {
   transform: scale(1.2);
+}
+
+.title-ul {
+  width: 100%;
+  color: #fff;
+  padding: 15px;
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+}
+.title-ul:after {
+  content: "";
+  width: 100%;
+  height: 2px;
+  background-color: #fff;
+  position: absolute;
+  top: 55%;
+  right: 0;
+  transform: translate(0%, -50%);
+}
+.title-ul p {
+  background-color: #004445;
+  width: max-content;
+  padding: 0 20px;
+  position: relative;
+  z-index: 2;
 }
 
 /*# sourceMappingURL=Urgently.css.map */
