@@ -59,6 +59,7 @@
   text-transform: uppercase;
   text-align: center;
   padding: 15px;
+  animation: animationOpenTask 0.1s linear;
 }
 .manageScreen-link:nth-child(1) {
   background-color: rgba(255, 14, 14, 0.4);
@@ -133,7 +134,6 @@
 }
 @media screen and (max-width: 980px) {
   .manageScreen-user {
-    width: 100%;
     margin-top: 20px;
   }
 }

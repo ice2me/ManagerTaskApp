@@ -17,9 +17,8 @@ const Urgently = ({
 	const [pushBlock, setPushBlock] = useState(false)
 	const [editTask, setEditTask] = useState(false)
 	const [taskIdEdit, setTaskIdEdit] = useState('')
-	
 	const editTaskHandler = (id) => {
-		setEditTask(true)
+		id && setEditTask(true)
 		setTaskIdEdit(id)
 	}
 	

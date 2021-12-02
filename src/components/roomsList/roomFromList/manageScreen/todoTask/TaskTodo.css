@@ -188,6 +188,7 @@
   right: 0;
   z-index: -1;
   background-color: #004445;
+  animation: animationCloseTask 0.5s linear;
 }
 
 .todo-task__prev {
@@ -202,30 +203,31 @@
   font-size: 20px;
   text-overflow: ellipsis;
   white-space: nowrap;
-  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 @media screen and (max-width: 980px) {
   .todo-task__prev {
-    width: 95%;
-    height: 25px;
+    height: auto;
   }
 }
 
 .todo-task__container {
   width: 100%;
+  height: auto;
   position: relative;
-  overflow: hidden;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
+  animation: animationOpenTask 0.5s linear;
 }
 .todo-task__container:active .todo-task, .todo-task__container:focus .todo-task, .todo-task__container:hover .todo-task {
+  height: 200px;
   opacity: 1;
   z-index: 5;
+  border: 2px solid #edae01;
+  padding: 10px;
+  animation: animationOpenTask 0.5s linear;
 }
 
 @keyframes animationTrash {
@@ -243,6 +245,40 @@
   }
   100% {
     transform: rotate(-45deg);
+  }
+}
+@keyframes animationOpenTask {
+  0% {
+    transform: scale(0.1);
+  }
+  25% {
+    transform: scale(0.25);
+  }
+  50% {
+    transform: scale(0.5);
+  }
+  75% {
+    transform: scale(0.75);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes animationCloseTask {
+  0% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(0.75);
+  }
+  50% {
+    transform: scale(0.5);
+  }
+  75% {
+    transform: scale(0.25);
+  }
+  100% {
+    transform: scale(0.1);
   }
 }
 

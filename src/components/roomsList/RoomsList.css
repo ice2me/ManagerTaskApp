@@ -37,6 +37,7 @@
   margin: 8px 0;
   border: 1px solid rgba(150, 150, 150, 0.3);
   height: auto;
+  animation: animationOpenTask 0.5s linear;
 }
 .rooms-block__li:hover {
   background-color: rgba(150, 150, 150, 0.3);
@@ -108,7 +109,7 @@
 }
 .rooms-block__newUser {
   color: #888;
-  padding: 0 15px;
+  padding: 15px;
   font-weight: bold;
 }
 .rooms-block__newUser:hover {

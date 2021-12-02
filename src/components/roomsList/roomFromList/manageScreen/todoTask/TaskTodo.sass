@@ -135,6 +135,7 @@
 	right: 0
 	z-index: -1
 	background-color: #004445
+	animation: animationCloseTask 0.5s linear
 .todo-task__prev
 	max-width: 100%
 	width: 100%
@@ -147,26 +148,26 @@
 	font-size: 20px
 	text-overflow: ellipsis
 	white-space: nowrap
-	overflow: hidden
 	display: flex
 	align-items: center
 	justify-content: space-between
 	@media screen and (max-width: 980px)
-		width: 95%
-		height: 25px
+		height: auto
 .todo-task__container
 	width: 100%
+	height: auto
 	position: relative
-	overflow: hidden
 	display: flex
 	flex-direction: column
-	align-items: flex-start
-	justify-content: flex-start
+	animation: animationOpenTask 0.5s linear
 	&:active, &:focus, &:hover
 		.todo-task
+			height: 200px
 			opacity: 1
 			z-index: 5
-
+			border: 2px solid #edae01
+			padding: 10px
+			animation: animationOpenTask 0.5s linear
 
 @keyframes animationTrash
 	0%
@@ -179,3 +180,25 @@
 		transform: rotate(0deg)
 	100%
 		transform: rotate(-45deg)
+@keyframes animationOpenTask
+	0%
+		transform: scale(0.10)
+	25%
+		transform: scale(0.25)
+	50%
+		transform: scale(0.50)
+	75%
+		transform: scale(0.75)
+	100%
+		transform: scale(1)
+@keyframes animationCloseTask
+	0%
+		transform: scale(1)
+	25%
+		transform: scale(0.75)
+	50%
+		transform: scale(0.50)
+	75%
+		transform: scale(0.25)
+	100%
+		transform: scale(0.1)

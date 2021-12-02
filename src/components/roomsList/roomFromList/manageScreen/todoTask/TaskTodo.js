@@ -23,6 +23,7 @@ const TaskTodo = ({
 		const editTodoActive = tasksList.find(todo => todo.taskId === id)
 		setEditTodoActive(editTodoActive)
 	}
+	console.log(editTask)
 	return (
 		
 		<li>
