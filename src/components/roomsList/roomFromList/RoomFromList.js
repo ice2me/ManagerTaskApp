@@ -32,7 +32,19 @@ const RoomFromList = ({
 		)
 		return setTimeout(() => {
 			setReqHasBeenSent('')
-		}, 1000)
+		}, 2000)
+	}
+	const suchUserAlreadyExists = () => {
+		setReqHasBeenSent(
+			<div className="alertModal-such">
+				<h3 className="alertModal-text__such">
+					such user already exists
+				</h3>
+			</div>
+		)
+		return setTimeout(() => {
+			setReqHasBeenSent('')
+		}, 2000)
 	}
 	return (
 		<li
@@ -70,7 +82,7 @@ const RoomFromList = ({
 						uid={uid}
 						windowReqHasBeenSent={windowReqHasBeenSent}
 						userEmailGet={userEmailGet}
-						updatePermissionRoom={updatePermissionRoom}
+						suchUserAlreadyExists={suchUserAlreadyExists}
 					/>}
 					{
 						(user.email === email)

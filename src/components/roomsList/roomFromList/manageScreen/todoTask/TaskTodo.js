@@ -43,6 +43,7 @@ const TaskTodo = ({
 								<div
 									className="todo-task__prev"
 								>{task.taskValue}
+									<UserInfo user={task.userAddTask} />
 								</div>
 								<div
 									className="todo-task"

@@ -4,16 +4,14 @@ import Push from "../../../images/checkedIcon.svg";
 import Closed from "../../../images/closeIcon.svg";
 import {Context} from "../../../index";
 
-const AddNewUsersRoom = ({closeAddNewUser, uid, windowReqHasBeenSent, userEmailGet, updatePermissionRoom}) => {
+const AddNewUsersRoom = ({closeAddNewUser, uid, windowReqHasBeenSent, userEmailGet, suchUserAlreadyExists}) => {
 	const [emailValue, setEmailValue] = useState('')
 	const [validation, setValidation] = useState(false)
 	const [errorEmail, setErrorEmail] = useState('')
 	const [sortRoomsForUser, setSortRoomsForUser] = useState([])
 	const {firestore} = useContext(Context)
-	// const { user } = useContext(AuthContext)
 	const id = (Date.now() + emailValue).split('').join('')
 	const createDefaultId = (Date.now() + emailValue).split('').join('')
-	
 	useEffect(() => {
 		setSortRoomsForUser(userEmailGet.find(us => us.userEmail === emailValue))
 	}, [setEmailValue, emailValue])
@@ -22,16 +20,15 @@ const AddNewUsersRoom = ({closeAddNewUser, uid, windowReqHasBeenSent, userEmailG
 		e.preventDefault()
 		if (sortRoomsForUser) {
 			const tehUid = sortRoomsForUser.permissionsUser.find(item => item === uid)
-			console.log(sortRoomsForUser)
-			console.log(tehUid)
-			console.log(uid)
 			if (tehUid !== uid) {
 				firestore.collection('groupUsers').doc(sortRoomsForUser.docId).update({
 					permissionsUser: [...sortRoomsForUser.permissionsUser, uid],
 				}).then(res => res)
+				windowReqHasBeenSent()
+			}else{
+				suchUserAlreadyExists()
 			}
 			closeAddNewUser()
-			windowReqHasBeenSent()
 		} else {
 			if (validation) {
 				firestore.collection('groupUsers').doc(id).set({
@@ -45,7 +42,6 @@ const AddNewUsersRoom = ({closeAddNewUser, uid, windowReqHasBeenSent, userEmailG
 					docId: createDefaultId
 				}).then(res => res)
 				closeAddNewUser()
-				windowReqHasBeenSent()
 			} else {
 				setErrorEmail(<p className="rooms-block__error-email"> Enter straight e-mail </p>)
 			}
@@ -64,7 +60,6 @@ const AddNewUsersRoom = ({closeAddNewUser, uid, windowReqHasBeenSent, userEmailG
 		<div className="add-user">
 			<input
 				type="email"
-				pattern=".+@globex\.com"
 				required
 				size="30"
 				className="add-user__input"

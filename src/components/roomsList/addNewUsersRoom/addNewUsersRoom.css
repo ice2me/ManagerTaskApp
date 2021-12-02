@@ -70,4 +70,24 @@
   color: #fff;
 }
 
+.alertModal-such {
+  height: 60px;
+  padding: 8px;
+  background-color: tomato;
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.alertModal-such-text__such {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  cursor: pointer;
+  font-family: monospace;
+  color: #fff;
+}
+
 /*# sourceMappingURL=addNewUsersRoom.css.map */
