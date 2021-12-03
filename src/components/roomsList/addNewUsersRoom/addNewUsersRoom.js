@@ -25,7 +25,7 @@ const AddNewUsersRoom = ({closeAddNewUser, uid, windowReqHasBeenSent, userEmailG
 					permissionsUser: [...sortRoomsForUser.permissionsUser, uid],
 				}).then(res => res)
 				windowReqHasBeenSent()
-			}else{
+			} else {
 				suchUserAlreadyExists()
 			}
 			closeAddNewUser()
@@ -46,7 +46,9 @@ const AddNewUsersRoom = ({closeAddNewUser, uid, windowReqHasBeenSent, userEmailG
 				setErrorEmail(<p className="rooms-block__error-email"> Enter straight e-mail </p>)
 			}
 		}
-		
+		setTimeout(() => {
+			setErrorEmail('')
+		}, 1000)
 	}
 	const validationEmail = (email) => {
 		const reg = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
@@ -80,7 +82,7 @@ const AddNewUsersRoom = ({closeAddNewUser, uid, windowReqHasBeenSent, userEmailG
 			/>
 			{errorEmail && errorEmail}
 			<button
-				className="add-user__button"
+				className="form__todo-task__push"
 				onClick={(e) => {
 					addNewUser(e)
 				}}
@@ -92,7 +94,7 @@ const AddNewUsersRoom = ({closeAddNewUser, uid, windowReqHasBeenSent, userEmailG
 				/>
 			</button>
 			<button
-				className="add-user__button"
+				className="form__todo-task__delete"
 				title="Close"
 				onClick={closeAddNewUser}
 			>

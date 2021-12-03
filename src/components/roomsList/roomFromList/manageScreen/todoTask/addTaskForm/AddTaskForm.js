@@ -37,67 +37,72 @@ const AddTaskForm = ({closePushBlock, linkForSave}) => {
 	}
 	
 	return (
-		<form className="form__todo-task">
-			<div className="form__todo-task__wrapper">
-				<div className="form__todo-task__container">
-					<input
-						className="form__todo-task__input"
-						autoComplete="off"
-						type="text"
-						value={valueInput}
-						autoFocus={true}
-						name="task-title"
-						placeholder="Enter task"
-						onChange={(e) => {
-							onChangeHandler(e.target.value)
-						}}
-					/>
-					{noEnterInput}
-				</div>
-				<div className="form__todo-task__progress">
-					<select
-						onChange={e => setValueSelect(e.target.value)}
-						value={valueSelect}
-					>
-						<option
-							value="waiting"
-							defaultValue
+		<div className="form__todo-wrapper">
+			<form className="form__todo-task">
+				<h2 className="urgently-name">Enter task</h2>
+				<div className="form__todo-task__wrapper">
+					<div className="form__todo-task__container">
+						<input
+							className="form__todo-task__input"
+							autoComplete="off"
+							type="text"
+							value={valueInput}
+							autoFocus={true}
+							name="task-title"
+							placeholder="Enter task"
+							onChange={(e) => {
+								onChangeHandler(e.target.value)
+							}}
+						/>
+						{noEnterInput}
+					</div>
+					<div className="form__todo-task__progress">
+						<select
+							onChange={e => setValueSelect(e.target.value)}
+							value={valueSelect}
 						>
-							Waiting
-						</option>
-						<option value="progress">
-							Progress
-						</option>
-						<option value="finish">
-							Finish
-						</option>
-					</select>
+							<option
+								value="waiting"
+								defaultValue
+							>
+								Waiting
+							</option>
+							<option value="progress">
+								Progress
+							</option>
+							{/*<option value="finish">*/}
+							{/*	Finish*/}
+							{/*</option>*/}
+						</select>
+					</div>
 				</div>
-			</div>
-			<button
-				className="form__todo-task__delete"
-				onClick={(e) => {
-					pushNewTask(e)
-				}}
-			>
-				<img
-					src={Push}
-					alt="push"
-				/>
-			</button>
-			<button
-				className="form__todo-task__delete"
-				onClick={(e) => {
-					e.preventDefault()
-					closePushBlock()
-				}}
-			>
-				<img
-					src={Closed}
-					alt="closed"
-				/>
-			</button>
-		</form>
+				<button
+					title="push task"
+					className="form__todo-task__push"
+					onClick={(e) => {
+						pushNewTask(e)
+					}}
+				>
+					<img
+						src={Push}
+						alt="push"
+					/>
+				</button>
+				<button
+					title="close"
+					className="form__todo-task__delete"
+					onClick={(e) => {
+						e.preventDefault()
+						closePushBlock()
+					}}
+				>
+					<img
+						src={Closed}
+						alt="closed"
+					/>
+				</button>
+			</form>
+		</div>
 	);
 };
 

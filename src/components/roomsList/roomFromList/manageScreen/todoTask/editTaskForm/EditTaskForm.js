@@ -8,11 +8,7 @@ const EditTaskForm = ({editCloseTaskHandler, urlForSaveTodoTask, taskIdEdit, edi
 	const [valueSelect, setValueSelect] = useState('waiting')
 	const {firestore} = useContext(Context)
 	const {statusProgress, taskId, taskValue} = editTodoActive
-	
-	// const onChangeHandler = (value) => {
-	// 	setValueInput(value)
-	// }
-	//
+
 	const pushEditTask = (e) => {
 		e.preventDefault()
 		firestore.collection(urlForSaveTodoTask).doc(taskIdEdit).update({
@@ -23,74 +19,66 @@ const EditTaskForm = ({editCloseTaskHandler, urlForSaveTodoTask, taskIdEdit, edi
 		setValueSelect('waiting')
 	}
 	return (
-		<form className="form__todo-task">
-			<div className="form__todo-task__wrapper">
-				<div className="form__todo-task__container">
-					{/*<input*/}
-					{/*	className="form__todo-task__input"*/}
-					{/*	autoComplete="off"*/}
-					{/*	type="text"*/}
-					{/*	// value={(valueInput === '') ? taskValue : valueInput}*/}
-					{/*	value={(valueInput === '') ? taskValue : valueInput}*/}
-					{/*	disabled={true}*/}
-					{/*	autoFocus={true}*/}
-					{/*	name="task-title"*/}
-					{/*	placeholder="Enter task"*/}
-					{/*	// onChange={(e) => {*/}
-					{/*	// 	onChangeHandler(e.target.value)*/}
-					{/*	// }}*/}
-					{/*/>*/}
-					< p
-						className="todo-task__title"
-						title={taskValue}
-					> {taskValue}
-					</p>
-				</div>
-				<div className="form__todo-task__progress">
-					<select
-						onChange={e => setValueSelect(e.target.value)}
-						value={(valueSelect === 'dvdv') ? statusProgress : valueSelect}
-					>
-						<option
-							value="waiting"
-							defaultValue
+		<div className="form__todo-wrapper">
+			<form className="form__todo-task">
+				<h2 className="urgently-name">Edit task</h2>
+				<div className="form__todo-task__wrapper">
+					<div className="form__todo-task__container">
+						<p
+							className="todo-task__title"
+							title={taskValue}
+						> {taskValue}
+						</p>
+					</div>
+					<div className="form__todo-task__progress">
+						<select
+							onChange={e => setValueSelect(e.target.value)}
+							value={(valueSelect === 'dvdv') ? statusProgress : valueSelect}
 						>
-							Waiting
-						</option>
-						<option value="progress">
-							Progress
-						</option>
-						<option value="finish">
-							Finish
-						</option>
-					</select>
+							<option
+								value="waiting"
+								defaultValue
+							>
+								Waiting
+							</option>
+							<option value="progress">
+								Progress
+							</option>
+							<option value="finish">
+								Finish
+							</option>
+						</select>
+					</div>
 				</div>
-			</div>
-			<button
-				className="form__todo-task__delete"
-				onClick={(e) => {
-					pushEditTask(e)
-					editCloseTaskHandler()
-				}}
-			>
-				<img
-					src={Push}
-					alt="push"
-				/>
-			</button>
-			<button
-				className="form__todo-task__delete"
-				onClick={(e) => {
-					e.preventDefault()
-					editCloseTaskHandler()
-				}}
-			>
-				<img
-					src={Closed}
-					alt="closed"
-				/>
-			</button>
-		</form>
+				<button
+					title="push task"
+					className="form__todo-task__push"
+					onClick={(e) => {
+						pushEditTask(e)
+						editCloseTaskHandler()
+					}}
+				>
+					<img
+						src={Push}
+						alt="push"
+					/>
+				</button>
+				<button
+					title="close"
+					className="form__todo-task__delete"
+					onClick={(e) => {
+						e.preventDefault()
+						editCloseTaskHandler()
+					}}
+				>
+					<img
+						src={Closed}
+						alt="closed"
+					/>
+				</button>
+			</form>
+		</div>
+		
 	);
 };
 

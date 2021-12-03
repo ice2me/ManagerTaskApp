@@ -9,8 +9,7 @@ const RoomFromList = ({
 	deletedRoomTaskHandler,
 	openManageMenuPage,
 	parentId,
-	userEmailGet,
-	updatePermissionRoom
+	userEmailGet
 }) => {
 	const {nameRoom, uid, email} = roomTaskCard
 	const [addNewUser, setAddNewUser] = useState(false)

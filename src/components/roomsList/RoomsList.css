@@ -7,6 +7,7 @@
   flex-direction: column;
   background-color: #004445;
   position: relative;
+  animation: animationOpenTask 0.5s linear;
 }
 .rooms-name {
   font-size: 40px;
@@ -37,7 +38,6 @@
   margin: 8px 0;
   border: 1px solid rgba(150, 150, 150, 0.3);
   height: auto;
-  animation: animationOpenTask 0.5s linear;
 }
 .rooms-block__li:hover {
   background-color: rgba(150, 150, 150, 0.3);
@@ -100,21 +100,28 @@
     font-size: 16px;
   }
 }
-.rooms-block__delete:hover img, .rooms-block__edit:hover img {
-  animation: animationTrash 1.5s infinite linear;
+.rooms-block__delete:hover, .rooms-block__edit:hover {
+  background-color: rgba(255, 10, 1, 0.7);
+  box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.5);
+  transform: scale(0.9);
 }
 .rooms-block__error-email {
   position: absolute;
   color: #eb4f37;
+  left: 50%;
+  transform: translate(0%, -50%);
+  top: 50%;
 }
 .rooms-block__newUser {
   color: #888;
-  padding: 15px;
+  padding: 0 15px;
   font-weight: bold;
 }
 .rooms-block__newUser:hover {
-  background-color: #6fb98f;
-  color: #000;
+  background-color: rgba(247, 149, 73, 0.7);
+  color: #fff;
+  box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.5);
+  transform: scale(0.9);
 }
 .rooms-addButton {
   height: 50px;
@@ -123,9 +130,9 @@
   justify-content: center;
   font-size: 20px;
   padding: 0 20px;
-  background-color: #6fb98f;
+  background-color: rgba(147, 209, 117, 0.7);
   margin-top: 30px;
-  color: #000;
+  color: #fff;
   font-family: monospace;
 }
 @media screen and (max-width: 580px) {
@@ -133,35 +140,13 @@
     font-size: 16px;
   }
 }
-.rooms-addButton:hover {
-  box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.2);
-  background-color: #fff;
-}
-.rooms-addButton:hover img {
-  opacity: 1;
-}
 .rooms-addButton img {
   margin-left: 8px;
   font-size: 30px;
-  opacity: 0;
 }
-
-@keyframes animationTrash {
-  0% {
-    transform: rotate(-45deg);
-  }
-  25% {
-    transform: rotate(0deg);
-  }
-  50% {
-    transform: rotate(45deg);
-  }
-  75% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(-45deg);
-  }
+.rooms-addButton:hover {
+  box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.5);
+  transform: scale(0.9);
 }
 
 /*# sourceMappingURL=RoomsList.css.map */

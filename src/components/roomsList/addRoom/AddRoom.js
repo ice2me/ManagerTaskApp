@@ -4,6 +4,7 @@ import Loader from "../../loader/Loader";
 import {Context} from "../../../index";
 import {useCollectionData} from "react-firebase-hooks/firestore";
 import {AuthContext} from "../../../context/auth.context";
+import addNewTask from "../../../images/addNewNameIcon.svg";
 
 const AddRoom = ({closeRoomModal, updatePermissionRoom}) => {
 	const {firestore} = useContext(Context)
@@ -78,6 +79,10 @@ const AddRoom = ({closeRoomModal, updatePermissionRoom}) => {
 					disabled={value === ''}
 				>
 					Create room
+					<img
+						src={addNewTask}
+						alt="add new task"
+					/>
 				</button>
 			</div>
 		</div>

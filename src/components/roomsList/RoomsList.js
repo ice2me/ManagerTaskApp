@@ -1,4 +1,4 @@
-import React, {useContext, useState, useEffect, useCallback} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import RoomFromList from "./roomFromList/RoomFromList";
 import './RoomsList.css'
 import {Context} from "../../index";
@@ -9,6 +9,7 @@ import {useAuth} from "../../hooks/auth.hook";
 import UserInfo from "../userInfo/UserInfo";
 import ManageScreen from "./roomFromList/manageScreen/ManageScreen";
 import addNewTask from "../../images/addNewNameIcon.svg";
+import exit from "../../images/exit.svg";
 import {AuthContext} from "../../context/auth.context";
 
 const RoomsList = () => {
@@ -27,6 +28,7 @@ const RoomsList = () => {
 	const [userEmailGet, isUserEmailGetLoading] = useCollectionData(firestore.collection('groupUsers'))
 	const [roomTasks, isRoomLoading] = useCollectionData(firestore.collection('roomTask').orderBy('createdAt', 'desc'))
 	const createDefaultId = (Date.now() + user.email).split('').join('')
+	
 // filtered rooms task user+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	useEffect(() => {
 		const p = []
@@ -114,10 +116,16 @@ const RoomsList = () => {
 				doc.ref.delete();
 			});
 		});
+		// firestore.collection('roomTask').doc(id).collection('finish').get().then(function (querySnapshot) {
+		// 	querySnapshot.forEach(function (doc) {
+		// 		doc.ref.delete();
+		// 	});
+		// });
 		firestore.collection('roomTask').doc(id).delete()
 	}
 
 // deletedRoomTaskHandler ------------------------------------------------------------
+
 // handler modal window+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	const parentId = (id) => {
 		return setParentIdState(id)
@@ -179,6 +187,10 @@ const RoomsList = () => {
 						onClick={() => logout()}
 					>
 						Log out
+						<img
+							src={exit}
+							alt="exit"
+						/>
 					</button>
 					<UserInfo user={user} />
 				</div>

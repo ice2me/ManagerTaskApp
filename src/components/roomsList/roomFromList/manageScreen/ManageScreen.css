@@ -11,6 +11,7 @@
   bottom: 0;
   overflow-x: hidden;
   z-index: 100;
+  animation: animationOpenTask 0.5s linear;
 }
 .manageScreen-name {
   font-size: 40px;
@@ -45,45 +46,38 @@
     height: max-content;
   }
 }
-.manageScreen-link {
-  width: 320px;
-  height: 320px;
+.manageScreen-link__urgently, .manageScreen-link__finish, .manageScreen-link__nourgently {
+  width: 220px;
+  height: 220px;
   margin: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 40px;
+  font-size: 30px;
   font-weight: bold;
   color: #fff;
   letter-spacing: 2px;
   text-transform: uppercase;
   text-align: center;
   padding: 15px;
-  animation: animationOpenTask 0.1s linear;
+  animation: animationOpenTask 0.8s linear;
 }
-.manageScreen-link:nth-child(1) {
+.manageScreen-link__urgently {
   background-color: rgba(255, 14, 14, 0.4);
 }
-.manageScreen-link:nth-child(2) {
+.manageScreen-link__nourgently {
   background-color: rgba(111, 185, 143, 0.4);
 }
-.manageScreen-link:nth-child(3) {
-  background-color: rgba(44, 120, 115, 0.4);
-}
-.manageScreen-link:nth-child(4) {
+.manageScreen-link__finish {
   background-color: rgba(255, 204, 0, 0.4);
 }
-.manageScreen-link:hover {
-  box-shadow: 0 0 100px 20px rgba(255, 255, 255, 0.1) inset;
-  color: #004445;
-}
 @media screen and (max-width: 980px) {
-  .manageScreen-link {
+  .manageScreen-link__finish {
     height: 250px;
   }
 }
 @media screen and (max-width: 680px) {
-  .manageScreen-link {
+  .manageScreen-link__finish {
     height: 150px;
   }
 }
@@ -111,6 +105,7 @@
   justify-content: center;
   font-size: 20px;
   padding: 0 20px;
+  color: #fff;
   background-color: #6fb98f;
 }
 @media screen and (max-width: 580px) {
@@ -119,8 +114,11 @@
   }
 }
 .manageScreen-exit:hover {
-  box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.2);
-  background-color: #fff;
+  box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.5);
+  transform: scale(0.9);
+}
+.manageScreen-exit img {
+  margin-left: 8px;
 }
 .manageScreen-user {
   display: flex;
@@ -148,12 +146,13 @@
 }
 
 .userEmail {
-  font-size: 15px;
   background-color: #004445;
 }
 
 .userInfoBlock {
+  font-size: 12px;
   text-align: right;
+  width: 200px;
 }
 
 /*# sourceMappingURL=ManageScreen.css.map */

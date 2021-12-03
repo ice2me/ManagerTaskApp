@@ -6,6 +6,7 @@
   justify-content: center;
   flex-direction: column;
   background-color: #004445;
+  animation: animationOpenTask 0.5s linear;
 }
 .login-name {
   font-size: 40px;
@@ -55,7 +56,7 @@
 .login-img {
   position: absolute;
   top: -10px;
-  left: -20px;
+  left: -30px;
 }
 
 @keyframes animationButton {
@@ -82,36 +83,6 @@
   100% {
     background-color: white;
     color: #021c1e;
-  }
-}
-@keyframes animationGoogleImg {
-  20% {
-    top: 30px;
-    left: -20px;
-    transform: rotateZ(25deg);
-  }
-  40% {
-    top: 30px;
-    left: 250px;
-    transform: rotateZ(25deg);
-  }
-  60% {
-    top: -50px;
-    left: 250px;
-    transform: rotateZ(0deg);
-  }
-  80% {
-    top: -50px;
-    left: -20px;
-    transform: rotateZ(-25deg);
-  }
-  90% {
-    transform: rotateZ(-12deg);
-  }
-  100% {
-    top: -10 px;
-    left: -20 px;
-    transform: rotateZ(0deg);
   }
 }
 
