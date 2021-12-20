@@ -1,0 +1,804 @@
+*
+	padding: 0
+	margin: 0
+	border: 0
+	transition: .7s ease-in-out
+	box-sizing: border-box
+*:before *:after
+	-moz-box-sizing: border-box
+	-webkit-box-sizing: border-box
+	box-sizing: border-box
+a:focus, a:active
+	outline: none
+nav, footer, header, aside
+	display: block
+html, body
+	min-height: 600px
+	height: 100%
+	width: 100%
+	line-height: 1
+	font-size: 18px
+	font-family: monospace
+	margin: 0 auto
+	display: flex
+	align-items: center
+	justify-content: center
+	outline: none
+	scroll-behavior: smooth
+	cursor: default
+	background-color: rgba(2, 28, 30, 1)
+	//animation: ease all 0.1s
+input::-ms-clear
+	display: none
+textarea::-ms-clear
+	display: none
+input, textarea
+	font-size: 18px
+	font-weight: bold
+	font-family: monospace
+	background-color: transparent
+	color: #fff
+	resize: none
+	&::-webkit-input-placeholder
+		color: rgba(255, 255, 255, 0.4)
+		text-overflow: ellipsis
+		background-color: transparent
+	&::-moz-placeholder
+		text-overflow: ellipsis
+		background-color: transparent
+	&:-ms-input-placeholder
+		text-overflow: ellipsis
+		background-color: transparent
+	&::-webkit-inner-spin-button
+		-webkit-appearance: none
+		background-color: transparent
+	&::-webkit-outer-spin-button
+		-webkit-appearance: none
+		background-color: transparent
+	&[type='number']
+		-moz-appearance: textfield
+		background-color: transparent
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active
+	//-webkit-transition: color 9999s ease-out, background-color 9999s ease-out
+	//-webkit-transition-delay: 9999s
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+textarea:-webkit-autofill:active
+	//-webkit-transition: color 9999s ease-out, background-color 9999s ease-out
+	//-webkit-transition-delay: 9999s
+textarea:disabled
+	//background-color: rgba(82, 54, 52, 0.9) !important
+	//border: 1px solid rgba(82, 54, 52, 0.9) !important
+	//color: rgba(255, 255, 255, 0.3) !important
+input:active, input:focus
+	outline: none
+button:active, button:focus
+	outline: none
+button::-moz-focus-inner
+	border: 0
+button
+	background-color: transparent
+	cursor: pointer
+button::-moz-focus-inner
+	padding: 0
+	border: 0
+a, a:visited
+	text-decoration: none
+a:hover
+	text-decoration: none
+	outline: none
+video:active, video:focus
+	outline: none
+ul li
+	list-style: none
+p, h1, h2, h3, h4, h5, span, li, button, input
+	font-family: monospace
+	white-space: nowrap
+html:not(.touch-screen)::-webkit-scrollbar-track, html:not(.touch-screen) *::-webkit-scrollbar-track
+	background: rgba(0, 0, 0, 1)
+	border-radius: 4px
+html:not(.touch-screen)::-webkit-scrollbar-thumb, html:not(.touch-screen) *::-webkit-scrollbar-thumb
+	background: rgba(237, 174, 1, 1)
+	border-radius: 6px
+html:not(.touch-screen)::-webkit-scrollbar, html:not(.touch-screen) *::-webkit-scrollbar
+	width: 6px
+#root
+	width: 100%
+	height: 100%
+	display: flex
+	align-items: center
+	justify-content: center
+//--------------Constant color for project ----------------
+$black: rgba(2, 28, 30, 1)
+$blackGrey: rgba(16,17,20, 1)
+$greyBlue: rgba(0, 68, 69, 1)
+$rain: rgba(44, 120, 115, 1)
+$green: rgba(111, 185, 143, 1)
+$white: rgba(255, 255, 255, 1)
+
+@mixin button($bg)
+	border: none
+	background: transparent
+	font-weight: bold
+	padding: 0 15px
+	font-size: 16px
+	line-height: 32px
+	position: relative
+	color: #000
+	cursor: pointer
+	letter-spacing: 0.5px
+	z-index: 2
+	&:before
+		content: ''
+		position: absolute
+		left: 0
+		top: -17px
+		width: 50%
+		height: 30px
+		background: transparent
+		border: 2px solid #fff
+		z-index: -1
+		transition: 0.5s ease-in-out
+	&:after
+		content: ''
+		position: absolute
+		left: 50%
+		top: 50%
+		transform: translate(-50%,-50%)
+		background-color: $bg
+		height: 24px
+		width: 80%
+		z-index: -1
+		transition: 0.5s linear
+	&:hover:after
+		opacity: 0
+		background: #fff
+	&:hover
+		color: #000
+		img
+			filter: invert(50%)
+		svg
+			fill: #000
+			animation: ease all 0.1s
+	&:hover:before
+		width: 100%
+		background: #fff
+		box-shadow: 0 10px 90px -2px rgba(#000,0.2)
+	img
+		width: 25px
+		height: 25px
+		position: absolute
+		top: 50%
+		left: 50%
+		transform: translate(-50%, -50%)
+
+//-------------- Animation ----------------
+@keyframes __showUserInfo
+	0%
+		transform: translateY(50px)
+	100%
+		transform: translateY(0)
+@keyframes __showUserInfoText
+	0%
+		opacity: 0
+	100%
+		opacity: 1
+//-------------- App ----------------
+.App
+	max-width: 580px
+	max-height: 780px
+	width: 100%
+	height: 100%
+	background-color: $blackGrey
+	color: #fff
+	filter: invert(0%)
+	position: relative
+.light
+	filter: invert(100%)
+.loader
+	width: 50px
+	height: 50px
+	display: flex
+	align-items: center
+	justify-content: center
+	position: fixed
+	top: 50%
+	left: 50%
+	transform: translate(-50%, -50%)
+	z-index: 999
+//-------------- login ----------------
+.login
+	width: 100%
+	height: 100%
+	display: flex
+	align-items: center
+	justify-content: center
+	flex-direction: column
+	&-name
+		text-align: center
+	&-wrapper
+		display: flex
+		align-items: center
+		flex-direction: column
+		justify-content: center
+		margin-top: 20px
+		&:hover
+			animation: googleLabel 1s linear infinite
+@keyframes googleLabel
+	0%
+		filter: invert(0)
+		transform: scale(1.1)
+	100%
+		filter: invert(100%)
+		transform: scale(0.8)
+//-------------- list-rooms ----------------
+.list-rooms
+	width: 100%
+	height: 100%
+	padding: 30px
+	display: flex
+	align-items: flex-start
+	justify-content: flex-start
+	flex-direction: column
+	position: relative
+	&__header
+		width: 100%
+		text-align: center
+	&__add-rooms
+		width: 100%
+		display: flex
+		flex-direction: column
+		justify-content: space-between
+		align-items: flex-end
+		margin-top: 30px
+		button
+			width: 80px
+			@include button($white)
+	&__info
+		width: 100%
+		display: flex
+		align-items: center
+		justify-content: space-between
+		padding: 30px
+		position: absolute
+		bottom: 0
+		left: 0
+		right: 0
+		button
+			width: 80px
+			@include button($green)
+		&-user
+			position: relative
+			&:hover
+				.list-rooms__info-user__block
+					animation: __showUserInfo 1.3s ease-out
+					opacity: 1
+					z-index: 2
+			&__img
+				width: 50px
+				height: 50px
+				img
+					width: 100%
+					height: 100%
+			&__block
+				background-color: $white
+				padding: 10px
+				position: absolute
+				top: -10px
+				right: 65px
+				display: flex
+				flex-direction: column
+				justify-content: center
+				align-items: center
+				opacity: 0
+				z-index: -1
+				&:before, &:after
+					content: ''
+					position: absolute
+					left: 100%
+					top: 10px
+					transform: rotate(-90deg)
+					border: 10px solid transparent
+					border-top: 10px solid #fff
+				span
+					color: #000
+	&__body
+		width: 95%
+		overflow: hidden
+		margin: 50px auto 10px
+		ul
+			width: 100%
+			height: 100%
+			overflow-y: auto
+			max-height: 45vh
+		&-li
+			border-bottom: 1px solid $rain
+			padding: 8px 15px
+			display: flex
+			align-items: center
+			justify-content: space-between
+			&:hover
+				background-color: rgba(150,150,150, 0.2)
+			&__name
+				font-size: 16px
+				color: #fff
+				span
+					font-weight: bold
+					margin-right: 10px
+			&__buttons
+				height: 100%
+				display: flex
+				flex-wrap: wrap
+				justify-content: flex-end
+			&__addUser, &__delete
+				padding: 5px
+				background-color: transparent
+				margin: 0 5px
+				color: #000
+				position: relative
+				border: none
+				background-color: transparent
+				cursor: pointer
+				outline: none
+				font-size: 14px
+				&:hover
+					background-color: $white
+				&.type
+					color: $greyBlue
+					&.type::after,
+					&.type::before
+						content: ''
+						display: block
+						position: absolute
+						width: 20%
+						height: 20%
+						border: 2px solid
+						transition: all 0.6s ease
+						border-radius: 2px
+					&.type::after
+						bottom: 0
+						right: 0
+						border-top-color: transparent
+						border-left-color: transparent
+						border-bottom-color: $greyBlue
+						border-right-color: $greyBlue
+					&.type::before
+						top: 0
+						left: 0
+						border-bottom-color: transparent
+						border-right-color: transparent
+						border-top-color: $greyBlue
+						border-left-color: $greyBlue
+					&.type:hover:after,
+					&.type:hover:before
+						width: 100%
+						height: 100%
+	&__tasks-length
+		display: flex
+		align-items: center
+		justify-content: center
+		flex-direction: column
+		p
+			padding: 0 10px
+			margin-bottom: 10px
+		button
+			@include button($green)
+.hide
+	opacity: 0
+	z-index: 1
+	cursor: default !important
+	position: relative
+//-------------- manageScreen ----------------
+.manageScreen
+	padding: 30px
+	display: flex
+	align-items: flex-start
+	justify-content: flex-start
+	flex-direction: column
+	position: absolute
+	top: 0
+	left: 0
+	right: 0
+	bottom: 0
+	z-index: 5
+	background-color: $blackGrey
+	&__header
+		width: 100%
+		text-align: center
+	&__filtered-rooms
+		width: 100%
+		height: 40px
+		display: flex
+		flex-direction: row
+		justify-content: space-between
+		flex-wrap: wrap
+		align-items: center
+		margin-top: 10px
+		button
+			width: 100px
+			@include button($white)
+			margin: 5px
+	&__add-rooms
+		width: 100%
+		height: 40px
+		display: flex
+		justify-content: flex-end
+		align-items: center
+		margin-top: 15px
+		button
+			width: 120px
+			@include button($green)
+	&__body
+		width: 95%
+		height: 48vh
+		overflow: hidden
+		margin: 50px auto 10px
+		ul
+			width: 100%
+			height: 100%
+			overflow-y: auto
+		&-li
+			border-bottom: 1px solid $rain
+			padding: 8px 15px
+			display: flex
+			align-items: center
+			justify-content: space-between
+			letter-spacing: 1.2px
+			position: relative
+			&:hover
+				background-color: rgba(150,150,150, 0.2)
+			p
+				width: 200px
+				font-size: 16px
+				color: #fff
+				overflow: hidden
+				position: relative
+				white-space: nowrap
+				text-overflow: ellipsis
+				font-weight: bold
+				padding: 0 10px
+				margin-right: 15px
+				&:after
+					content: ''
+					position: absolute
+					right: 0
+					width: 10px
+					height: 100%
+					background: linear-gradient(90deg, $blackGrey, $greyBlue 80%)
+					z-index: 5
+			span
+				width: 65px
+				font-size: 12px
+				text-align: right !important
+			&__buttons
+				height: 100%
+				display: flex
+				flex-wrap: wrap
+				justify-content: flex-end
+			&__user
+				width: 35px
+				height: 35px
+				margin-left: 10px
+				img
+					width: 100%
+					height: 100%
+				&:hover
+					.manageScreen__body-li__edit
+						opacity: 1
+						z-index: 10
+			&__edit
+				width: 100%
+				height: 50px
+				background-color: $greyBlue
+				position: absolute
+				left: 0
+				bottom: -55px
+				display: flex
+				align-items: center
+				justify-content: space-between
+				opacity: 0
+				z-index: -1
+				div
+					width: 50%
+					height: 100%
+					display: flex
+					align-items: center
+					justify-content: center
+					text-align: center
+				span
+					width: 50%
+					font-size: 16px
+					text-wrap: none
+					margin-right: 8px
+					line-height: 1.2
+				img
+					width: 30px
+					height: 30px
+			&__addUser, &__delete
+				padding: 5px
+				background-color: transparent
+				margin: 0 5px
+				color: #000
+				position: relative
+				border: none
+				background-color: transparent
+				cursor: pointer
+				outline: none
+				font-size: 14px
+				&:hover
+					background-color: $white
+				&.type
+					color: $greyBlue
+					&.type::after,
+					&.type::before
+						content: ''
+						display: block
+						position: absolute
+						width: 20%
+						height: 20%
+						border: 2px solid
+						transition: all 0.6s ease
+						border-radius: 2px
+					&.type::after
+						bottom: 0
+						right: 0
+						border-top-color: transparent
+						border-left-color: transparent
+						border-bottom-color: $greyBlue
+						border-right-color: $greyBlue
+					&.type::before
+						top: 0
+						left: 0
+						border-bottom-color: transparent
+						border-right-color: transparent
+						border-top-color: $greyBlue
+						border-left-color: $greyBlue
+					&.type:hover:after,
+					&.type:hover:before
+						width: 100%
+						height: 100%
+//--------------add new room----------------------------
+.underlay
+	width: 100%
+	position: fixed
+	top: 0
+	bottom: 0
+	left: 0
+	right: 0
+	background-color: $blackGrey
+	z-index: 98
+	color: transparent
+.create-room, .add-new_user
+	&__wrapper
+		position: fixed
+		top: 50%
+		left: 50%
+		transform: translate(-50%, -50%)
+		z-index: 99
+		display: flex
+		align-items: center
+		justify-content: center
+	&__block
+		background-color: $blackGrey
+		padding: 30px
+		display: flex
+		flex-direction: column
+	&__close
+		font-size: 30px
+		position: absolute
+		top: 0px
+		right: 10px
+		color: #fff
+		cursor: pointer
+	&__name
+		font-size: 28px
+	&__box
+		margin: 50px auto
+		position: relative
+		overflow-x: hidden
+	&__p
+		width: 0
+		height: 6px
+		background-color: rgba(255, 255, 255, 1)
+		position: absolute
+		bottom: 0
+	&__input
+		color: rgba(111, 185, 143, 1)
+		width: auto
+		padding: 0 10px
+		min-width: 100%
+		font-size: 1.5rem
+		line-height: 2em
+		border-bottom: 4px solid rgba(111, 185, 143, 1)
+		background-color: transparent
+		text-overflow: ellipsis
+		white-space: nowrap
+		overflow: hidden
+	&__button
+		@include button($green)
+		&:before
+			top: -1px
+.manageScreen__add-rooms__button
+	&:before
+		top: -17px !important
+//--------------add new task----------------------------
+.add-task
+	width: 100%
+	position: fixed
+	top: 0
+	bottom: 0
+	left: 0
+	right: 0
+	background-color: rgba(16,17,20, 0.9)
+	z-index: 99
+	&__wrapper
+		position: fixed
+		top: 50%
+		left: 50%
+		transform: translate(-50%, -50%)
+		z-index: 101
+		display: flex
+		align-items: center
+		justify-content: center
+	&__block
+		background-color: $blackGrey
+		padding: 60px
+		display: flex
+		flex-direction: column
+	&__close
+		font-size: 30px
+		position: absolute
+		top: 10px
+		right: 10px
+		color: #fff
+		cursor: pointer
+	&__box
+		position: relative
+		overflow-x: hidden
+	&__radio
+		margin: 20px 0
+		position: relative
+		display: flex
+		flex-direction: column
+		align-items: flex-start
+		justify-content: center
+		label
+			border-right: 4px solid transparent
+	&__p
+		width: 0
+		height: 6px
+		background-color: rgba(255, 255, 255, 1)
+		position: absolute
+		bottom: 0
+	&__input
+		color: rgba(111, 185, 143, 1)
+		width: auto
+		padding: 0 10px
+		min-width: 100%
+		font-size: 1.5rem
+		line-height: 2em
+		border-bottom: 4px solid rgba(111, 185, 143, 1)
+		background-color: transparent
+		text-overflow: ellipsis
+		white-space: nowrap
+		overflow: hidden
+	&__checkbox
+		width: max-content
+		padding: 0 20px 0 0
+		&:hover
+			color: $green
+			border-right: 4px solid $green
+	&__button
+		margin: 0 auto
+.manageScreen__add-rooms button:before
+	top: -1px
+.add-task__checkbox
+	display: block
+	position: relative
+	padding-left: 35px
+	margin-bottom: 12px
+	cursor: pointer
+	font-size: 22px
+	user-select: none
+.add-task__checkbox input
+	position: absolute
+	opacity: 0
+	cursor: pointer
+	height: 0
+	width: 0
+.add-task__checkbox-checkmark
+	position: absolute
+	top: 0
+	left: 0
+	height: 20px
+	width: 20px
+	background-color: $green
+.add-task__checkbox:hover input ~ .add-task__checkbox-checkmark
+	background-color: $green
+.add-task__checkbox input:checked ~ .add-task__checkbox-checkmark
+	background-color: $green
+.add-task__checkbox:checked
+	color: $green
+.add-task__checkbox-checkmark:after
+	content: ""
+	position: absolute
+	display: none
+.add-task__checkbox input:checked ~ .add-task__checkbox-checkmark:after
+	display: block
+.add-task__checkbox .add-task__checkbox-checkmark:after
+	top: 4px
+	left: 4px
+	width: 12px
+	height: 12px
+	background: $blackGrey
+//--------------add new task-----------------------------------
+.add-new_user
+	width: 100%
+	position: fixed
+	top: 0
+	bottom: 0
+	left: 0
+	right: 0
+	background-color: rgba(16,17,20, 0.9)
+	z-index: 99
+//--------------style checkbox theme----------------------------
+.list-rooms__checkbox
+	position: absolute
+	top: 30px
+	right: 30px
+.react-switch-checkbox
+	height: 0
+	width: 0
+	visibility: hidden
+.react-switch-label
+	display: flex
+	align-items: center
+	justify-content: space-between
+	cursor: pointer
+	width: 50px
+	height: 13px
+	background: $white
+	position: relative
+	transition: background-color .5s
+.react-switch-label .react-switch-button
+	content: ''
+	position: absolute
+	top: -4px
+	left: -4px
+	width: 20px
+	height: 20px
+	transition: 0.2s
+	background: $black
+	border: 1px solid $white
+	box-shadow: 0 0 2px 0 rgba(0,0, 0, 0.1)
+.react-switch-checkbox:checked + .react-switch-label .react-switch-button
+	left: calc(100% - 0px)
+	transform: translateX(-100%)
+.react-switch-label:active .react-switch-button
+	width: 80px
+
+
+
+.alertModal-such, .alertModal, .rooms-block__error-email
+	width: 100%
+	height: 280px
+	background-color: $green
+	position: absolute
+	top: 50%
+	left: 0
+	transform: translate(0, -50%)
+	z-index: 102
+	display: flex
+	align-items: center
+	justify-content: center
+	h3
+		font-size: 22px
+.alertModal
+	background-color: $rain
+
+.rooms-block__error-email
+	background-color: tomato

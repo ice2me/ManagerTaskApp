@@ -1,11 +1,17 @@
-import React, {createContext} from 'react';
+import React, { createContext } from 'react';
 import ReactDOM from 'react-dom';
-import './index.sass';
-import App from './App/App';
+import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { applyMiddleware, compose, createStore } from "redux";
+import { rootReducer } from "./redux/rootReducer";
+import { Provider } from "react-redux";
 import firebase from "firebase/compat";
 import '@firebase/auth'
+import thunk from "redux-thunk";
 
+const store = createStore(rootReducer, compose(
+	applyMiddleware(thunk), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+))
 
 firebase.initializeApp(
 	{
@@ -18,22 +24,26 @@ firebase.initializeApp(
 		measurementId: "G-T585LRSF08"
 	}
 );
-
 export const Context = createContext(null)
-const auth = firebase.auth()
 const firestore = firebase.firestore()
+const auth = firebase.auth()
 
 ReactDOM.render(
-	<Context.Provider
-		value={{
-			firebase,
-			firestore,
-			auth
-		}}
-	>
-		<App />
-	</Context.Provider>,
-	document.getElementById('root')
-);
+	<Provider store={store}>
+		<Context.Provider
+			value={
+				{
+					firebase,
+					firestore,
+					auth
+				}
+			}
+		>
+			<React.StrictMode>
+				<App />
+			</React.StrictMode>
+		</Context.Provider>
+	</Provider>,
+	document.getElementById('root'));
 
 reportWebVitals();

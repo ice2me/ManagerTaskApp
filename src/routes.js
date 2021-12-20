@@ -1,22 +1,36 @@
-import {Redirect, Route, Switch} from "react-router-dom";
-import Login from "./components/login/Login";
-import RoomsList from "./components/roomsList/RoomsList";
+import * as React from "react";
+import Login from "./views/login/Login";
+import RoomsList from "./views/listRooms/ListRooms";
+import { Redirect, Route, Switch } from "react-router-dom";
 
 export const useRoutes = (isAuthenticated) => {
-	if(isAuthenticated){
+	if (isAuthenticated) {
 		return (
 			<Switch>
-				<Route path="/roomsList" component={RoomsList}/>
-				<Redirect to="/roomsList" component={RoomsList} exact/>
+				<Route
+					path="/rooms"
+					component={RoomsList}
+				/>
+				<Redirect
+					to="/rooms"
+					component={RoomsList}
+					exact
+				/>
 			</Switch>
 		)
-	}
-	else{
+	} else {
 		return (
-		<Switch>
-			<Route path="/" exact component={Login}/>
-			<Redirect from='/' to='/' />
-		</Switch>
+			<Switch>
+				<Route
+					path="/"
+					exact
+					component={Login}
+				/>
+				<Redirect
+					from="/"
+					to="/"
+				/>
+			</Switch>
 		)
 	}
 	

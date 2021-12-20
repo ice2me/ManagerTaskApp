@@ -1,9 +1,14 @@
 import React from 'react';
-import './Loader.css'
+import svg from './LoaderSVG.svg'
 
 const Loader = () => {
 	return (
-		<div className="loader">Loading...</div>
+		<div className="loader">
+			<img
+				src={svg}
+				alt="loader"
+			/>
+		</div>
 	);
 };
 
