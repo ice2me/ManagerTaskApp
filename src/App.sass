@@ -27,7 +27,7 @@ html, body
 	scroll-behavior: smooth
 	cursor: default
 	background-color: rgba(2, 28, 30, 1)
-	//animation: ease all 0.1s
+	animation: ease all 0.1s
 input::-ms-clear
 	display: none
 textarea::-ms-clear
@@ -58,22 +58,6 @@ input, textarea
 	&[type='number']
 		-moz-appearance: textfield
 		background-color: transparent
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active
-	//-webkit-transition: color 9999s ease-out, background-color 9999s ease-out
-	//-webkit-transition-delay: 9999s
-textarea:-webkit-autofill,
-textarea:-webkit-autofill:hover,
-textarea:-webkit-autofill:focus,
-textarea:-webkit-autofill:active
-	//-webkit-transition: color 9999s ease-out, background-color 9999s ease-out
-	//-webkit-transition-delay: 9999s
-textarea:disabled
-	//background-color: rgba(82, 54, 52, 0.9) !important
-	//border: 1px solid rgba(82, 54, 52, 0.9) !important
-	//color: rgba(255, 255, 255, 0.3) !important
 input:active, input:focus
 	outline: none
 button:active, button:focus
@@ -136,7 +120,7 @@ $white: rgba(255, 255, 255, 1)
 		content: ''
 		position: absolute
 		left: 0
-		top: -17px
+		top: -1px
 		width: 50%
 		height: 30px
 		background: transparent
@@ -159,8 +143,6 @@ $white: rgba(255, 255, 255, 1)
 		background: #fff
 	&:hover
 		color: #000
-		img
-			filter: invert(50%)
 		svg
 			fill: #000
 			animation: ease all 0.1s
@@ -168,13 +150,6 @@ $white: rgba(255, 255, 255, 1)
 		width: 100%
 		background: #fff
 		box-shadow: 0 10px 90px -2px rgba(#000,0.2)
-	img
-		width: 25px
-		height: 25px
-		position: absolute
-		top: 50%
-		left: 50%
-		transform: translate(-50%, -50%)
 
 //-------------- Animation ----------------
 @keyframes __showUserInfo
@@ -256,7 +231,6 @@ $white: rgba(255, 255, 255, 1)
 		align-items: flex-end
 		margin-top: 30px
 		button
-			width: 80px
 			@include button($white)
 	&__info
 		width: 100%
@@ -269,7 +243,6 @@ $white: rgba(255, 255, 255, 1)
 		left: 0
 		right: 0
 		button
-			width: 80px
 			@include button($green)
 		&-user
 			position: relative
@@ -440,7 +413,7 @@ $white: rgba(255, 255, 255, 1)
 		ul
 			width: 100%
 			height: 100%
-			overflow-y: auto
+			//overflow-y: auto
 		&-li
 			border-bottom: 1px solid $rain
 			padding: 8px 15px
@@ -620,12 +593,7 @@ $white: rgba(255, 255, 255, 1)
 		overflow: hidden
 	&__button
 		@include button($green)
-		&:before
-			top: -1px
-.manageScreen__add-rooms__button
-	&:before
-		top: -17px !important
-//--------------add new task----------------------------
+//--------------add new task---------------------------
 .add-task
 	width: 100%
 	position: fixed

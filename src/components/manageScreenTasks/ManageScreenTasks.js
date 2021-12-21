@@ -1,16 +1,10 @@
-import React, { useContext, useEffect, useMemo, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import UserInfo from "../userInfo/UserInfo";
 import AddTask from "../addTask/AddTask";
 import Task from "../task/Task";
 import { Context } from "../../index";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import EditTask from "../editTask/EditTask";
-import exit from '../../images/exit.svg'
-import finish from '../../images/finish.png'
-import progress from '../../images/progress.png'
-import waitStatusPng from '../../images/waiting.png'
-import allSvg from '../../images/allSvg.svg'
-import addTask from '../../images/editTaskIcon.svg'
 
 const ManageScreenTasks = ({ closeRoomModal, user, roomChecked }) => {
 	const [showModalAddTask, setShowModalAddTask] = useState(false)
@@ -59,10 +53,7 @@ const ManageScreenTasks = ({ closeRoomModal, user, roomChecked }) => {
 						className="manageScreen__add-rooms__button"
 						onClick={() => setShowModalAddTask(true)}
 					>
-						<img
-							src={addTask}
-							alt=""
-						/>
+						Add task
 					</button>
 					{showModalAddTask && <AddTask
 						closeRoomModal={toggleModalAddTask}
@@ -77,37 +68,25 @@ const ManageScreenTasks = ({ closeRoomModal, user, roomChecked }) => {
 						onClick={() => setFilteredTask(tasksList)}
 						title="all list task"
 					>
-						<img
-							src={allSvg}
-							alt=""
-						/>
+						All
 					</button>
 					<button
 						onClick={() => tasksListFilteredStatusProgress('wait')}
 						title="wait list task"
 					>
-						<img
-							src={waitStatusPng}
-							alt=""
-						/>
+						Wait
 					</button>
 					<button
 						onClick={() => tasksListFilteredStatusProgress('progress')}
 						title="progress list task"
 					>
-						<img
-							src={progress}
-							alt=""
-						/>
+						Progress
 					</button>
 					<button
 						onClick={() => tasksListFilteredStatusProgress('finish')}
 						title="finish list task"
 					>
-						<img
-							src={finish}
-							alt=""
-						/>
+						Finish
 					</button>
 				</div>
 			</div>
@@ -127,10 +106,7 @@ const ManageScreenTasks = ({ closeRoomModal, user, roomChecked }) => {
 				<button
 					onClick={closeRoomModal}
 				>
-					<img
-						src={exit}
-						alt=""
-					/>
+					Exit
 				</button>
 				<UserInfo userInfo={user} />
 			</div>

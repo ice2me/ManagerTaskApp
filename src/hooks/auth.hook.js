@@ -20,13 +20,13 @@ export const useAuth = () => {
 			userId: user.uid, token: user.refreshToken
 		}))
 		navigate.push('/rooms')
-	}, [])
+	}, [auth, navigate])
 	
 	const logout = useCallback(() => {
 		setToken(null)
 		auth.signOut()
 		localStorage.removeItem(storageName);
-	}, []);
+	}, [auth]);
 	useEffect(() => {
 		const data = JSON.parse(localStorage.getItem(storageName))
 		data && setToken(data.token)

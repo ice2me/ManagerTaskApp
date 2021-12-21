@@ -9,7 +9,7 @@ const AddTask = ({ closeRoomModal, editTodoActive }) => {
 	const { firestore } = useContext(Context)
 	const { user } = useContext(AuthContext)
 	const uidRoom = useSelector(state => state.uidRoom.uidRoom)
-	const { statusProgress, taskId, taskValue } = editTodoActive
+	const { statusProgress, taskId } = editTodoActive
 
 	
 	const pushEditTask = (e) => {

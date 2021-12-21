@@ -35,6 +35,7 @@ html, body {
   scroll-behavior: smooth;
   cursor: default;
   background-color: #021c1e;
+  animation: ease all 0.1s;
 }
 
 input::-ms-clear {
@@ -244,7 +245,6 @@ html:not(.touch-screen)::-webkit-scrollbar, html:not(.touch-screen) *::-webkit-s
   margin-top: 30px;
 }
 .list-rooms__add-rooms button {
-  width: 80px;
   border: none;
   background: transparent;
   font-weight: bold;
@@ -261,7 +261,7 @@ html:not(.touch-screen)::-webkit-scrollbar, html:not(.touch-screen) *::-webkit-s
   content: "";
   position: absolute;
   left: 0;
-  top: -17px;
+  top: -1px;
   width: 50%;
   height: 30px;
   background: transparent;
@@ -288,9 +288,6 @@ html:not(.touch-screen)::-webkit-scrollbar, html:not(.touch-screen) *::-webkit-s
 .list-rooms__add-rooms button:hover {
   color: #000;
 }
-.list-rooms__add-rooms button:hover img {
-  filter: invert(50%);
-}
 .list-rooms__add-rooms button:hover svg {
   fill: #000;
   animation: ease all 0.1s;
@@ -299,14 +296,6 @@ html:not(.touch-screen)::-webkit-scrollbar, html:not(.touch-screen) *::-webkit-s
   width: 100%;
   background: #fff;
   box-shadow: 0 10px 90px -2px rgba(0, 0, 0, 0.2);
-}
-.list-rooms__add-rooms button img {
-  width: 25px;
-  height: 25px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
 .list-rooms__info {
   width: 100%;
@@ -320,7 +309,6 @@ html:not(.touch-screen)::-webkit-scrollbar, html:not(.touch-screen) *::-webkit-s
   right: 0;
 }
 .list-rooms__info button {
-  width: 80px;
   border: none;
   background: transparent;
   font-weight: bold;
@@ -337,7 +325,7 @@ html:not(.touch-screen)::-webkit-scrollbar, html:not(.touch-screen) *::-webkit-s
   content: "";
   position: absolute;
   left: 0;
-  top: -17px;
+  top: -1px;
   width: 50%;
   height: 30px;
   background: transparent;
@@ -364,9 +352,6 @@ html:not(.touch-screen)::-webkit-scrollbar, html:not(.touch-screen) *::-webkit-s
 .list-rooms__info button:hover {
   color: #000;
 }
-.list-rooms__info button:hover img {
-  filter: invert(50%);
-}
 .list-rooms__info button:hover svg {
   fill: #000;
   animation: ease all 0.1s;
@@ -375,14 +360,6 @@ html:not(.touch-screen)::-webkit-scrollbar, html:not(.touch-screen) *::-webkit-s
   width: 100%;
   background: #fff;
   box-shadow: 0 10px 90px -2px rgba(0, 0, 0, 0.2);
-}
-.list-rooms__info button img {
-  width: 25px;
-  height: 25px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
 .list-rooms__info-user {
   position: relative;
@@ -535,7 +512,7 @@ html:not(.touch-screen)::-webkit-scrollbar, html:not(.touch-screen) *::-webkit-s
   content: "";
   position: absolute;
   left: 0;
-  top: -17px;
+  top: -1px;
   width: 50%;
   height: 30px;
   background: transparent;
@@ -562,9 +539,6 @@ html:not(.touch-screen)::-webkit-scrollbar, html:not(.touch-screen) *::-webkit-s
 .list-rooms__tasks-length button:hover {
   color: #000;
 }
-.list-rooms__tasks-length button:hover img {
-  filter: invert(50%);
-}
 .list-rooms__tasks-length button:hover svg {
   fill: #000;
   animation: ease all 0.1s;
@@ -573,14 +547,6 @@ html:not(.touch-screen)::-webkit-scrollbar, html:not(.touch-screen) *::-webkit-s
   width: 100%;
   background: #fff;
   box-shadow: 0 10px 90px -2px rgba(0, 0, 0, 0.2);
-}
-.list-rooms__tasks-length button img {
-  width: 25px;
-  height: 25px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
 
 .hide {
@@ -637,7 +603,7 @@ html:not(.touch-screen)::-webkit-scrollbar, html:not(.touch-screen) *::-webkit-s
   content: "";
   position: absolute;
   left: 0;
-  top: -17px;
+  top: -1px;
   width: 50%;
   height: 30px;
   background: transparent;
@@ -664,9 +630,6 @@ html:not(.touch-screen)::-webkit-scrollbar, html:not(.touch-screen) *::-webkit-s
 .manageScreen__filtered-rooms button:hover {
   color: #000;
 }
-.manageScreen__filtered-rooms button:hover img {
-  filter: invert(50%);
-}
 .manageScreen__filtered-rooms button:hover svg {
   fill: #000;
   animation: ease all 0.1s;
@@ -675,14 +638,6 @@ html:not(.touch-screen)::-webkit-scrollbar, html:not(.touch-screen) *::-webkit-s
   width: 100%;
   background: #fff;
   box-shadow: 0 10px 90px -2px rgba(0, 0, 0, 0.2);
-}
-.manageScreen__filtered-rooms button img {
-  width: 25px;
-  height: 25px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
 .manageScreen__add-rooms {
   width: 100%;
@@ -710,7 +665,7 @@ html:not(.touch-screen)::-webkit-scrollbar, html:not(.touch-screen) *::-webkit-s
   content: "";
   position: absolute;
   left: 0;
-  top: -17px;
+  top: -1px;
   width: 50%;
   height: 30px;
   background: transparent;
@@ -737,9 +692,6 @@ html:not(.touch-screen)::-webkit-scrollbar, html:not(.touch-screen) *::-webkit-s
 .manageScreen__add-rooms button:hover {
   color: #000;
 }
-.manageScreen__add-rooms button:hover img {
-  filter: invert(50%);
-}
 .manageScreen__add-rooms button:hover svg {
   fill: #000;
   animation: ease all 0.1s;
@@ -748,14 +700,6 @@ html:not(.touch-screen)::-webkit-scrollbar, html:not(.touch-screen) *::-webkit-s
   width: 100%;
   background: #fff;
   box-shadow: 0 10px 90px -2px rgba(0, 0, 0, 0.2);
-}
-.manageScreen__add-rooms button img {
-  width: 25px;
-  height: 25px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
 .manageScreen__body {
   width: 95%;
@@ -766,7 +710,6 @@ html:not(.touch-screen)::-webkit-scrollbar, html:not(.touch-screen) *::-webkit-s
 .manageScreen__body ul {
   width: 100%;
   height: 100%;
-  overflow-y: auto;
 }
 .manageScreen__body-li {
   border-bottom: 1px solid #2c7873;
@@ -987,7 +930,7 @@ html:not(.touch-screen)::-webkit-scrollbar, html:not(.touch-screen) *::-webkit-s
   content: "";
   position: absolute;
   left: 0;
-  top: -17px;
+  top: -1px;
   width: 50%;
   height: 30px;
   background: transparent;
@@ -1014,9 +957,6 @@ html:not(.touch-screen)::-webkit-scrollbar, html:not(.touch-screen) *::-webkit-s
 .create-room__button:hover, .add-new_user__button:hover {
   color: #000;
 }
-.create-room__button:hover img, .add-new_user__button:hover img {
-  filter: invert(50%);
-}
 .create-room__button:hover svg, .add-new_user__button:hover svg {
   fill: #000;
   animation: ease all 0.1s;
@@ -1025,21 +965,6 @@ html:not(.touch-screen)::-webkit-scrollbar, html:not(.touch-screen) *::-webkit-s
   width: 100%;
   background: #fff;
   box-shadow: 0 10px 90px -2px rgba(0, 0, 0, 0.2);
-}
-.create-room__button img, .add-new_user__button img {
-  width: 25px;
-  height: 25px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-.create-room__button:before, .add-new_user__button:before {
-  top: -1px;
-}
-
-.manageScreen__add-rooms__button:before {
-  top: -17px !important;
 }
 
 .add-task {

@@ -1,17 +1,9 @@
-import React, { useContext, useState } from 'react';
-import { Context } from "../../index";
+import React, { useContext } from 'react';
 import trashIcon from '../../images/trashIcon.svg'
 import AddNewUserForRoomIcon from '../../images/addNewNameIcon.svg'
 import { AuthContext } from "../../context/auth.context";
 
-const ListRoom = ({
-					  room,
-					  index,
-					  showManageScreenTask,
-					  returnCheckedRoom,
-					  AddNewUserForRoom,
-					  deletedRoomTaskHandler
-				  }) => {
+const ListRoom = ({ room, index, showManageScreenTask, returnCheckedRoom, AddNewUserForRoom, deletedRoomTaskHandler }) => {
 	const { user } = useContext(AuthContext)
 	return (
 		<li className="list-rooms__body-li">
@@ -37,19 +29,16 @@ const ListRoom = ({
 						alt="add new user"
 					/>
 				</button>
-				{
-					user.email === room.email
-					&& <button
-						className="list-rooms__body-li__delete type"
-						onClick={(e) => deletedRoomTaskHandler(e, room.uid)}
-						title="delete this room"
-					>
-						<img
-							src={trashIcon}
-							alt="delete"
-						/>
-					</button>
-				}
+				{user.email === room.email && <button
+					className="list-rooms__body-li__delete type"
+					onClick={(e) => deletedRoomTaskHandler(e, room.uid)}
+					title="delete this room"
+				>
+					<img
+						src={trashIcon}
+						alt="delete"
+					/>
+				</button>}
 			</div>
 		</li>
 	);

@@ -2,8 +2,7 @@ import {
 	FETCH_NEW_ROOM,
 	FETCH_USERS_ALL,
 	GEt_All_ROOM,
-	GET_USERS_ALL, HIDE_THEME,
-	SHOW_THEME,
+	GET_USERS_ALL,
 	UID_ROOM
 } from "./types";
 
@@ -16,9 +15,7 @@ const userAllInitialState = {
 const uidRoomInitialState = {
 	uidRoom: '',
 }
-const toggleThemeInitialState = {
-	toggleTheme: null,
-}
+
 export const roomsReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case FETCH_NEW_ROOM:

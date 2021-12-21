@@ -4,17 +4,15 @@ import AddNewRoomModal from "../../components/addNewRoomModal/AddNewRoomModal";
 import { useDispatch, useSelector } from "react-redux";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { Context } from '../../index'
-import { addUidRoom, getAllRooms, getUsersAll, showTheme } from "../../redux/actions";
+import { addUidRoom, getAllRooms, getUsersAll } from "../../redux/actions";
 import UserInfo from "../../components/userInfo/UserInfo";
 import Loader from "../../components/loader/Loader";
 import { useAuth } from "../../hooks/auth.hook";
 import { AuthContext } from "../../context/auth.context";
 import ManageScreenTasks from "../../components/manageScreenTasks/ManageScreenTasks";
 import AddNewUserInRoom from "../../components/addNewUserInRoom/AddNewUserInRoom";
-import exit from '../../images/exit.svg'
-import addRoom from '../../images/editTaskIcon.svg'
 
-const ListRooms = ({}) => {
+const ListRooms = () => {
 	const dispatch = useDispatch();
 	const [addRoomModal, setAddRoomModal] = useState(false)
 	const [showManageScreenTask, setShowManageScreenTask] = useState(false)
@@ -26,7 +24,6 @@ const ListRooms = ({}) => {
 	const [filteredRoomTasksUser, setFilteredRoomTasksUser] = useState([])
 	const [updateInvitedUsers, setUpdateInvitedUsers] = useState([])
 	const [tehDocId, setTehDocId] = useState('')
-	// const [delPermissionRoom, setDelPermissionRoom] = useState([])
 	const { logout } = useAuth()
 	const { user, switchTheme } = useContext(AuthContext)
 	const { firestore } = useContext(Context)
@@ -36,7 +33,7 @@ const ListRooms = ({}) => {
 	const rooms = useSelector(state => state.rooms.rooms)
 	
 	const [userEmailGet, isUserEmailGetLoading] = useCollectionData(firestore.collection('groupUsers'))
-	const usersAll = useSelector(state => state.usersAll.usersAll)
+	// const usersAll = useSelector(state => state.usersAll.usersAll)
 	const [userEmailSet, loading] = useCollectionData(firestore.collection('groupUsers').where('userEmail', '==', user.email))
 	const createDefaultId = (
 		Date.now() + user.email
@@ -60,7 +57,7 @@ const ListRooms = ({}) => {
 				setFilteredRoomTasksUser(p)
 			})
 		}
-	}, [rooms, eligibleRooms, setEligibleRooms])
+	}, [rooms, eligibleRooms, setEligibleRooms, userEmailGet, roomTasksLoader])
 	
 	// filtered rooms task user------------------------------------------------------------------
 	useEffect(() => {
@@ -197,10 +194,7 @@ const ListRooms = ({}) => {
 						title="Add new room"
 						onClick={() => setAddRoomModal(true)}
 					>
-						<img
-							src={addRoom}
-							alt="add room"
-						/>
+						Room +
 					</button>
 				</div>
 			</div>
@@ -254,10 +248,7 @@ const ListRooms = ({}) => {
 					title="Log out"
 					onClick={() => logout()}
 				>
-					<img
-						src={exit}
-						alt="log out"
-					/>
+					Log out
 				</button>
 				<UserInfo userInfo={user} />
 			</div>
