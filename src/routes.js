@@ -22,13 +22,13 @@ export const useRoutes = (isAuthenticated) => {
 		return (
 			<Switch>
 				<Route
-					path="/"
+					path="https://task-manager-42.herokuapp.com/"
 					exact
 					component={Login}
 				/>
 				<Redirect
-					from="/"
-					to="/"
+					from="https://task-manager-42.herokuapp.com/"
+					to="https://task-manager-42.herokuapp.com/"
 				/>
 			</Switch>
 		)
