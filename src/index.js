@@ -1,10 +1,10 @@
-import React, { createContext } from 'react';
+import React, {createContext} from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { applyMiddleware, compose, createStore } from "redux";
-import { rootReducer } from "./redux/rootReducer";
-import { Provider } from "react-redux";
+import {applyMiddleware, compose, createStore} from "redux";
+import {rootReducer} from "./redux/rootReducer";
+import {Provider} from "react-redux";
 import firebase from "firebase/compat";
 import '@firebase/auth'
 import thunk from "redux-thunk";
