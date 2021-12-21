@@ -22,7 +22,7 @@ export const useRoutes = (isAuthenticated) => {
 		return (
 			<Switch>
 				<Route
-					path="https://task-manager-42.herokuapp.com/"
+					path="/"
 					exact
 					component={Login}
 				/>
